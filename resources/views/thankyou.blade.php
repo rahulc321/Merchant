@@ -91,7 +91,7 @@
         Our team will process it shortly.
     </p>
 
-    <a href="" class="btn">
+    <a href="{{url('/admin')}}" class="btn">
         Go to Dashboard
     </a>
 
