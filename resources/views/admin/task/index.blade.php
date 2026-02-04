@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'CRM - Marchent')
+@section('title', 'CRM - Merchant')
 @section('content')
 <style>
 .tooltip-inner {
@@ -37,7 +37,7 @@
                     <nav>
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Marchant</li>
+                            <li class="breadcrumb-item active" aria-current="page">Merchant</li>
                         </ol>
                     </nav>
                 </div>
@@ -50,11 +50,11 @@
                 <div class="card custom-card">
                     <div class="card-header">
                         <div class="card-title">
-                            List Marchant
+                            List Merchant
                         </div>
                         @if (Auth::user()->roles->contains('title', 'Admin'))
                         <a class="" href='{{ route("admin.task.create") }}' style="float:right !important"><span
-                                class="badge bg-outline-info">Create New Marchant</span></a>
+                                class="badge bg-outline-info">Create New Merchant</span></a>
                         @endif
                     </div>
 
@@ -68,6 +68,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Merchant Name</th>
+                                        <th>Code</th>
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Amount</th>
@@ -84,7 +85,7 @@
                                         <td>
                                             <strong>{{ $merchant->name }}</strong>
                                         </td>
-
+                                        <td>{{ $merchant->code }}</td>
                                         <td>{{ $merchant->email }}</td>
 
                                         <td>{{ $merchant->phone ?? '-' }}</td>
@@ -102,6 +103,10 @@
                                         </td>
 
                                         <td>
+
+                                        <a href="{{ route('admin.marchentAddress', $merchant->id) }}">
+                                                <span class="badge bg-outline-info">Add Address</span>
+                                            </a>
                                             <!-- Edit -->
                                             <a href="{{ route('admin.task.edit', $merchant->id) }}">
                                                 <span class="badge bg-outline-info">Edit</span>

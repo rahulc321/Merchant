@@ -4,6 +4,10 @@ Route::redirect('/', '/login');
 Route::redirect('/home', '/admin');
 Auth::routes(['register' => false]); 
 
+Route::get('/thankyou', function () {
+    return view('thankyou');
+})->name('thankyou');
+
 
 Route::get('/user/register', 'HomeController@userRegister')->name('register');
 
@@ -35,6 +39,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::any('view_info/{id}', 'UsersController@view_info')->name('view_info');
     Route::any('contacts', 'UsersController@contacts')->name('contacts');
 
+    // Order
+    Route::any('orders', 'UsersController@orders')->name('orders');
+
     Route::any('contact_view/{id}', 'UsersController@contact_view')->name('contact_view');
     
 
@@ -50,6 +57,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     Route::any('createContact', 'UsersController@createContact')->name('createContact');
     Route::any('contactStore', 'UsersController@contactStore')->name('contactStore');
+
+
+    // Registration proceess
+    Route::any('registerStep', 'UsersController@registerStep')->name('registerStep');
+    Route::any('registerComplete', 'UsersController@registerComplete')->name('registerComplete');
 
     Route::resource('users', 'UsersController');
     Route::resource('fault', 'FaultController');
@@ -73,6 +85,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::any('userTraining', 'TaskController@userTraining')->name('userTraining');
 
     Route::any('listCategory', 'TaskController@listCategory')->name('listCategory');
+    Route::any('marchentAddress/{id}', 'TaskController@marchentAddress')->name('marchentAddress');
+
+    Route::any('addAddress/{id}', 'TaskController@addAddress')->name('addAddress');
+    Route::any('addAddressStore/{id}', 'TaskController@addAddressStore')->name('addAddressStore');
+    Route::any('mAddressDelete/{id}', 'TaskController@mAddressDelete')->name('mAddressDelete');
 
     Route::any('training', 'TaskController@training')->name('training');
     Route::any('trainingEdit/{id}', 'TaskController@trainingEdit')->name('trainingEdit');

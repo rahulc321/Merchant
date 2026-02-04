@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\{MerchantAddress, Merchant};
 
 class HomeController extends Controller
 {
@@ -22,7 +23,8 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function userRegister()
-    {
-        return view('user_register');
+    {   
+        $this->data['restaurants'] = Merchant::with('addresses')->get();
+        return view('user_register',$this->data);
     }
 }

@@ -8,20 +8,27 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Role;
 use App\User;
-use App\Notes;
+use DB;
+use App\{Notes,Merchant,Order};
 use App\Contacts;
 use Gate;
 use App\Device;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Api\V1\Admin\TuyaController;
+use Illuminate\Support\Facades\Validator;
+use Auth;
 
 class UsersController extends Controller
 {
     public function index(Request $request)
     {
-        $type = $_REQUEST['type'] ?? ''; // Validate or sanitize this input before using
-        $this->data['users'] = User::where('type', 'LIKE', $type)->orderBy('id','DESC')->get();
+         
+        $this->data['users'] = User::whereHas('roles', function ($query) {
+            $query->where('title', 'end_user');
+        })
+        ->orderBy('id', 'DESC')
+        ->get();
  
         return view('admin.users.index',$this->data);
     }
@@ -514,6 +521,137 @@ class UsersController extends Controller
         $user->save();
 
         return back()->with('success', 'Profile updated successfully.');
+    }
+
+
+    public function registerStep(Request $request)
+    {
+        $step = (int) $request->step;
+
+        $rules = match ($step) {
+            1 => [
+                'name' => 'required|string|max:255',
+                'phone_number' => 'required',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|min:6|confirmed',
+            ],
+            2 => [
+                'restaurant_id' => 'required|exists:merchants,id',
+                'address' => 'required|string|max:500',
+                'cashier_code' => [
+                    'required',
+                    function ($attribute, $value, $fail) use ($request) {
+                        $exists =  Merchant::where('id', $request->restaurant_id)
+                            ->where('code', $value)
+                            ->exists();
+            
+                        if (!$exists) {
+                            $fail('Invalid cashier verification code for selected restaurant.');
+                        }
+                    }
+                ],
+                'amount' => [
+                    'required',
+                    'numeric',
+                    function ($attribute, $value, $fail) use ($request) {
+
+                        $merchant = Merchant::find($request->restaurant_id);
+
+                        if (!$merchant) {
+                            $fail('Please select a valid restaurant.');
+                            return;
+                        }
+
+                        if ((float) $value < (float) $merchant->amount) {
+                            $fail(
+                                'Minimum amount is ' . number_format($merchant->amount) . '.'
+                            );
+                        }
+                    }
+                ],
+
+
+            ],
+        };
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        # save data in session
+        session()->put("register.step{$step}", $request->except('_token', 'step'));
+
+        return response()->json(['status' => true]);
+    }
+
+    public function registerComplete()
+    {
+        $step1 = session('register.step1');
+        $step2 = session('register.step2');
+
+        if (!$step1 || !$step2) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Registration data missing'
+            ], 400);
+        }
+
+        DB::beginTransaction();
+
+         try {
+
+            // 1️⃣ CREATE USER
+            $user = User::create([
+                'full_name' => $step1['name'],
+                'email' => $step1['email'],
+                'phone_number'=> $step1['phone_number'],
+                'password' => bcrypt($step1['password']),
+            ]);
+
+            # assign end_user role
+            $user->roles()->attach(2);
+
+            // 2️⃣ CREATE ORDER
+            Order::create([
+                'user_id' => $user->id,
+                'restaurant_id' => $step2['restaurant_id'],
+                'amount' => $step2['amount'],
+                'address' => $step2['address'],
+                'cashier_code' => $step2['cashier_code'],
+                'status' => 1,
+            ]);
+
+            DB::commit();
+
+            session()->forget(['register.step1', 'register.step2']);
+
+           // Auth::login($user);
+
+            return response()->json([
+                'status' => true,
+                'redirect' => route('thankyou')
+            ]);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'status' => false,
+                'message' => 'Something went wrong. Please try again.'
+            ], 500);
+        }
+    }
+
+    public function orders(){
+        $this->data['orders'] = Order::with(['user','merchant'])
+        ->orderBy('id','DESC')
+        ->get();
+        return view('admin.order.index',$this->data);
     }
 
 

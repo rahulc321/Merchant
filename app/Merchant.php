@@ -15,5 +15,11 @@ class Merchant extends Model
         'phone',
         'amount',
         'status',
+        'code'
     ];
+
+    public function addresses()
+    {
+        return $this->hasMany(MerchantAddress::class);
+    }
 }

@@ -3,9 +3,11 @@
 @section('title', 'LMS Merchant - Dashboard')
 
 @section('content')
+
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
 <style>
+
 html, body {
     overflow-x: hidden;
 }
@@ -13,10 +15,16 @@ html, body {
 /* ===== CARD ===== */
 .card {
     border: none;
-    border-radius: 10px;
-    padding: 20px;
+    border-radius: 12px;
+    padding: 22px;
     margin-bottom: 20px;
     box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.05);
+    flex: 1;
+}
+
+/* force equal height */
+.row.equal-height > [class*='col-'] {
+    display: flex;
 }
 
 .widget-content-wrapper {
@@ -26,17 +34,17 @@ html, body {
 }
 
 .widget-heading {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 600;
 }
 
 .widget-subheading {
     font-size: 13px;
-    opacity: .8;
+    opacity: .85;
 }
 
 .widget-numbers {
-    font-size: 26px;
+    font-size: 28px;
     font-weight: 700;
 }
 
@@ -46,15 +54,24 @@ html, body {
 .bg-3 { background: linear-gradient(45deg, #4e54c8, #8f94fb); color:#fff; }
 .bg-4 { background: linear-gradient(45deg, #fc4a1a, #f7b733); color:#fff; }
 .bg-5 { background: linear-gradient(45deg, #232526, #414345); color:#fff; }
+
+/* QR CARD */
+.qr-card img{
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
 </style>
 
 <div class="main-content app-content">
     <div class="container-fluid">
 
-        <!-- ===== PAGE HEADER ===== -->
+        <!-- ===== HEADER ===== -->
         <div class="d-flex justify-content-between align-items-center my-4 flex-wrap gap-2">
             <div>
-                <h4 class="mb-1">Hi, {{ \Auth::user()->full_name }} 👋</h4>
+                <h4 class="mb-1">
+                    Hi, {{ \Auth::user()->full_name }} 👋
+                </h4>
                 <p class="text-muted mb-0">
                     Welcome back! Here’s an overview of your business performance for this month.
                 </p>
@@ -62,9 +79,10 @@ html, body {
         </div>
 
         <!-- ===== KPI CARDS ===== -->
-        <div class="row mb-4">
+        <div class="row mb-4 equal-height">
 
-            <div class="col-xl-3 col-md-6">
+            <!-- Total Merchants -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
                 <div class="card bg-1">
                     <div class="widget-content-wrapper">
                         <div>
@@ -80,7 +98,8 @@ html, body {
                 </div>
             </div>
 
-            <div class="col-xl-3 col-md-6">
+            <!-- Total Users -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
                 <div class="card bg-2">
                     <div class="widget-content-wrapper">
                         <div>
@@ -96,7 +115,8 @@ html, body {
                 </div>
             </div>
 
-            <div class="col-xl-3 col-md-6">
+            <!-- Monthly Revenue -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
                 <div class="card bg-3">
                     <div class="widget-content-wrapper">
                         <div>
@@ -112,7 +132,25 @@ html, body {
                 </div>
             </div>
 
-            <div class="col-xl-3 col-md-6">
+            <!-- Total Orders -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
+                <div class="card bg-4">
+                    <div class="widget-content-wrapper">
+                        <div>
+                            <div class="widget-heading">
+                                <i class="fas fa-shopping-cart me-2"></i>Total Orders
+                            </div>
+                            <div class="widget-subheading">All completed orders</div>
+                        </div>
+                        <div class="widget-numbers">
+                            {{ $totalOrders ?? 892 }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Growth -->
+            <div class="col-xl-3 col-lg-4 col-md-6">
                 <div class="card bg-5">
                     <div class="widget-content-wrapper">
                         <div>
@@ -130,16 +168,19 @@ html, body {
 
         </div>
 
-        <!-- ===== BUSINESS OVERVIEW ===== -->
-        <div class="row mt-4">
+        <!-- ===== BUSINESS + QR ===== -->
+        <div class="row">
 
+            <!-- BUSINESS OVERVIEW -->
             <div class="col-xl-8">
                 <div class="card">
                     <h5 class="mb-2">Business Overview</h5>
+
                     <p class="text-muted mb-1">
                         Your platform continues to grow steadily with increasing merchant participation
                         and consistent user engagement across all services.
                     </p>
+
                     <p class="text-muted mb-0">
                         Monthly revenue performance remains strong, supported by repeat customers
                         and expanding merchant offerings.
@@ -147,14 +188,35 @@ html, body {
                 </div>
             </div>
 
-            <div class="col-xl-4">
-                <div class="card">
-                    <h5 class="mb-2">Key Highlights</h5>
-                    <ul class="text-muted mb-0">
-                        <li>Merchant onboarding improved this month</li>
-                        <li>User retention rate increased</li>
-                        <li>Overall platform performance is stable</li>
-                    </ul>
+            <!-- QR CODE -->
+            <div class="col-xl-4 col-md-6">
+                <div class="card text-center qr-card">
+
+                    <h5 class="mb-3">
+                        <i class="fas fa-qrcode me-2"></i>
+                        User Registration QR
+                    </h5>
+
+                    @php
+                        $registerUrl = url('/user/register');
+                        $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" 
+                                    . urlencode($registerUrl);
+                    @endphp
+
+                    <img src="{{ $qrUrl }}" alt="Register QR" class="mb-3">
+
+                    <p class="text-muted">
+                        Scan to instantly open the user registration page.
+                    </p>
+
+                    <a href="{{ $qrUrl }}"
+                       download="user-registration-qr.png"
+                       class="btn btn-primary">
+
+                        <i class="fas fa-download me-2"></i>
+                        Download QR Code
+                    </a>
+
                 </div>
             </div>
 
@@ -163,6 +225,7 @@ html, body {
     </div>
 </div>
 @endsection
+
 
 @section('scripts')
 @parent

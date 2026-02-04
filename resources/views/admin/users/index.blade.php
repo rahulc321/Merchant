@@ -26,8 +26,8 @@
                             List Users
                         </div>
 
-                        <a class="" href='{{ route("admin.users.create") }}?type=<?=@$_REQUEST['type']?>' style="float:right !important"><span
-                                class="badge bg-outline-info">Add User</span></a>
+                        <!-- <a class="" href='{{ route("admin.users.create") }}?type=<?=@$_REQUEST['type']?>' style="float:right !important"><span
+                                class="badge bg-outline-info">Add User</span></a> -->
 
                     </div>
 
@@ -41,10 +41,8 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
-                                        <th>Role</th>
-                                        @if(@$_REQUEST['type'] == 'Installer' || @$_REQUEST['type'] == 'end_user')
-                                        <th>Devices</th>
-                                        @endif
+                                       
+                                       
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -56,41 +54,14 @@
                                         <td>{{$value->full_name}}</td>
                                         <td>{{$value->email}}</td>
                                         <td>{{$value->phone_number}}</td>
+                                        
+                                        
                                         <td>
-                                            @php
-                                            $badgeClass = match($value->type) {
-                                            'admin' => 'bg-outline-primary',
-                                            'end_user' => 'bg-outline-secondary',
-                                            'service_agent' => 'bg-outline-success',
-                                            'potential_user' => 'bg-outline-warning',
-                                            'reseller' => 'bg-outline-danger',
-                                            'retailer' => 'bg-outline-info',
-                                            'distributor' => 'bg-outline-dark',
-                                            default => 'bg-outline-light',
-                                            };
-                                            @endphp
-                                            <span class="badge {{ $badgeClass }}">{{ $value->type }}</span>
-                                        </td>
-                                        @if(@$_REQUEST['type'] == 'Installer' || @$_REQUEST['type'] == 'end_user')
-                                        <?php
-                                        $queryParam = $_REQUEST['type'] == 'Installer' ? 'installer' : 'user_id';
-                                        ?>
-                                        <td><a href="{{route('admin.devices')}}?{{$queryParam}}={{$value->id}}" style="color:blue">{{count($value->all_devices)}}</a></td>
-                                        @endif
-                                        <td>
-                                        @if(!in_array($value->type, ['Installer', 'end_user']))
-                                            <a class="" href="{{ route('admin.view_data', $value->id) }}">
-                                                <span class="badge bg-outline-info">View</span>
-                                            </a>
-                                        @else
-                                            <a class="" href="{{ route('admin.view_info', $value->id) }}">
-                                                <span class="badge bg-outline-success">View Info</span>
-                                            </a>
-                                        @endif
+                                       
 
-                                            <a class="" href="{{ route('admin.users.edit', $value->id) }}">
+                                            <!-- <a class="" href="{{ route('admin.users.edit', $value->id) }}">
                                                 <span class="badge bg-outline-info">Edit</span>
-                                            </a>
+                                            </a> -->
 
                                             <a class="" href="javascript:;"
                                                 onclick="if(confirm('Are you sure you want to delete this?')) { event.preventDefault(); document.getElementById('deleteFrm<?=$key?>').submit(); }">

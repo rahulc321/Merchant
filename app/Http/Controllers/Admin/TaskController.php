@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Task;
-use App\{User, Merchant};
+use App\{User, Merchant, MerchantAddress};
 use App\Training;
 use App\Role;
 use App\VideoView;
@@ -76,6 +76,7 @@ class TaskController extends Controller
         Merchant::create([
             'name'   => $request->name,
             'email'  => $request->email,
+            'code'   => strtoupper(substr($request->name, 0, 3)) . rand(100000, 999999),
             'phone'  => $request->phone,
             'amount' => $request->amount,
             'status' => $request->status,
@@ -94,10 +95,44 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function marchentAddress($id)
     {
-        //
+        $merchant = Merchant::with('addresses')->findOrFail($id);
+
+        return view('admin.merchant.index', compact('merchant'));
     }
+
+    public function addAddress($id)
+    {
+         
+        return view('admin.merchant.create', compact('id'));
+    }
+
+
+    public function addAddressStore(Request $request, $merchantId)
+    {
+        $request->validate([
+            'address' => 'required'
+        ]);
+
+        MerchantAddress::updateOrCreate(
+            [
+                'id' => $request->address_id,
+                'merchant_id' => $merchantId
+            ],
+            [
+                'address' => $request->address,
+                'city'    => $request->city,
+                'state'   => $request->state,
+                'pincode' => $request->pincode
+            ]
+        );
+
+        return redirect()
+            ->route('admin.marchentAddress', $merchantId)
+            ->with('success', 'Address saved successfully');
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -140,6 +175,16 @@ class TaskController extends Controller
         ]);
         session()->flash('success', 'You have successfully update!');
         return redirect()->route('admin.task.index');
+    }
+
+
+    
+    public function mAddressDelete($id)
+    {   
+        $task = MerchantAddress::find($id);
+         $task->delete();
+        session()->flash('warning', 'You have successfully deleted!');
+        return back();
     }
 
     /**
