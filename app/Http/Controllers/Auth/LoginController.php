@@ -58,17 +58,17 @@ class LoginController extends Controller
             $ip = "8.8.8.8";
         }
         
-        $url = "https://ipinfo.io/{$ip}/json";
-        $response = @file_get_contents($url);
+        // $url = "https://ipinfo.io/{$ip}/json";
+        // $response = @file_get_contents($url);
         
-        $timezone = 'Australia/Sydney';
+        // $timezone = 'Australia/Sydney';
         
-        if ($response !== false) {
-            $data = json_decode($response, true);
-            if (!empty($data['timezone'])) {
-                $timezone = $data['timezone'] ;
-            }
-        }
+        // if ($response !== false) {
+        //     $data = json_decode($response, true);
+        //     if (!empty($data['timezone'])) {
+        //         $timezone = $data['timezone'] ;
+        //     }
+        // }
         
         // dd($timezone);
 
@@ -78,7 +78,7 @@ class LoginController extends Controller
 
         //$geoplugin_timezone = $geoData['geoplugin_timezone'] ?? 'Australia/Sydney';
 
-        \Session::put('timeZone',$timezone);
+        //\Session::put('timeZone',$timezone);
 
         //dd($geoData['geoplugin_timezone']);
         $request->validate([
@@ -90,11 +90,11 @@ class LoginController extends Controller
         
         if (Auth::attempt($credentials)) {
 
-            if (Auth::user()->roles->contains('title', 'end_user')) {
-                session()->flash('error', 'Access denied: Your account does not have permission to login this portal.');
-                Auth::logout();
-                return back();
-            }
+            // if (Auth::user()->roles->contains('title', 'end_user')) {
+            //     session()->flash('error', 'Access denied: Your account does not have permission to login this portal.');
+            //     Auth::logout();
+            //     return back();
+            // }
 
             return redirect('admin');
         }else{

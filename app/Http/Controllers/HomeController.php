@@ -27,4 +27,9 @@ class HomeController extends Controller
         $this->data['restaurants'] = Merchant::with('addresses')->get();
         return view('user_register',$this->data);
     }
+
+    public function userLogin()
+    {   
+        return view('user_login');
+    }
 }

@@ -625,7 +625,7 @@ class UsersController extends Controller
                 'cashier_code' => $step2['cashier_code'],
                 'status' => 1,
             ]);
-
+            Auth::login($user);
             DB::commit();
 
             session()->forget(['register.step1', 'register.step2']);
@@ -647,15 +647,71 @@ class UsersController extends Controller
         }
     }
 
-    public function orders(){
-        $this->data['orders'] = Order::with(['user','merchant'])
-        ->orderBy('id','DESC')
-        ->get();
-        return view('admin.order.index',$this->data);
+    public function orders(Request $request)
+    {
+        $user = auth()->user();
+
+        $isAdmin = $user->roles()
+                        ->where('title','Admin')
+                        ->exists();
+
+        $query = Order::with(['user','merchant'])->latest();
+
+        /*
+        |------------------------------------------
+        | NON ADMIN → Only Their Orders
+        |------------------------------------------
+        */
+        if (!$isAdmin) {
+
+            $query->where('user_id', $user->id);
+
+        } 
+        /*
+        |------------------------------------------
+        | ADMIN → Apply Filters
+        |------------------------------------------
+        */
+        else {
+
+            // user filter
+            $query->when($request->user, function ($q) use ($request) {
+                $q->whereHas('user', function ($u) use ($request) {
+                    $u->where('full_name', 'like', '%' . $request->user . '%');
+                });
+            });
+
+            // merchant filter
+            $query->when($request->merchant_id, function ($q) use ($request) {
+                $q->where('restaurant_id', $request->merchant_id);
+            });
+
+            // amount filter
+            $query->when($request->amount, function ($q) use ($request) {
+                $q->where('amount', '>=', $request->amount);
+            });
+
+            // date range
+            if ($request->from_date && $request->to_date) {
+                $query->whereBetween('created_at', [
+                    $request->from_date . ' 00:00:00',
+                    $request->to_date . ' 23:59:59'
+                ]);
+            }
+
+            // ✅ ONLY admin needs merchant list
+            $this->data['merchants'] = Merchant::orderBy('name')->get();
+        }
+
+        /*
+        |------------------------------------------
+        | ALWAYS paginate (VERY IMPORTANT)
+        |------------------------------------------
+        */
+        $this->data['orders'] = $query->paginate(20)->withQueryString();
+
+        return view('admin.order.index', $this->data);
     }
-
-
-
 
 
 }

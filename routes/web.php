@@ -8,8 +8,10 @@ Route::get('/thankyou', function () {
     return view('thankyou');
 })->name('thankyou');
 
-
+Route::get('/user/login', 'HomeController@userLogin')->name('userLogin');
 Route::get('/user/register', 'HomeController@userRegister')->name('register');
+Route::any('registerStep', 'App\Http\Controllers\Admin\UsersController@registerStep')->name('registerStep');
+Route::any('registerComplete', 'App\Http\Controllers\Admin\UsersController@registerComplete')->name('registerComplete');
 
 
 

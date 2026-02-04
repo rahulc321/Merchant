@@ -7,8 +7,8 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
 <style>
-
-html, body {
+html,
+body {
     overflow-x: hidden;
 }
 
@@ -23,7 +23,7 @@ html, body {
 }
 
 /* force equal height */
-.row.equal-height > [class*='col-'] {
+.row.equal-height>[class*='col-'] {
     display: flex;
 }
 
@@ -49,18 +49,36 @@ html, body {
 }
 
 /* ===== GRADIENTS ===== */
-.bg-1 { background: linear-gradient(45deg, #1a2a6c, #1f3c88); color:#fff; }
-.bg-2 { background: linear-gradient(45deg, #11998e, #38ef7d); color:#fff; }
-.bg-3 { background: linear-gradient(45deg, #4e54c8, #8f94fb); color:#fff; }
-.bg-4 { background: linear-gradient(45deg, #fc4a1a, #f7b733); color:#fff; }
-.bg-5 { background: linear-gradient(45deg, #232526, #414345); color:#fff; }
-
-/* QR CARD */
-.qr-card img{
-    border-radius:12px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+.bg-1 {
+    background: linear-gradient(45deg, #1a2a6c, #1f3c88);
+    color: #fff;
 }
 
+.bg-2 {
+    background: linear-gradient(45deg, #11998e, #38ef7d);
+    color: #fff;
+}
+
+.bg-3 {
+    background: linear-gradient(45deg, #4e54c8, #8f94fb);
+    color: #fff;
+}
+
+.bg-4 {
+    background: linear-gradient(45deg, #fc4a1a, #f7b733);
+    color: #fff;
+}
+
+.bg-5 {
+    background: linear-gradient(45deg, #232526, #414345);
+    color: #fff;
+}
+
+/* QR CARD */
+.qr-card img {
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
 </style>
 
 <div class="main-content app-content">
@@ -80,7 +98,7 @@ html, body {
 
         <!-- ===== KPI CARDS ===== -->
         <div class="row mb-4 equal-height">
-
+            @if (Auth::user()->roles->contains('title', 'Admin'))
             <!-- Total Merchants -->
             <div class="col-xl-3 col-lg-4 col-md-6">
                 <div class="card bg-1">
@@ -114,24 +132,7 @@ html, body {
                     </div>
                 </div>
             </div>
-
-            <!-- Monthly Revenue -->
-            <div class="col-xl-3 col-lg-4 col-md-6">
-                <div class="card bg-3">
-                    <div class="widget-content-wrapper">
-                        <div>
-                            <div class="widget-heading">
-                                <i class="fas fa-rupee-sign me-2"></i>Monthly Revenue
-                            </div>
-                            <div class="widget-subheading">Current month sales</div>
-                        </div>
-                        <div class="widget-numbers">
-                            ₹ {{ number_format($monthlyRevenue ?? 1245600) }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            @endif
             <!-- Total Orders -->
             <div class="col-xl-3 col-lg-4 col-md-6">
                 <div class="card bg-4">
@@ -149,28 +150,13 @@ html, body {
                 </div>
             </div>
 
-            <!-- Growth -->
-            <div class="col-xl-3 col-lg-4 col-md-6">
-                <div class="card bg-5">
-                    <div class="widget-content-wrapper">
-                        <div>
-                            <div class="widget-heading">
-                                <i class="fas fa-chart-line me-2"></i>Growth Rate
-                            </div>
-                            <div class="widget-subheading">Month over month</div>
-                        </div>
-                        <div class="widget-numbers">
-                            +18%
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
         </div>
 
         <!-- ===== BUSINESS + QR ===== -->
         <div class="row">
-
+            @if (Auth::user()->roles->contains('title', 'Admin'))
             <!-- BUSINESS OVERVIEW -->
             <div class="col-xl-8">
                 <div class="card">
@@ -198,9 +184,9 @@ html, body {
                     </h5>
 
                     @php
-                        $registerUrl = url('/user/register');
-                        $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" 
-                                    . urlencode($registerUrl);
+                    $registerUrl = url('/user/register');
+                    $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data="
+                    . urlencode($registerUrl);
                     @endphp
 
                     <img src="{{ $qrUrl }}" alt="Register QR" class="mb-3">
@@ -209,9 +195,7 @@ html, body {
                         Scan to instantly open the user registration page.
                     </p>
 
-                    <a href="{{ $qrUrl }}"
-                       download="user-registration-qr.png"
-                       class="btn btn-primary">
+                    <a href="{{ $qrUrl }}" download="user-registration-qr.png" class="btn btn-primary">
 
                         <i class="fas fa-download me-2"></i>
                         Download QR Code
@@ -220,10 +204,32 @@ html, body {
                 </div>
             </div>
 
+            @else
+
+            <div class="col-xl-8">
+                <div class="card">
+                    <h5 class="mb-2">User Overview</h5>
+
+                    <p class="text-muted mb-1">
+                        Your user base is growing consistently, with new registrations contributing
+                        to increased platform activity and stronger community engagement.
+                    </p>
+
+                    <p class="text-muted mb-0">
+                        Active users continue to drive transactions and interactions,
+                        helping build a reliable and scalable ecosystem for your business.
+                    </p>
+                </div>
+            </div>
+
+            @endif
+
         </div>
 
     </div>
 </div>
+
+
 @endsection
 
 
