@@ -15,7 +15,7 @@
     /* color: #fff !important; */
 }
 
-.btn-primary:hover{
+.btn-primary:hover {
     background-color: rgb(59 94 182) !important;
     border-color: rgb(77 68 184) !important;
 }
@@ -26,13 +26,13 @@
     /* color: #fff !important; */
 }
 
-.btn-info:hover{
+.btn-info:hover {
     background-color: rgb(59 94 182) !important;
     border-color: rgb(77 68 184) !important;
 }
 
 .btn-secondary {
-    
+
     color: #fff !important;
     background-color: #8a96ab !important;
     border-color: #8c93ac !important;
@@ -45,7 +45,7 @@
     border-color: rgb(77 68 184) !important;
 }
 
-.btn-secondary:hover{
+.btn-secondary:hover {
     background-color: #8a96ab !important;
     border-color: #8c93ac !important;
 
@@ -53,7 +53,7 @@
 
 /* //////////////////// */
 .card-header:first-child {
-    color:white !important;
+    color: white !important;
     border-radius: 0.625rem 0.625rem 0 0;
     background: url(../images/bg-modal.png) repeat, linear-gradient(to right, #26D0CE, #1A2980);
 }
@@ -61,21 +61,21 @@
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
     /* background-color: var(--primary-color) !important; */
-     
+
     background: rgb(59 94 182) !important;
 
 }
 
 html[data-theme-mode="dark"] .c_color {
-  color: white !important;
+    color: white !important;
 }
 
 html[data-theme-mode="dark"] #comboChart svg text {
     fill: white !important;
-  }
+}
 
 
-  .bg-1 {
+.bg-1 {
     background-image: linear-gradient(45deg, #1a2a6c, #121329);
     color: #fff;
     border-radius: 8px;
@@ -101,7 +101,6 @@ html[data-theme-mode="dark"] #comboChart svg text {
     background: rgb(131, 58, 180);
     background-image: linear-gradient(45deg, #000000, #6c757d);
 }
- 
 </style>
 <div class="main-sidebar" id="sidebar-scroll">
 
@@ -168,7 +167,7 @@ html[data-theme-mode="dark"] #comboChart svg text {
 
                 </ul>
             </li>
-            
+
             <li class="slide">
                 <a href="{{ route('admin.users.index', ['type' => 'end_user']) }}"
                     class="side-menu__item {{ request()->is('admin/users*') ? 'active' : '' }}">
@@ -195,10 +194,10 @@ html[data-theme-mode="dark"] #comboChart svg text {
                 </a>
             </li>
 
-             
 
 
-           
+
+
 
             @if(Auth::user()->can('user_access'))
             <!--  -->
@@ -263,7 +262,7 @@ html[data-theme-mode="dark"] #comboChart svg text {
             </li>
             @endif
 
-            
+
 
             @if(Auth::user()->can('message_access'))
             <!-- MESSAGE -->
@@ -282,12 +281,12 @@ html[data-theme-mode="dark"] #comboChart svg text {
 
             @endif
 
-            
+
 
             @endif
             @if(Auth::user()->can('task_access'))
             <!-- Task -->
-           
+
             @endif
 
             @if(Auth::user()->can('training_access'))
@@ -328,19 +327,20 @@ html[data-theme-mode="dark"] #comboChart svg text {
 
                     <li class="slide">
                         <a href='{{ route("admin.category.index") }}'
-                            class="side-menu__item {{ request()->is('admin/category*') ? 'active' : '' }}">Training Category</a>
+                            class="side-menu__item {{ request()->is('admin/category*') ? 'active' : '' }}">Training
+                            Category</a>
                     </li>
 
-                    
+
 
 
 
                 </ul>
             </li>
-             <!-- New chhange -->
-             @endif
+            <!-- New chhange -->
+            @endif
 
-             <li class="slide">
+            <li class="slide">
                 <a href='{{ route("admin.orders") }}'
                     class="side-menu__item {{ request()->is('admin/orders*') ? 'active' : '' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px" viewBox="0 0 24 24"
@@ -353,7 +353,26 @@ html[data-theme-mode="dark"] #comboChart svg text {
                 </a>
             </li>
 
-           
+            <li class="slide">
+                <a href='{{ route("admin.userProfile") }}'
+                    class="side-menu__item {{ request()->is('admin/userProfile*') ? 'active' : '' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px" viewBox="0 0 24 24"
+                        width="24px" fill="#5f6368">
+                        <path d="M0 0h24v24H0V0z" fill="none" />
+                        <path
+                            d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4v-4h16v4zm0-10H4V6h16v2z" />
+                    </svg>
+                    <span class="side-menu__label">Profile</span>
+                </a>
+            </li>
+
+            <li class="slide">
+                <a class="dropdown-item d-flex align-items-center" href="javascript:;"
+                    onclick="event.preventDefault(); document.getElementById('logoutform').submit();" style="color:white"><i
+                        class="ti ti-logout me-2 fs-18 text-white" ></i>Log Out</a>
+            </li>
+
+
             @if(Auth::user()->can('product_access'))
             <li class="slide d-none">
                 <a href='{{ route("admin.products") }}'
@@ -447,12 +466,14 @@ html[data-theme-mode="dark"] #comboChart svg text {
 
                     <li class="slide">
                         <a href='{{ route("admin.faultDevice") }}'
-                            class="side-menu__item {{ request()->is('admin/faultDevice*') ? 'active' : '' }}">Active Fault</a>
+                            class="side-menu__item {{ request()->is('admin/faultDevice*') ? 'active' : '' }}">Active
+                            Fault</a>
                     </li>
 
                     <li class="slide">
                         <a href='{{ route("admin.fault.index") }}'
-                            class="side-menu__item {{ request()->is('admin/fault*') ? 'active' : '' }}">Error Code & Fixes</a>
+                            class="side-menu__item {{ request()->is('admin/fault*') ? 'active' : '' }}">Error Code &
+                            Fixes</a>
                     </li>
 
 
