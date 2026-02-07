@@ -48,43 +48,21 @@ class LoginController extends Controller
 
     public function customLogin(Request $request)
     {   
-        
-        //$ip = "2404:7c80:64:76dd:2e9d:ba70:6893:63a9";
-        $ip = $request->ip();
-        
-        
-        $ip = $request->ip();
-        if ($ip === "127.0.0.1" || $ip === "::1") {
-            $ip = "8.8.8.8";
-        }
-        
-        // $url = "https://ipinfo.io/{$ip}/json";
-        // $response = @file_get_contents($url);
-        
-        // $timezone = 'Australia/Sydney';
-        
-        // if ($response !== false) {
-        //     $data = json_decode($response, true);
-        //     if (!empty($data['timezone'])) {
-        //         $timezone = $data['timezone'] ;
-        //     }
-        // }
-        
-        // dd($timezone);
-
-        // $url = "http://www.geoplugin.net/php.gp?ip={$ip}";
-        // $response = file_get_contents($url);
-        // $geoData = unserialize($response);
-
-        //$geoplugin_timezone = $geoData['geoplugin_timezone'] ?? 'Australia/Sydney';
-
-        //\Session::put('timeZone',$timezone);
-
-        //dd($geoData['geoplugin_timezone']);
+         
         $request->validate([
             'email' => 'required',
             'password' => 'required',
         ]);
+
+        // check if user exists but inactive
+        $user = User::where('email', $request->email)->first();
+
+        if ($user && $user->status == 0) {
+            return back()->with(
+                'error',
+                'Your account is not activated yet. Please wait for admin approval.'
+            );
+        }
         
         $credentials = $request->only('email', 'password');
         

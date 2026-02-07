@@ -15,66 +15,67 @@
 
 <div class="container">
     <div class="policy-card">
-
+        <h2>1. Privacy Policy</h2>
         <p>
-            At <strong>YourCompany</strong>, we are committed to safeguarding your personal information.
-            This Privacy Policy explains how your data is collected, used, and protected when you use our services.
+            If you continue to browse and use this website, you are agreeing to
+            comply with our Terms of Use. We respect and comply with EU General
+            Data Protection Regulations (GDPR) and GDPR requirements have
+            become an integral part of our Terms of Use. When using our website, we
+            will collect and store some of your personal information. These Terms of
+            Use will explain why we collect and how we use your personal data. If you
+            still have any questions, or need clarifications regarding the use of your
+            personal information, feel free to contact us via the contact form.
         </p>
 
-        <h2>1. Information We Collect</h2>
-        <p>We may collect the following information when you use our platform:</p>
+        <h2>2. Cookies</h2>
+        <p>Cookies are files stored in your browser with the aim of personalizing your
+            web experience. By accepting our cookie policy, you are agreeing to our
+            use of cookies. We use cookies in order to enhance your browsing
+            experience and receive error reports when you use our website.</p>
 
-        <ul>
-            <li>Name, username, and contact details</li>
-            <li>Email address and phone number</li>
-            <li>Payment and billing information</li>
-            <li>Login activity and device data</li>
-            <li>Usage behavior for analytics</li>
-        </ul>
 
-        <h2>2. How We Use Your Information</h2>
-        <ul>
-            <li>To create and manage your account</li>
-            <li>To securely process transactions</li>
-            <li>To improve platform performance</li>
-            <li>To send important notifications</li>
-            <li>To prevent fraud and unauthorized access</li>
-        </ul>
 
-        <h2>3. Sharing of Information</h2>
+
+
+        <h2>3. Personal information</h2>
         <p>
-            We do not sell your personal data. Your information may only be shared with trusted
-            service providers necessary to operate our business or when legally required.
+            Personal information we collect from you may include your name,
+            address, e-mail address, phone number, and IP address. We only collect
+            this information when you make a purchase or register in our system and
+            we need this information in order to identify and register you as a
+            customer, confirm your purchase and contact you regarding the use of
+            our product or answer your queries. Your phone number may be used to
+            contact you to confirm your purchase if you have difficulty confirming it
+            by email. We do not share this information with any third parties, and you
+            may rest assured that all of your personal data is safe with us..
         </p>
 
-        <h2>4. Cookies & Tracking</h2>
+        <h2>4. Your location</h2>
         <p>
-            Our website uses cookies to enhance user experience, remember preferences,
-            and analyze website traffic.
+            When you browse our website, we may use your IP address to detect your
+            location. We need this information to personalize your experience,
+            particularly when you are using a map search on our site or looking for
+            ads on the Maps. Your location is needed to show you the appropriate
+            location on the Maps and ads in the vicinity of your location. We also use
+            your location to show you the appropriate banners or geo-targeted ads by.
         </p>
 
-        <h2>5. Data Security</h2>
+        <h2>5. System notifications</h2>
         <p>
-            We implement industry-standard security measures including encryption,
-            firewalls, and secure servers to protect your data.
-            However, no online transmission is ever 100% secure.
+            By using our website, you are giving your consent that you will sometimes
+            receive system notifications to your email address informing you of a
+            successfully added listing, warning you that a listing period is expiring,
+            meaning that your ad will get taken down if you don’t renew it and other
+            types of notifications relating to your activity on the website. The system
+            notifications are designed to serve as reminders or helpful tips enhancing
+            your experience on our website. You cannot opt out of receiving system
+            notifications, and the only way to stop receiving them is to delete your
+            account via my profile page.
         </p>
 
-        <h2>6. Data Retention</h2>
-        <p>
-            We retain your information only as long as necessary to fulfill the purposes outlined in this policy,
-            unless otherwise required by law.
-        </p>
+        
 
-        <h2>7. Your Privacy Rights</h2>
-        <ul>
-            <li>Access your stored data</li>
-            <li>Request correction of inaccurate data</li>
-            <li>Request deletion of your data</li>
-            <li>Withdraw consent anytime</li>
-        </ul>
-
-        <h2>8. Policy Updates</h2>
+         
         <p>
             We may update this Privacy Policy periodically.
             Updates will be posted on this page with a revised date.

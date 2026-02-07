@@ -41,7 +41,7 @@
                                 Merchant Name <code>*</code>
                             </label>
                             <input type="text" name="name" class="form-control" placeholder="Enter merchant name"
-                                value="{{ old('name', $merchant->name ?? '') }}" required>
+                                value="{{ old('name', $merchant->full_name ?? '') }}" required>
                         </div>
 
                         {{-- ===== Email ===== --}}
@@ -59,7 +59,7 @@
                                 Phone
                             </label>
                             <input type="text" name="phone" class="form-control" placeholder="Enter phone number"
-                                value="{{ old('phone', $merchant->phone ?? '') }}">
+                                value="{{ old('phone', $merchant->phone_number ?? '') }}">
                         </div>
 
                         {{-- ===== Amount ===== --}}

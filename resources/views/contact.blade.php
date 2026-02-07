@@ -1,271 +1,95 @@
 @extends('layouts.website')
 @section('title', 'LMS - Contact Us')
 @section('content')
-
-<style>
-
-/* ================= HERO ================= */
-
-.contact-hero{
-    background: linear-gradient(135deg,#667eea,#764ba2);
-    color:white;
-    padding:80px 40px;
-    text-align:center;
-}
-
-.contact-hero h1{
-    font-size:44px;
-    font-weight:700;
-}
-
-/* ================= LAYOUT ================= */
-
-.contact-container{
-    max-width:1200px;
-    margin:auto;
-    padding:70px 20px;
-}
-
-.contact-wrapper{
-    display:flex;
-    gap:40px;
-    align-items:stretch;
-}
-
-/* LEFT SIDE */
-
-.contact-info{
-    flex:1;
-    background:linear-gradient(135deg,#667eea,#764ba2);
-    color:white;
-    padding:50px;
-    border-radius:16px;
-}
-
-.contact-info h2{
-    margin-bottom:20px;
-}
-
-.info-box{
-    margin-bottom:25px;
-}
-
-.info-box strong{
-    display:block;
-    margin-bottom:6px;
-    font-size:18px;
-}
-
-/* RIGHT SIDE */
-
-.contact-card{
-    flex:1.3;
-    background:white;
-    padding:50px;
-    border-radius:16px;
-    box-shadow:0 10px 40px rgba(0,0,0,.06);
-}
-
-/* FORM */
-
-.form-group{
-    margin-bottom:18px;
-}
-
-.form-group label{
-    display:block;
-    margin-bottom:6px;
-    font-weight:500;
-}
-
-.form-control{
-    width:100%;
-    padding:14px;
-    border-radius:8px;
-    border:1px solid #ddd;
-    transition:.3s;
-}
-
-.form-control:focus{
-    outline:none;
-    border-color:#667eea;
-    box-shadow:0 0 0 3px rgba(102,126,234,.15);
-}
-
-textarea.form-control{
-    min-height:130px;
-}
-
-/* BUTTON */
-
-.submit-btn{
-    border:none;
-    padding:14px 28px;
-    background:linear-gradient(135deg,#667eea,#764ba2);
-    color:white;
-    border-radius:8px;
-    font-size:16px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.submit-btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 8px 18px rgba(0,0,0,.15);
-}
-
-/* ALERTS */
-
-.alert-success{
-    background:#e6fffa;
-    color:#065f46;
-    padding:12px;
-    border-radius:8px;
-    margin-bottom:20px;
-}
-
-.alert-error{
-    background:#ffe6e6;
-    color:#7f1d1d;
-    padding:12px;
-    border-radius:8px;
-    margin-bottom:20px;
-}
-
-/* MOBILE */
-
-@media(max-width:900px){
-
-.contact-wrapper{
-    flex-direction:column;
-}
-
-.contact-info,
-.contact-card{
-    padding:30px;
-}
-
-.contact-hero h1{
-    font-size:32px;
-}
-
-}
-
-</style>
-
-
-<!-- HERO -->
-
-<div class="contact-hero">
-    <h1>Contact Us</h1>
-    <p>We are here to help you. Reach out anytime.</p>
-</div>
-
-
-
-<div class="contact-container">
-
-    <div class="contact-wrapper">
-
-        <!-- LEFT SIDE ADDRESS -->
-
-        <div class="contact-info">
-            <h2>Get in Touch</h2>
-
-            <div class="info-box">
-                <strong>📍 Address</strong>
-                123 Learning Street,<br>
-                Education City,<br>
-                India
-            </div>
-
-            <div class="info-box">
-                <strong>📞 Phone</strong>
-                +91 98765 43210
-            </div>
-
-            <div class="info-box">
-                <strong>📧 Email</strong>
-                support@lms.com
-            </div>
-
-            <div class="info-box">
-                <strong>🕒 Working Hours</strong>
-                Mon - Fri : 9 AM - 6 PM
+<main>
+    <!--? slider Area Start-->
+    <section class="slider-area slider-area2">
+        <div class="slider-active">
+            <!-- Single Slider -->
+            <div class="single-slider slider-height2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-8 col-lg-11 col-md-12">
+                            <div class="hero__caption hero__caption2">
+                                <h1 data-animation="bounceIn" data-delay="0.2s">Contact us</h1>
+                                <!-- breadcrumb Start-->
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="#">Contact</a></li> 
+                                    </ol>
+                                </nav>
+                                <!-- breadcrumb End -->
+                            </div>
+                        </div>
+                    </div>
+                </div>          
             </div>
         </div>
-
-
-
-        <!-- RIGHT SIDE FORM -->
-
-        <div class="contact-card">
-
-            @if(session('success'))
-                <div class="alert-success">
-                    {{ session('success') }}
+    </section>
+    <!--?  Contact Area start  -->
+    <section class="contact-section">
+        <div class="container">
+            
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="contact-title">Get in Touch</h2>
                 </div>
-            @endif
-
-            @if ($errors->any())
-                <div class="alert-error">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
+                <div class="col-lg-8">
+                    <form class="form-contact contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Message'" placeholder=" Enter Message"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input class="form-control valid" name="name" id="name" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" placeholder="Enter your name">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <input class="form-control valid" name="email" id="email" type="email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <input class="form-control" name="subject" id="subject" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Subject'" placeholder="Enter Subject">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <button type="submit" class="button button-contactForm boxed-btn">Send</button>
+                        </div>
+                    </form>
                 </div>
-            @endif
-
-
-            <form method="POST" action="{{ route('contactSubmit') }}">
-                @csrf
-
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text"
-                           name="name"
-                           class="form-control"
-                           value="{{ old('name') }}"
-                           required>
+                <div class="col-lg-3 offset-lg-1">
+                    <div class="media contact-info">
+                        <span class="contact-info__icon"><i class="ti-home"></i></span>
+                        <div class="media-body">
+                            <h3>Buttonwood, California.</h3>
+                            <p>Rosemead, CA 91770</p>
+                        </div>
+                    </div>
+                    <div class="media contact-info">
+                        <span class="contact-info__icon"><i class="ti-tablet"></i></span>
+                        <div class="media-body">
+                            <h3>+1 253 565 2365</h3>
+                            <p>Mon to Fri 9am to 6pm</p>
+                        </div>
+                    </div>
+                    <div class="media contact-info">
+                        <span class="contact-info__icon"><i class="ti-email"></i></span>
+                        <div class="media-body">
+                            <h3>support@colorlib.com</h3>
+                            <p>Send us your query anytime!</p>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email"
-                           name="email"
-                           class="form-control"
-                           value="{{ old('email') }}"
-                           required>
-                </div>
-
-                <div class="form-group">
-                    <label>Subject</label>
-                    <input type="text"
-                           name="subject"
-                           class="form-control"
-                           value="{{ old('subject') }}"
-                           required>
-                </div>
-
-                <div class="form-group">
-                    <label>Message</label>
-                    <textarea name="message"
-                              class="form-control"
-                              required>{{ old('message') }}</textarea>
-                </div>
-
-                <button class="submit-btn">
-                    Send Message
-                </button>
-
-            </form>
-
+            </div>
         </div>
-
-    </div>
-
-</div>
-
+    </section>
+    <!-- Contact Area End -->
+</main>
 @endsection

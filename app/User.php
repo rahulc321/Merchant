@@ -82,4 +82,9 @@ class User extends Authenticatable
             return Device::where('user_id', $this->id)->pluck('device_id');
         }
     }
+
+    public function addresses()
+{
+    return $this->hasMany(MerchantAddress::class, 'merchant_id');
+}
 }

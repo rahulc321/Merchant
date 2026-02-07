@@ -33,7 +33,11 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $merchants = Merchant::latest()->get();
+        $merchants = User::whereHas('roles', function ($query) {
+            $query->where('title', 'merchant');
+        })
+        ->orderBy('id', 'DESC')
+        ->get();
 
         return view('admin.task.index', compact('merchants'));
     }
@@ -73,14 +77,16 @@ class TaskController extends Controller
             'status' => 'required|boolean',
         ]);
 
-        Merchant::create([
-            'name'   => $request->name,
+        $user = User::create([
+            'full_name'   => $request->name,
             'email'  => $request->email,
             'code'   => strtoupper(substr($request->name, 0, 3)) . rand(100000, 999999),
-            'phone'  => $request->phone,
+            'phone_number'  => $request->phone,
             'amount' => $request->amount,
             'status' => $request->status,
         ]);
+
+        $user->roles()->sync(4);
 
 
         /////////////////////////////////////////////////////////////////////////////
@@ -97,7 +103,7 @@ class TaskController extends Controller
      */
     public function marchentAddress($id)
     {
-        $merchant = Merchant::with('addresses')->findOrFail($id);
+        $merchant = User::with('addresses')->findOrFail($id);
 
         return view('admin.merchant.index', compact('merchant'));
     }
@@ -142,7 +148,7 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        $this->data['merchant'] = Merchant::find($id);
+        $this->data['merchant'] = User::find($id);
         
         return view('admin.task.edit',$this->data);
     }
@@ -156,7 +162,7 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $merchant = Merchant::findOrFail($id);
+        $merchant = User::findOrFail($id);
 
         $request->validate([
             'name'   => 'required|string|max:255',
@@ -167,9 +173,9 @@ class TaskController extends Controller
         ]);
 
         $merchant->update([
-            'name'   => $request->name,
+            'full_name'   => $request->name,
             'email'  => $request->email,
-            'phone'  => $request->phone,
+            'phone_number'  => $request->phone,
             'amount' => $request->amount,
             'status' => $request->status,
         ]);

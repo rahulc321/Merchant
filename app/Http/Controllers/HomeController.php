@@ -58,4 +58,16 @@ class HomeController extends Controller
 
         return back()->with('success','✅ Your message has been sent successfully!');
     }
+
+    public function index(){
+        return view('website');
+    }
+
+    public function about(){
+        return view('about');
+    }
+
+    public function spiner(){
+        return view('spinner');
+    }
 }

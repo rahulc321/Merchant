@@ -83,12 +83,12 @@
                                         <td>{{ $key + 1 }}</td>
 
                                         <td>
-                                            <strong>{{ $merchant->name }}</strong>
+                                            <strong>{{ $merchant->full_name }}</strong>
                                         </td>
                                         <td>{{ $merchant->code }}</td>
                                         <td>{{ $merchant->email }}</td>
 
-                                        <td>{{ $merchant->phone ?? '-' }}</td>
+                                        <td>{{ $merchant->phone_number ?? '-' }}</td>
 
                                         <td>
                                              {{ number_format($merchant->amount, 2) }}
