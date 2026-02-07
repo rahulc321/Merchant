@@ -1,6 +1,6 @@
 <?php
 
-Route::redirect('/', '/login');
+Route::get('/', 'HomeController@index')->name('home');
 Route::redirect('/home', '/admin');
 Auth::routes(['register' => false]); 
 
@@ -21,12 +21,21 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
+Route::get('spiner', 'HomeController@spiner')->name('spiner');
+
 Route::get('contactSubmit', 'HomeController@contactSubmit')->name('contactSubmit');
+// Route::get('/', 'HomeController@index')->name('home');
+Route::get('/about', 'HomeController@about')->name('about');
+Route::any('/joinMerchant', 'App\Http\Controllers\Admin\UsersController@joinMerchant')->name('joinMerchant');
+
+
+
 
  Route::any('/customLogin', 'Auth\LoginController@customLogin')->name('customLogin');
  Route::any('/task_detail/{id}', 'Admin\TaskController@task_detail')->name('task_detail');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
+    
     Route::get('/', 'HomeController@index')->name('home');
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');

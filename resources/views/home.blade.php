@@ -3,28 +3,20 @@
 @section('title', 'LMS Merchant - Dashboard')
 
 @section('content')
-
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
 <style>
-html,
-body {
+html, body {
     overflow-x: hidden;
 }
 
 /* ===== CARD ===== */
 .card {
     border: none;
-    border-radius: 12px;
-    padding: 22px;
+    border-radius: 10px;
+    padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.05);
-    flex: 1;
-}
-
-/* force equal height */
-.row.equal-height>[class*='col-'] {
-    display: flex;
 }
 
 .widget-content-wrapper {
@@ -34,62 +26,35 @@ body {
 }
 
 .widget-heading {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
 }
 
 .widget-subheading {
     font-size: 13px;
-    opacity: .85;
+    opacity: .8;
 }
 
 .widget-numbers {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
 }
 
 /* ===== GRADIENTS ===== */
-.bg-1 {
-    background: linear-gradient(45deg, #1a2a6c, #1f3c88);
-    color: #fff;
-}
-
-.bg-2 {
-    background: linear-gradient(45deg, #11998e, #38ef7d);
-    color: #fff;
-}
-
-.bg-3 {
-    background: linear-gradient(45deg, #4e54c8, #8f94fb);
-    color: #fff;
-}
-
-.bg-4 {
-    background: linear-gradient(45deg, #fc4a1a, #f7b733);
-    color: #fff;
-}
-
-.bg-5 {
-    background: linear-gradient(45deg, #232526, #414345);
-    color: #fff;
-}
-
-/* QR CARD */
-.qr-card img {
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-}
+.bg-1 { background: linear-gradient(45deg, #1a2a6c, #1f3c88); color:#fff; }
+.bg-2 { background: linear-gradient(45deg, #11998e, #38ef7d); color:#fff; }
+.bg-3 { background: linear-gradient(45deg, #4e54c8, #8f94fb); color:#fff; }
+.bg-4 { background: linear-gradient(45deg, #fc4a1a, #f7b733); color:#fff; }
+.bg-5 { background: linear-gradient(45deg, #232526, #414345); color:#fff; }
 </style>
 
 <div class="main-content app-content">
     <div class="container-fluid">
 
-        <!-- ===== HEADER ===== -->
+        <!-- ===== PAGE HEADER ===== -->
         <div class="d-flex justify-content-between align-items-center my-4 flex-wrap gap-2">
             <div>
-                <h4 class="mb-1">
-                    Hi, {{ \Auth::user()->full_name }} 👋
-                </h4>
+                <h4 class="mb-1">Hi, {{ \Auth::user()->full_name }} 👋</h4>
                 <p class="text-muted mb-0">
                     Welcome back! Here’s an overview of your business performance for this month.
                 </p>
@@ -97,10 +62,9 @@ body {
         </div>
 
         <!-- ===== KPI CARDS ===== -->
-        <div class="row mb-4 equal-height">
-            @if (Auth::user()->roles->contains('title', 'Admin'))
-            <!-- Total Merchants -->
-            <div class="col-xl-3 col-lg-4 col-md-6">
+        <div class="row mb-4">
+
+            <div class="col-xl-3 col-md-6">
                 <div class="card bg-1">
                     <div class="widget-content-wrapper">
                         <div>
@@ -116,8 +80,7 @@ body {
                 </div>
             </div>
 
-            <!-- Total Users -->
-            <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="col-xl-3 col-md-6">
                 <div class="card bg-2">
                     <div class="widget-content-wrapper">
                         <div>
@@ -132,41 +95,51 @@ body {
                     </div>
                 </div>
             </div>
-            @endif
-            <!-- Total Orders -->
-            <div class="col-xl-3 col-lg-4 col-md-6">
-                <div class="card bg-4">
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-3">
                     <div class="widget-content-wrapper">
                         <div>
                             <div class="widget-heading">
-                                <i class="fas fa-shopping-cart me-2"></i>Total Orders
+                                <i class="fas fa-rupee-sign me-2"></i>Monthly Revenue
                             </div>
-                            <div class="widget-subheading">All completed orders</div>
+                            <div class="widget-subheading">Current month sales</div>
                         </div>
                         <div class="widget-numbers">
-                            {{ $totalOrders ?? 892 }}
+                            ₹ {{ number_format($monthlyRevenue ?? 1245600) }}
                         </div>
                     </div>
                 </div>
             </div>
 
-
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-5">
+                    <div class="widget-content-wrapper">
+                        <div>
+                            <div class="widget-heading">
+                                <i class="fas fa-chart-line me-2"></i>Growth Rate
+                            </div>
+                            <div class="widget-subheading">Month over month</div>
+                        </div>
+                        <div class="widget-numbers">
+                            +18%
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
-        <!-- ===== BUSINESS + QR ===== -->
-        <div class="row">
-            @if (Auth::user()->roles->contains('title', 'Admin'))
-            <!-- BUSINESS OVERVIEW -->
+        <!-- ===== BUSINESS OVERVIEW ===== -->
+        <div class="row mt-4">
+
             <div class="col-xl-8">
                 <div class="card">
                     <h5 class="mb-2">Business Overview</h5>
-
                     <p class="text-muted mb-1">
                         Your platform continues to grow steadily with increasing merchant participation
                         and consistent user engagement across all services.
                     </p>
-
                     <p class="text-muted mb-0">
                         Monthly revenue performance remains strong, supported by repeat customers
                         and expanding merchant offerings.
@@ -174,64 +147,22 @@ body {
                 </div>
             </div>
 
-            <!-- QR CODE -->
-            <div class="col-xl-4 col-md-6">
-                <div class="card text-center qr-card">
-
-                    <h5 class="mb-3">
-                        <i class="fas fa-qrcode me-2"></i>
-                        User Registration QR
-                    </h5>
-
-                    @php
-                    $registerUrl = url('/user/register');
-                    $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data="
-                    . urlencode($registerUrl);
-                    @endphp
-
-                    <img src="{{ $qrUrl }}" alt="Register QR" class="mb-3">
-
-                    <p class="text-muted">
-                        Scan to instantly open the user registration page.
-                    </p>
-
-                    <a href="{{ $qrUrl }}" download="user-registration-qr.png" class="btn btn-primary">
-
-                        <i class="fas fa-download me-2"></i>
-                        Download QR Code
-                    </a>
-
-                </div>
-            </div>
-
-            @else
-
-            <div class="col-xl-8">
+            <div class="col-xl-4">
                 <div class="card">
-                    <h5 class="mb-2">User Overview</h5>
-
-                    <p class="text-muted mb-1">
-                        Your user base is growing consistently, with new registrations contributing
-                        to increased platform activity and stronger community engagement.
-                    </p>
-
-                    <p class="text-muted mb-0">
-                        Active users continue to drive transactions and interactions,
-                        helping build a reliable and scalable ecosystem for your business.
-                    </p>
+                    <h5 class="mb-2">Key Highlights</h5>
+                    <ul class="text-muted mb-0">
+                        <li>Merchant onboarding improved this month</li>
+                        <li>User retention rate increased</li>
+                        <li>Overall platform performance is stable</li>
+                    </ul>
                 </div>
             </div>
-
-            @endif
 
         </div>
 
     </div>
 </div>
-
-
 @endsection
-
 
 @section('scripts')
 @parent

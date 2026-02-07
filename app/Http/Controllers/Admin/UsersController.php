@@ -712,6 +712,46 @@ class UsersController extends Controller
 
         return view('admin.order.index', $this->data);
     }
+ 
+
+    public function joinMerchant(Request $request)
+    {   
+        if($request->all()){
+            $request->validate([
+                'name'   => 'required|string|max:255',
+                'email'  => 'required|email|unique:users,email',
+                'phone' => 'nullable|digits:9|unique:users,phone_number',
+                'amount' => 'required|numeric|min:0',
+                 
+            ]);
+
+            $user = User::create([
+                'full_name'   => $request->name,
+                'email'  => $request->email,
+                'code'   => strtoupper(substr($request->name, 0, 3)) . rand(100000, 999999),
+                'phone_number'  => $request->phone,
+                'password'  => \Hash::make($request->password),
+                'amount' => $request->amount,
+                'status' => 0,
+            ]);
+
+            $user->roles()->sync(4);
+
+
+            /////////////////////////////////////////////////////////////////////////////
+
+            session()->flash(
+                'success',
+                '🎉 Your merchant account has been created successfully! 
+                Your account is currently <strong>pending approval</strong>. 
+                Once approved by the admin, you will be able to log in as a merchant. 
+                Thank you for registering with us!'
+            );
+            return back();
+        }else{
+            return view('merchant');
+        }
+    }
 
 
 }
