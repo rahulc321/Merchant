@@ -13,7 +13,15 @@ Route::get('/user/register', 'HomeController@userRegister')->name('register');
 Route::any('registerStep', 'App\Http\Controllers\Admin\UsersController@registerStep')->name('registerStep');
 Route::any('registerComplete', 'App\Http\Controllers\Admin\UsersController@registerComplete')->name('registerComplete');
 
+Route::get('/privacy-policy', function () {
+    return view('privacy');
+})->name('privacy');
 
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
+Route::get('contactSubmit', 'HomeController@contactSubmit')->name('contactSubmit');
 
  Route::any('/customLogin', 'Auth\LoginController@customLogin')->name('customLogin');
  Route::any('/task_detail/{id}', 'Admin\TaskController@task_detail')->name('task_detail');

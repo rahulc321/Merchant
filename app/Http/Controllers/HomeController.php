@@ -32,4 +32,30 @@ class HomeController extends Controller
     {   
         return view('user_login');
     }
+
+    public function contactSubmit(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|max:100',
+            'email' => 'required|email',
+            'subject' => 'required|max:200',
+            'message' => 'required|min:10',
+        ]);
+
+        Mail::send([], [], function ($message) use ($request) {
+
+            $message->to('rahulk@yopmail.com') // 👈 change admin email
+                ->replyTo($request->email, $request->name)
+                ->subject('Contact Message: '.$request->subject)
+                ->html("
+                    <h2>New Contact Message</h2>
+                    <p><strong>Name:</strong> {$request->name}</p>
+                    <p><strong>Email:</strong> {$request->email}</p>
+                    <p><strong>Subject:</strong> {$request->subject}</p>
+                    <p><strong>Message:</strong><br>{$request->message}</p>
+                ");
+        });
+
+        return back()->with('success','✅ Your message has been sent successfully!');
+    }
 }
