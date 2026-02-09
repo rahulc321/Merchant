@@ -32,6 +32,7 @@ Route::any('/joinMerchant', 'App\Http\Controllers\Admin\UsersController@joinMerc
 
 
  Route::any('/customLogin', 'Auth\LoginController@customLogin')->name('customLogin');
+ Route::any('/customLoginUser', 'Auth\LoginController@customLoginUser')->name('customLoginUser');
  Route::any('/task_detail/{id}', 'Admin\TaskController@task_detail')->name('task_detail');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {

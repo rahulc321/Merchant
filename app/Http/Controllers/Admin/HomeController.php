@@ -19,7 +19,9 @@ class HomeController
     
             $this->data['totalUsers'] = User::count();
             $this->data['totalOrders'] = Order::count();
-            $this->data['totalMerchants'] = Merchant::count();
+            $this->data['totalMerchants'] = User::whereHas('roles', function ($query) {
+                $query->where('title', 'merchant');
+            })->count();
     
         } else {
     

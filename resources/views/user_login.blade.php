@@ -163,17 +163,17 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('customLogin') }}">
+    <form method="POST" action="{{ route('customLoginUser') }}">
         @csrf
 
         <div class="form-group">
-            <label class="form-label">Email</label>
+            <label class="form-label">Phone</label>
             <input 
-                type="email"
-                name="email"
+                type="text"
+                name="phone_number"
                 class="form-control"
-                value="{{ old('email') }}"
-                placeholder="Enter email"
+                value="{{ old('phone_number') }}"
+                placeholder="Enter phone_number"
             >
             @error('email')
                 <div class="error">{{ $message }}</div>

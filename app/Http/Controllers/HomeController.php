@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{MerchantAddress, Merchant};
+use App\{MerchantAddress, Merchant, User};
 
 class HomeController extends Controller
 {
@@ -24,7 +24,10 @@ class HomeController extends Controller
      */
     public function userRegister()
     {   
-        $this->data['restaurants'] = Merchant::with('addresses')->get();
+        //$this->data['restaurants'] = Merchant::with('addresses')->get();
+        $this->data['restaurants'] = User::with('addresses')->whereHas('roles', function ($query) {
+            $query->where('title', 'merchant');
+        })->get();
         return view('user_register',$this->data);
     }
 

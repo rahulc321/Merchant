@@ -89,7 +89,7 @@
                                         @foreach($merchants as $merchant)
                                         <option value="{{ $merchant->id }}"
                                             {{ request('merchant_id') == $merchant->id ? 'selected' : '' }}>
-                                            {{ $merchant->name }}
+                                            {{ $merchant->full_name }}
                                         </option>
                                         @endforeach
 

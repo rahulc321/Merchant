@@ -531,17 +531,17 @@ class UsersController extends Controller
         $rules = match ($step) {
             1 => [
                 'name' => 'required|string|max:255',
-                'phone_number' => 'required',
-                'email' => 'required|email|unique:users,email',
+                'phone_number' => 'required|digits:9|unique:users,phone_number',
+                //'email' => 'required|email|unique:users,email',
                 'password' => 'required|min:6|confirmed',
             ],
             2 => [
-                'restaurant_id' => 'required|exists:merchants,id',
+                'restaurant_id' => 'required|exists:users,id',
                 'address' => 'required|string|max:500',
                 'cashier_code' => [
                     'required',
                     function ($attribute, $value, $fail) use ($request) {
-                        $exists =  Merchant::where('id', $request->restaurant_id)
+                        $exists =  User::where('id', $request->restaurant_id)
                             ->where('code', $value)
                             ->exists();
             
@@ -555,7 +555,7 @@ class UsersController extends Controller
                     'numeric',
                     function ($attribute, $value, $fail) use ($request) {
 
-                        $merchant = Merchant::find($request->restaurant_id);
+                        $merchant = User::find($request->restaurant_id);
 
                         if (!$merchant) {
                             $fail('Please select a valid restaurant.');
@@ -608,7 +608,7 @@ class UsersController extends Controller
             // 1️⃣ CREATE USER
             $user = User::create([
                 'full_name' => $step1['name'],
-                'email' => $step1['email'],
+                'email' => 'uq'.rand().'@yopmail.com',
                 'phone_number'=> $step1['phone_number'],
                 'password' => bcrypt($step1['password']),
             ]);
@@ -642,7 +642,8 @@ class UsersController extends Controller
 
             return response()->json([
                 'status' => false,
-                'message' => 'Something went wrong. Please try again.'
+                'message' => 'Something went wrong. Please try again.',
+                'error' => $e->getMessage() // exact error
             ], 500);
         }
     }
@@ -662,6 +663,7 @@ class UsersController extends Controller
         | NON ADMIN → Only Their Orders
         |------------------------------------------
         */
+        
         if (!$isAdmin) {
 
             $query->where('user_id', $user->id);
@@ -700,7 +702,10 @@ class UsersController extends Controller
             }
 
             // ✅ ONLY admin needs merchant list
-            $this->data['merchants'] = Merchant::orderBy('name')->get();
+            //$this->data['merchants'] = Merchant::orderBy('name')->get();
+            $this->data['merchants'] =  User::whereHas('roles', function ($query) {
+                $query->where('title', 'merchant');
+            })->get();
         }
 
         /*
