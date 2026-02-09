@@ -159,7 +159,7 @@
                                         </td>
 
                                         <td>
-                                            {{ $order->merchant->name ?? 'N/A' }}
+                                            {{ $order->merchant->full_name ?? 'N/A' }}
                                         </td>
 
                                         <td>
