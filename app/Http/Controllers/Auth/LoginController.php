@@ -82,4 +82,41 @@ class LoginController extends Controller
         }
 
     }
+
+    public function customLoginUser(Request $request)
+    {   
+         
+        $request->validate([
+            'phone_number' => 'required',
+            'password' => 'required',
+        ]);
+
+        // check if user exists but inactive
+        $user = User::where('phone_number', $request->phone_number)->first();
+
+        if ($user && $user->status == 0) {
+            return back()->with(
+                'error',
+                'Your account is not activated yet. Please wait for admin approval.'
+            );
+        }
+        
+        $credentials = $request->only('phone_number', 'password');
+        
+        if (Auth::attempt($credentials)) {
+
+            // if (Auth::user()->roles->contains('title', 'end_user')) {
+            //     session()->flash('error', 'Access denied: Your account does not have permission to login this portal.');
+            //     Auth::logout();
+            //     return back();
+            // }
+
+            return redirect('admin');
+        }else{
+             
+            session()->flash('error', 'Please Enter Valid Login Details!');
+            return back();
+        }
+
+    }
 }

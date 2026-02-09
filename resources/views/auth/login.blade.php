@@ -36,6 +36,7 @@
 
         <!-- Right Section (Login Form) -->
         <div class="bg-[#1f1f23] p-8 rounded-xl shadow-xl w-full max-w-md" style="background-color: rgb(11 22 25);">
+            
             <div class="flex justify-center mb-6">
                 <div
                     class="bg-gradient-to-tr from-blue-500 to-cyan-400 h-12 w-12 flex items-center justify-center rounded-xl">
@@ -62,7 +63,7 @@
                     <a href="#" class="text-cyan-400 hover:underline"></a>
                 </div>
                 <button class="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-2 rounded-md transition">Sign In to
-                LMS Merchant</button>
+                    LMS Merchant</button>
             </form>
             <!-- <p class="text-center mt-6 text-sm text-gray-400">Need access? <span class="text-cyan-400">Contact your
                     administrator</span></p> -->

@@ -249,11 +249,11 @@
                     <div class="error" data-error="name"></div>
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label class="form-label">Email</label>
                     <input type="email" name="email" class="form-control" placeholder="Email">
                     <div class="error" data-error="email"></div>
-                </div>
+                </div> -->
 
                 <div class="form-group">
                     <label class="form-label">Phone</label>
@@ -309,7 +309,7 @@
                         @foreach($restaurants as $restaurant)
                         <option value="{{ $restaurant->id }}" data-address='@json($restaurant->addresses)'
                             data-amount='{{$restaurant->amount}}'>
-                            {{ $restaurant->name }}
+                            {{ $restaurant->full_name }}
                         </option>
                         @endforeach
                     </select>
