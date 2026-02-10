@@ -35,7 +35,7 @@
             <div class="preloader-inner position-relative">
                 <div class="preloader-circle"></div>
                 <div class="preloader-img pere-text">
-                    <img src="./assets_new/img/logo/loder.png" alt="">
+                    <img src="{{env('LOGO')}}" alt="">
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo">
-                                    <a href="#"><img src="./assets_new/img/logo/logo.png" alt=""></a>
+                                    <a href="#"><img src="{{env('LOGO')}}" alt="" style="height: 66px;"></a>
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-10">
