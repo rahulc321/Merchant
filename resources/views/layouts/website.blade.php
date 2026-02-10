@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Courses | Education</title>
+    <title>LMS | Merchant</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
@@ -50,7 +50,7 @@
                             <!-- Logo -->
                             <div class="col-xl-2 col-lg-2">
                                 <div class="logo">
-                                    <a href="#"><img src="{{env('LOGO')}}" alt="" style="height: 66px;"></a>
+                                    <a href="/"><img src="{{env('LOGO')}}" alt="" style="height: 66px;border-radius: 5px;"></a>
                                 </div>
                             </div>
                             <div class="col-xl-10 col-lg-10">

@@ -1,11 +1,12 @@
 @extends('layouts.website')
 
-@section('title', 'LMS Merchant - Dashboard')
+@section('title', 'About Our Company')
 
 @section('content')
 
 <main>
-    <!--? slider Area Start-->
+
+    <!-- HERO -->
     <section class="slider-area slider-area2">
         <div class="slider-active">
             <!-- Single Slider -->
@@ -30,270 +31,205 @@
             </div>
         </div>
     </section>
-    <div class="services-area services-area2 section-padding40">
+
+
+
+    <!-- WHO WE ARE -->
+    <section style="padding:90px 0;">
         <div class="container">
-            <div class="row justify-content-sm-center">
-                <div class="col-lg-4 col-md-6 col-sm-8">
-                    <div class="single-services mb-30">
-                        <div class="features-icon">
-                            <img src="./assets_new/img/icon/icon1.svg" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <h3>60+ UX courses</h3>
-                            <p>The automated process all your website tasks.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8">
-                    <div class="single-services mb-30">
-                        <div class="features-icon">
-                            <img src="./assets_new/img/icon/icon2.svg" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <h3>Expert instructors</h3>
-                            <p>The automated process all your website tasks.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8">
-                    <div class="single-services mb-30">
-                        <div class="features-icon">
-                            <img src="./assets_new/img/icon/icon3.svg" alt="">
-                        </div>
-                        <div class="features-caption">
-                            <h3>Life time access</h3>
-                            <p>The automated process all your website tasks.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--? About Area-1 Start -->
-    <section class="about-area1 fix pt-10">
-        <div class="support-wrapper align-items-center">
-            <div class="left-content1">
-                <div class="about-icon">
-                    <img src="./assets_new/img/icon/about.svg" alt="">
-                </div>
-                <!-- section tittle -->
-                <div class="section-tittle section-tittle2 mb-55">
-                    <div class="front-text">
-                        <h2 class="">Learn new skills online with top educators</h2>
-                        <p>The automated process all your website tasks. Discover tools and
-                            techniques to engage effectively with vulnerable children and young
-                            people.</p>
-                    </div>
-                </div>
-                <div class="single-features">
-                    <div class="features-icon">
-                        <img src="./assets_new/img/icon/right-icon.svg" alt="">
-                    </div>
-                    <div class="features-caption">
-                        <p>Techniques to engage effectively with vulnerable children and young people.</p>
-                    </div>
-                </div>
-                <div class="single-features">
-                    <div class="features-icon">
-                        <img src="./assets_new/img/icon/right-icon.svg" alt="">
-                    </div>
-                    <div class="features-caption">
-                        <p>Join millions of people from around the world learning together.</p>
-                    </div>
+            <div class="row align-items-center">
+
+                <div class="col-lg-6">
+                    <h2 style="font-weight:800;margin-bottom:20px;">
+                        Who We Are
+                    </h2>
+
+                    <p style="font-size:17px;color:#4b5563;">
+                        We are a forward-thinking organization committed to delivering
+                        excellence through innovation, reliability, and customer-focused
+                        solutions.
+                    </p>
+
+                    <p style="font-size:17px;color:#4b5563;">
+                        Since our beginning, our goal has been simple — create services
+                        people can trust and experiences they can rely on. Today, we proudly
+                        serve a growing community of customers and partners who believe in
+                        quality as much as we do.
+                    </p>
                 </div>
 
-                <div class="single-features">
-                    <div class="features-icon">
-                        <img src="./assets_new/img/icon/right-icon.svg" alt="">
-                    </div>
-                    <div class="features-caption">
-                        <p>Join millions of people from around the world learning together. Online learning is as easy
-                            and natural.</p>
-                    </div>
+                <div class="col-lg-6">
+                    <img src="./assets_new/img/gallery/about3.png" class="img-fluid rounded shadow">
                 </div>
-            </div>
-            <div class="right-content1">
-                <!-- img -->
-                <div class="right-img">
-                    <img src="./assets_new/img/gallery/about.png" alt="">
 
-                    <div class="video-icon">
-                        <a class="popup-video btn-icon" href="https://www.youtube.com/watch?v=up68UAfH0d0"><i
-                                class="fas fa-play"></i></a>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
-    <!-- About Area End -->
-    <!--? top subjects Area Start -->
-    <div class="topic-area section-padding40">
+
+
+
+    <!-- STORY -->
+    <section style="background:#f9fafb;padding:90px 0;">
+        <div class="container text-center">
+
+            <h2 style="font-weight:800;margin-bottom:25px;">
+                Our Story
+            </h2>
+
+            <p style="max-width:800px;margin:auto;font-size:17px;color:#4b5563;">
+                What started as a vision to redefine service standards has grown
+                into a trusted brand recognized for its integrity and performance.
+                Our journey has been driven by passion, strengthened by customer
+                relationships, and guided by a commitment to continuous improvement.
+            </p>
+
+        </div>
+    </section>
+
+
+
+    <!-- MISSION VISION -->
+    <section style="padding:90px 0;">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-7 col-lg-8">
-                    <div class="section-tittle text-center mb-55">
-                        <h2>Explore top subjects</h2>
-                    </div>
-                </div>
-            </div>
             <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="single-topic text-center mb-30">
-                        <div class="topic-img">
-                            <img src="./assets_new/img/gallery/topic1.png" alt="">
-                            <div class="topic-content-box">
-                                <div class="topic-content">
-                                    <h3><a href="#">Programing</a></h3>
-                                </div>
-                            </div>
-                        </div>
+
+                <div class="col-lg-6">
+                    <div style="padding:40px;border-radius:14px;
+                                box-shadow:0 10px 30px rgba(0,0,0,.05);">
+                        <h3 style="font-weight:800;">Our Mission</h3>
+
+                        <p style="color:#4b5563;">
+                            To provide high-quality services that enhance everyday life
+                            while maintaining the highest standards of professionalism,
+                            transparency, and customer satisfaction.
+                        </p>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="single-topic text-center mb-30">
-                        <div class="topic-img">
-                            <img src="./assets_new/img/gallery/topic2.png" alt="">
-                            <div class="topic-content-box">
-                                <div class="topic-content">
-                                    <h3><a href="#">Programing</a></h3>
-                                </div>
-                            </div>
-                        </div>
+
+                <div class="col-lg-6">
+                    <div style="padding:40px;border-radius:14px;
+                                box-shadow:0 10px 30px rgba(0,0,0,.05);">
+                        <h3 style="font-weight:800;">Our Vision</h3>
+
+                        <p style="color:#4b5563;">
+                            To become a globally trusted brand known for excellence,
+                            innovation, and long-term value creation.
+                        </p>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="single-topic text-center mb-30">
-                        <div class="topic-img">
-                            <img src="./assets_new/img/gallery/topic3.png" alt="">
-                            <div class="topic-content-box">
-                                <div class="topic-content">
-                                    <h3><a href="#">Programing</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="single-topic text-center mb-30">
-                        <div class="topic-img">
-                            <img src="./assets_new/img/gallery/topic4.png" alt="">
-                            <div class="topic-content-box">
-                                <div class="topic-content">
-                                    <h3><a href="#">Programing</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="single-topic text-center mb-30">
-                        <div class="topic-img">
-                            <img src="./assets_new/img/gallery/topic5.png" alt="">
-                            <div class="topic-content-box">
-                                <div class="topic-content">
-                                    <h3><a href="#">Programing</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="single-topic text-center mb-30">
-                        <div class="topic-img">
-                            <img src="./assets_new/img/gallery/topic6.png" alt="">
-                            <div class="topic-content-box">
-                                <div class="topic-content">
-                                    <h3><a href="#">Programing</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="single-topic text-center mb-30">
-                        <div class="topic-img">
-                            <img src="./assets_new/img/gallery/topic7.png" alt="">
-                            <div class="topic-content-box">
-                                <div class="topic-content">
-                                    <h3><a href="#">Programing</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="single-topic text-center mb-30">
-                        <div class="topic-img">
-                            <img src="./assets_new/img/gallery/topic8.png" alt="">
-                            <div class="topic-content-box">
-                                <div class="topic-content">
-                                    <h3><a href="#">Programing</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-xl-12">
-                    <div class="section-tittle text-center mt-20">
-                        <a href="courses.html" class="border-btn">View More Subjects</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- top subjects End -->
-    <!--? About Area-3 Start -->
-    <section class="about-area3 fix">
-        <div class="support-wrapper align-items-center">
-            <div class="right-content3">
-                <!-- img -->
-                <div class="right-img">
-                    <img src="./assets_new/img/gallery/about3.png" alt="">
-                </div>
-            </div>
-            <div class="left-content3">
-                <!-- section tittle -->
-                <div class="section-tittle section-tittle2 mb-20">
-                    <div class="front-text">
-                        <h2 class="">Learner outcomes on courses you will take</h2>
-                    </div>
-                </div>
-                <div class="single-features">
-                    <div class="features-icon">
-                        <img src="./assets_new/img/icon/right-icon.svg" alt="">
-                    </div>
-                    <div class="features-caption">
-                        <p>Techniques to engage effectively with vulnerable children and young people.</p>
-                    </div>
-                </div>
-                <div class="single-features">
-                    <div class="features-icon">
-                        <img src="./assets_new/img/icon/right-icon.svg" alt="">
-                    </div>
-                    <div class="features-caption">
-                        <p>Join millions of people from around the world
-                            learning together.</p>
-                    </div>
-                </div>
-                <div class="single-features">
-                    <div class="features-icon">
-                        <img src="./assets_new/img/icon/right-icon.svg" alt="">
-                    </div>
-                    <div class="features-caption">
-                        <p>Join millions of people from around the world learning together.
-                            Online learning is as easy and natural.</p>
-                    </div>
-                </div>
+
             </div>
         </div>
     </section>
-    
+
+
+
+    <!-- WHY CHOOSE US -->
+    <section style="background:#f9fafb;padding:90px 0;">
+        <div class="container text-center">
+
+            <h2 style="font-weight:800;margin-bottom:50px;">
+                What Sets Us Apart
+            </h2>
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <h4 style="font-weight:700;">Quality First</h4>
+                    <p style="color:#6b7280;">
+                        We never compromise on quality. Every service reflects
+                        our dedication to excellence.
+                    </p>
+                </div>
+
+                <div class="col-md-3">
+                    <h4 style="font-weight:700;">Customer Commitment</h4>
+                    <p style="color:#6b7280;">
+                        Our customers are at the heart of everything we do.
+                        Their trust drives our growth.
+                    </p>
+                </div>
+
+                <div class="col-md-3">
+                    <h4 style="font-weight:700;">Innovation Driven</h4>
+                    <p style="color:#6b7280;">
+                        We embrace modern solutions to deliver smarter and
+                        more efficient experiences.
+                    </p>
+                </div>
+
+                <div class="col-md-3">
+                    <h4 style="font-weight:700;">Integrity</h4>
+                    <p style="color:#6b7280;">
+                        We believe lasting relationships are built on honesty,
+                        accountability, and transparency.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- STATS -->
+    <section style="padding:90px 0;">
+        <div class="container text-center">
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <h1 style="font-weight:900;">10K+</h1>
+                    <p>Happy Customers</p>
+                </div>
+
+                <div class="col-md-3">
+                    <h1 style="font-weight:900;">5K+</h1>
+                    <p>Successful Deliveries</p>
+                </div>
+
+                <div class="col-md-3">
+                    <h1 style="font-weight:900;">99%</h1>
+                    <p>Customer Satisfaction</p>
+                </div>
+
+                <div class="col-md-3">
+                    <h1 style="font-weight:900;">24/7</h1>
+                    <p>Support</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- CTA -->
+    <section style="
+        background:linear-gradient(135deg,#111827,#1f2937);
+        padding:100px 0;
+        color:white;
+        text-align:center;
+    ">
+        <div class="container">
+
+            <h2 style="font-weight:800;">
+                Join Thousands Who Trust Our Brand
+            </h2>
+
+            <p style="opacity:.9;">
+                Experience the difference of a company built on quality,
+                reliability, and customer success.
+            </p>
+
+            <a href="/register" class="btn btn-light btn-lg"
+                style="margin-top:20px;border-radius:30px;padding:12px 30px;">
+                Get Started
+            </a>
+
+        </div>
+    </section>
+
 </main>
-@endsection
 
-
-@section('scripts')
-@parent
 @endsection
