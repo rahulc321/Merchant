@@ -105,7 +105,7 @@ class TaskController extends Controller
     {
         $merchant = User::with('addresses')->findOrFail($id);
 
-        return view('admin.merchant.index', compact('merchant'));
+        return view('admin.merchant.merchant_address', compact('merchant'));
     }
 
     public function addAddress($id)

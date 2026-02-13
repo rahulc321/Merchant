@@ -21,8 +21,7 @@
                     Addresses of <strong>{{ $merchant->name }}</strong>
                 </h5>
 
-                <a href="{{ route('admin.addAddress', $merchant->id) }}"
-                   class="badge bg-outline-info">
+                <a href="{{ route('admin.addAddress', $merchant->id) }}" class="badge bg-outline-info">
                     + Add New Address
                 </a>
             </div>
@@ -43,37 +42,40 @@
 
                         <tbody>
                             @forelse($merchant->addresses as $key => $address)
-                                <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $address->address }}</td>
-                                    <td>{{ $address->city ?? '-' }}</td>
-                                    <td>{{ $address->state ?? '-' }}</td>
-                                    <td>{{ $address->pincode ?? '-' }}</td>
-                                    <td>
-                                        <form method="POST"
-                                              action="{{ route('admin.mAddressDelete', $address->id) }}"
-                                              onsubmit="return confirm('Delete this address?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="badge bg-outline-danger border-0">
-                                                Delete
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>{{ $key + 1 }}</td>
+                                <td>{{ $address->address }}</td>
+                                <td>{{ $address->city ?? '-' }}</td>
+                                <td>{{ $address->state ?? '-' }}</td>
+                                <td>{{ $address->pincode ?? '-' }}</td>
+                                <td>
+
+                                    <a href="{{ route('admin.viewSpinner', $address->id) }}"
+                                        class="badge bg-outline-info">
+                                        View Spinner {{$address->id}}
+                                    </a> 
+                                    <form method="POST" action="{{ route('admin.mAddressDelete', $address->id) }}"
+                                        onsubmit="return confirm('Delete this address?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="badge bg-outline-danger border-0">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
                             @empty
-                                <tr>
-                                    <td colspan="6" class="text-center text-muted">
-                                        No addresses found
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td colspan="6" class="text-center text-muted">
+                                    No addresses found
+                                </td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>
                 </div>
 
-                <a href="{{ route('admin.task.index') }}"
-                   class="btn btn-sm btn-secondary mt-3">
+                <a href="{{ route('admin.task.index') }}" class="btn btn-sm btn-secondary mt-3">
                     ← Back to Merchant List
                 </a>
             </div>

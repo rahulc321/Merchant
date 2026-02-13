@@ -5,14 +5,17 @@ namespace App;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MerchantAddress extends Model
+class SpinReward extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'merchant_id','address','city','state','pincode'
+        'name',
+        'type',
+        'value',
+        'chance',
+        'icon',
+        'status',
+        'tbl_type'
     ];
-
-     
-
 }
