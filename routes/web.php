@@ -164,4 +164,24 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::any('deleteFile/{id}', 'DownloadsController@deleteFile')->name('deleteFile');
     Route::any('sendAttachment', 'DownloadsController@sendAttachment')->name('sendAttachment');
 
+    // spin logic 
+    Route::resource('spin', 'SpinController');
+    Route::any('deleteSpin/{id}', 'SpinController@deleteSpin')->name('deleteSpin');
+    Route::any('addSpinner/{id}', 'SpinController@addSpinner')->name('addSpinner');
+    Route::any('addressSpinnseSync/{id}', 'SpinController@addressSpinnseSync')->name('addressSpinnseSync');
+
+    // Add objects objectStore deleteSpinObject assignAddress getSpinAddresses
+    Route::any('listObject/{id}', 'SpinController@listObject')->name('listObject');
+    Route::any('addObject/{id}', 'SpinController@addObject')->name('addObject');
+    Route::any('objectStore/{id}', 'SpinController@objectStore')->name('objectStore');
+    Route::any('deleteSpinObject/{id}', 'SpinController@deleteSpinObject')->name('deleteSpinObject');
+    
+    Route::any('assignAddress', 'SpinController@assignAddress')->name('assignAddress');
+    Route::any('getSpinAddresses/{id}', 'SpinController@getSpinAddresses')->name('getSpinAddresses');
+
+    Route::any('viewSpinner/{id}', 'SpinController@viewSpinner')->name('viewSpinner');
+
+    
+     
+
 });

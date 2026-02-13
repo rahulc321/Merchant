@@ -46,6 +46,18 @@ html, body {
 .bg-3 { background: linear-gradient(45deg, #4e54c8, #8f94fb); color:#fff; }
 .bg-4 { background: linear-gradient(45deg, #fc4a1a, #f7b733); color:#fff; }
 .bg-5 { background: linear-gradient(45deg, #232526, #414345); color:#fff; }
+
+/* QR box */
+.qr-box{
+    text-align:center;
+}
+
+.qr-box img{
+    border-radius:12px;
+    padding:10px;
+    background:#fff;
+    box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
 </style>
 
 <div class="main-content app-content">
@@ -64,6 +76,7 @@ html, body {
         <!-- ===== KPI CARDS ===== -->
         <div class="row mb-4">
 
+            <!-- TOTAL MERCHANT -->
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-1">
                     <div class="widget-content-wrapper">
@@ -74,12 +87,13 @@ html, body {
                             <div class="widget-subheading">Active partners</div>
                         </div>
                         <div class="widget-numbers">
-                            {{ $totalMerchants ?? 128 }}
+                            {{ $totalMerchants ?? 0 }}
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- TOTAL USERS -->
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-2">
                     <div class="widget-content-wrapper">
@@ -90,43 +104,64 @@ html, body {
                             <div class="widget-subheading">Registered customers</div>
                         </div>
                         <div class="widget-numbers">
-                            {{ $totalUsers ?? 4562 }}
+                            {{ $totalUsers ?? 0 }}
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- ✅ TOTAL ORDERS (NEW) -->
             <div class="col-xl-3 col-md-6">
                 <div class="card bg-3">
                     <div class="widget-content-wrapper">
                         <div>
                             <div class="widget-heading">
-                                <i class="fas fa-rupee-sign me-2"></i>Monthly Revenue
+                                <i class="fas fa-shopping-cart me-2"></i>Total Orders
                             </div>
-                            <div class="widget-subheading">Current month sales</div>
+                            <div class="widget-subheading">Orders placed</div>
                         </div>
                         <div class="widget-numbers">
-                            ₹ {{ number_format($monthlyRevenue ?? 1245600) }}
+                            {{ $totalOrders ?? 0 }}
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xl-3 col-md-6">
-                <div class="card bg-5">
-                    <div class="widget-content-wrapper">
-                        <div>
-                            <div class="widget-heading">
-                                <i class="fas fa-chart-line me-2"></i>Growth Rate
-                            </div>
-                            <div class="widget-subheading">Month over month</div>
-                        </div>
-                        <div class="widget-numbers">
-                            +18%
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- ✅ QR REGISTER CARD -->
+            <!-- QR REGISTER CARD -->
+<div class="col-xl-3 col-md-6">
+    <div class="card bg-5 qr-box">
+
+        <div class="widget-heading mb-2">
+            <i class="fas fa-qrcode me-2"></i>Register QR
+        </div>
+
+        @php
+            $registerUrl = url('/user/register');
+            $qrCode = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($registerUrl);
+        @endphp
+
+        <!-- Click image → open in new tab -->
+        <a href="{{ $qrCode }}" target="_blank">
+            <img src="{{ $qrCode }}" alt="Register QR" style="cursor:pointer;">
+        </a>
+
+        <!-- Download Button -->
+        <div class="mt-3">
+            <a href="{{ $qrCode }}" 
+               download="register-qr.png" 
+               class="btn btn-light btn-sm" target="_blank">
+                <i class="fas fa-download me-1"></i> Download QR
+            </a>
+        </div>
+
+        <div class="widget-subheading mt-2">
+            Scan to Register
+        </div>
+
+    </div>
+</div>
+
 
         </div>
 
