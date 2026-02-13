@@ -3,9 +3,12 @@
 
 @section('content')
 
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 <style>
 
-/* ================= PAGE ================= */
+/* PAGE */
 
 .spin-page{
     min-height:90vh;
@@ -15,28 +18,18 @@
     background: radial-gradient(circle at top,#1f2a44,#0c1220);
 }
 
-/* ================= CONTAINER ================= */
-
 .spin-container{
     text-align:center;
     color:white;
 }
 
-.spin-container h1{
-    margin-bottom:40px;
-    font-weight:800;
-}
-
-/* ================= WHEEL ================= */
+/* WHEEL */
 
 .wheel-wrapper{
     position:relative;
     width:420px;
     height:420px;
-    margin:auto;
 }
-
-/* pointer */
 
 .pointer{
     width:0;
@@ -50,56 +43,35 @@
     z-index:10;
 }
 
-/* wheel */
+/* NEW CASINO WHEEL */
 
 .wheel{
     width:100%;
     height:100%;
     border-radius:50%;
-    overflow:hidden;
     position:relative;
+    transition: transform 6s cubic-bezier(.17,.67,.12,.99);
     border:18px solid #111827;
     box-shadow:
         0 0 45px rgba(255,255,255,.15),
         inset 0 0 60px rgba(0,0,0,.9);
-
-    /* IMPORTANT FOR SPIN */
-    transform:rotate(0deg);
-    transition: transform 6s cubic-bezier(.17,.67,.12,.99);
 }
 
-/* segments */
+/* labels */
 
-.segment{
+.label{
     position:absolute;
-    width:50%;
-    height:50%;
-    top:50%;
     left:50%;
-    transform-origin:0% 0%;
+    top:50%;
+    transform-origin:center;
+    font-weight:700;
+    color:white;
     display:flex;
     align-items:center;
-    justify-content:center;
-    padding-left:60px;
-    font-size:18px;
-    font-weight:700;
+    gap:6px;
 }
 
-/* colors */
-
-.seg1{ background:#ff3b3b; transform:rotate(0deg) skewY(-30deg);}
-.seg2{ background:#9b59b6; transform:rotate(60deg) skewY(-30deg);}
-.seg3{ background:#00d2d3; transform:rotate(120deg) skewY(-30deg);}
-.seg4{ background:#feca57; transform:rotate(180deg) skewY(-30deg);}
-.seg5{ background:#54a0ff; transform:rotate(240deg) skewY(-30deg);}
-.seg6{ background:#1dd1a1; transform:rotate(300deg) skewY(-30deg);}
-
-.segment span{
-    transform:skewY(30deg) rotate(30deg);
-    width:160px;
-}
-
-/* center spin button */
+/* center button */
 
 .spin-center{
     position:absolute;
@@ -117,12 +89,6 @@
     color:#111;
     cursor:pointer;
     z-index:20;
-    box-shadow:0 0 25px rgba(255,255,255,.9);
-    transition:.3s;
-}
-
-.spin-center:hover{
-    transform:translate(-50%,-50%) scale(1.08);
 }
 
 /* popup */
@@ -137,7 +103,6 @@
     visibility:hidden;
     opacity:0;
     transition:.4s;
-    z-index:999;
 }
 
 .result.show{
@@ -152,169 +117,139 @@
     text-align:center;
 }
 
-.close-btn{
-    margin-top:25px;
-    padding:12px 30px;
-    border:none;
-    background:#111827;
-    color:white;
-    border-radius:30px;
-    cursor:pointer;
-}
-
-/* confetti */
-
-.confetti{
-    position:fixed;
-    width:12px;
-    height:12px;
-    top:-10px;
-    animation:fall linear forwards;
-}
-
-@keyframes fall{
-    to{
-        transform:translateY(110vh) rotate(720deg);
-        opacity:0;
-    }
-}
-
 /* mobile */
 
 @media(max-width:600px){
-    .wheel-wrapper{
-        width:280px;
-        height:280px;
-    }
-
-    .spin-center{
-        width:85px;
-        height:85px;
-        font-size:14px;
-    }
+    .wheel-wrapper{width:280px;height:280px;}
+    .spin-center{width:80px;height:80px;}
 }
 
 </style>
 
-<div class="spin-page">
+@php
 
- 
+$total = count($spData);
+$angle = 360 / max($total,1);
+
+$colors = [
+'#ff3b3b','#9b59b6','#00d2d3','#feca57',
+'#54a0ff','#1dd1a1','#ff9ff3','#48dbfb'
+];
+
+/* build gradient */
+$gradient = "";
+foreach($spData as $i=>$reward){
+    $start = $i*$angle;
+    $end = ($i+1)*$angle;
+    $color = $colors[$i % count($colors)];
+    $gradient .= "$color {$start}deg {$end}deg,";
+}
+$gradient = rtrim($gradient,',');
+
+@endphp
+
+
+<div class="spin-page">
 <div class="spin-container">
 
-    <h1>🎁 Spin & Win Mega Rewards</h1>
+<h1>🎁 Spin & Win Mega Rewards</h1>
 
-    <div class="wheel-wrapper">
+<div class="wheel-wrapper">
 
-        <div class="pointer"></div>
+<div class="pointer"></div>
 
-        <div class="wheel" id="wheel">
+<div class="wheel"
+id="wheel"
+style="background: conic-gradient({{$gradient}})">
 
-            <div class="segment seg1"><span>🎧 Headphones</span></div>
-            <div class="segment seg2"><span>📱 iPhone</span></div>
-            <div class="segment seg3"><span>💳 Gift Card</span></div>
-            <div class="segment seg4"><span>⌚ Smart Watch</span></div>
-            <div class="segment seg5"><span>🎮 PlayStation</span></div>
-            <div class="segment seg6"><span>💻 Laptop</span></div>
+{{-- LABELS --}}
+@foreach($spData as $index=>$reward)
 
-        </div>
+@php
+$rotate = ($index*$angle)+($angle/2);
+@endphp
 
-        <div class="spin-center" onclick="spinWheel()">SPIN</div>
+<div class="label"
+style="
+transform:
+rotate({{$rotate}}deg)
+translate(140px)
+rotate(-{{$rotate}}deg);
+">
 
-    </div>
+<i class="fa {{$reward->icon}}"></i>
+{{$reward->rewardName->name}}
 
 </div>
-```
+
+@endforeach
 
 </div>
 
-<!-- RESULT POPUP -->
+<div class="spin-center" onclick="spinWheel()">SPIN</div>
 
-<div class="result" id="resultPopup">
-    <div class="result-box">
-        <h2>🎉 Congratulations!</h2>
-        <h3 id="prizeText"></h3>
-        <button class="close-btn" onclick="closePopup()">Awesome!</button>
-    </div>
+</div>
+</div>
+</div>
+
+<!-- POPUP -->
+
+<div class="result" id="popup">
+<div class="result-box">
+<h2>🎉 Congratulations!</h2>
+<h3 id="prize"></h3>
+<button onclick="closePopup()">Close</button>
+</div>
 </div>
 
 <script>
 
-/* FIXED PROFESSIONAL SPIN LOGIC */
+let spinning=false;
 
-let spinning = false;
-let currentRotation = 0;
-
-const prizes = [
-"🎧 Headphones",
-"📱 iPhone",
-"💳 Gift Card",
-"⌚ Smart Watch",
-"🎮 PlayStation",
-"💻 Laptop"
-];
+const prizes=@json(
+$spData->map(fn($i)=>[
+'name'=>$i->rewardName->name,
+'icon'=>$i->icon
+])->values()
+);
 
 function spinWheel(){
 
-    if(spinning) return;
+if(spinning) return;
+spinning=true;
 
-    spinning = true;
+const wheel=document.getElementById('wheel');
 
-    const wheel = document.getElementById("wheel");
+const total=prizes.length;
+const angle=360/total;
 
-    const segmentAngle = 360 / prizes.length;
+const winner=Math.floor(Math.random()*total);
 
-    const winnerIndex = Math.floor(Math.random() * prizes.length);
+/* PERFECT ALIGNMENT */
 
-    /* rotate MANY TIMES for realistic casino effect */
-    const extraSpins = 6;
+const rotation=
+(6*360)+
+(360-(winner*angle))-
+(angle/2);
 
-    const finalRotation =
-        currentRotation +
-        (extraSpins * 360) +
-        (360 - (winnerIndex * segmentAngle)) -
-        (segmentAngle / 2);
+wheel.style.transform=`rotate(${rotation}deg)`;
 
-    currentRotation = finalRotation;
+setTimeout(()=>{
 
-    wheel.style.transform = `rotate(${finalRotation}deg)`;
+document.getElementById('prize').innerHTML=
+`<i class="fa ${prizes[winner].icon}"></i>
+ ${prizes[winner].name}`;
 
-    setTimeout(()=>{
+document.getElementById('popup').classList.add('show');
 
-        document.getElementById("prizeText").innerHTML = prizes[winnerIndex];
+spinning=false;
 
-        document.getElementById("resultPopup").classList.add("show");
+},6000);
 
-        createConfetti();
-
-        spinning = false;
-
-    },6000);
 }
 
 function closePopup(){
-    document.getElementById("resultPopup").classList.remove("show");
-}
-
-/* CONFETTI */
-
-function createConfetti(){
-
-    for(let i=0;i<150;i++){
-
-        let conf = document.createElement("div");
-
-        conf.className = "confetti";
-
-        conf.style.left = Math.random()*100+"vw";
-
-        conf.style.background = `hsl(${Math.random()*360},100%,50%)`;
-
-        conf.style.animationDuration = (Math.random()*3+2)+"s";
-
-        document.body.appendChild(conf);
-
-        setTimeout(()=>conf.remove(),5000);
-    }
+document.getElementById('popup').classList.remove('show');
 }
 
 </script>

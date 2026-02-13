@@ -16,6 +16,7 @@ class Order extends Model
         'address',
         'cashier_code',
         'status',
+        'address_id'
     ];
 
 
