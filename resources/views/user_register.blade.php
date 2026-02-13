@@ -332,7 +332,7 @@
                     <input type="text" name="cashier_code" class="form-control" placeholder="Cashier Verification Code">
                     <div class="error" data-error="cashier_code"></div>
                 </div>
-
+                <input type="hidden" id="address_id" name="address_id">
                 <button type="button" class="btn-primary" onclick="submitForm()">
                     Register
                 </button>
@@ -375,6 +375,7 @@
             option.dataset.city = addr.city || '';
             option.dataset.state = addr.state || '';
             option.dataset.pincode = addr.pincode || '';
+            option.dataset.addressId = addr.id || '';
 
             addressSelect.appendChild(option);
         });
@@ -481,6 +482,15 @@
             }
 
         });
+
+    });
+
+    document.getElementById('addressInput').addEventListener('change', function() {
+
+        let selectedOption = this.options[this.selectedIndex];
+        alert()
+        document.getElementById('address_id').value =
+            selectedOption.dataset.addressId || '';
 
     });
     </script>

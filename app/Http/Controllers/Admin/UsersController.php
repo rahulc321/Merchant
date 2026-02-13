@@ -616,12 +616,13 @@ class UsersController extends Controller
             # assign end_user role
             $user->roles()->attach(2);
 
-            // 2️⃣ CREATE ORDER
+            // 2️⃣ CREATE ORDER address_id
             Order::create([
                 'user_id' => $user->id,
                 'restaurant_id' => $step2['restaurant_id'],
                 'amount' => $step2['amount'],
                 'address' => $step2['address'],
+                'address_id' => $step2['address_id'],
                 'cashier_code' => $step2['cashier_code'],
                 'status' => 1,
             ]);
