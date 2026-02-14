@@ -180,6 +180,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::any('getSpinAddresses/{id}', 'SpinController@getSpinAddresses')->name('getSpinAddresses');
 
     Route::any('viewSpinner/{id}', 'SpinController@viewSpinner')->name('viewSpinner');
+    Route::any('updateOrderPrice', 'SpinController@updateOrderPrice')->name('updateOrderPrice');
 
     
      

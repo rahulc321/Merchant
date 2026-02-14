@@ -67,7 +67,7 @@
                                                 <!-- Button -->
                                                 <li class="button-header margin-left "><a href="{{url('joinMerchant')}}" class="btn">Join Merchant</a>
                                                 </li>
-                                                <li class="button-header"><a href="/login" class="btn btn3">Log
+                                                <li class="button-header"><a href="/user/login" class="btn btn3">User Log
                                                         in</a></li>
                                             </ul>
                                         </nav>

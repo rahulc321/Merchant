@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\{SpinReward, MerchantAddress, CatObject,User};
+use App\{SpinReward, MerchantAddress, CatObject,User, Order};
 
 class SpinController extends Controller
 {
@@ -224,5 +224,26 @@ class SpinController extends Controller
         $this->data['spData'] = CatObject::with('category','rewardName')->where('cat_id',$spinData->spinner_id)->get();
         return view('sp',$this->data);
     }
+
+    public function updateOrderPrice(Request $request)
+    {
+        # validate data
+        $request->validate([
+            'order_id'   => 'required',
+            'prize_name' => 'required'
+        ]);
+
+        $order = Order::find($request->order_id);
+        $order->prize_name = $request->prize_name;
+        $order->prize_icon = $request->prize_icon;
+        
+        $order->save();
+
+        return response()->json([
+            'status' => true,
+            'new_total' => $order
+        ]);
+    }
+
 
 }

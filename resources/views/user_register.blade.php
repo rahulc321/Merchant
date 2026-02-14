@@ -488,7 +488,7 @@
     document.getElementById('addressInput').addEventListener('change', function() {
 
         let selectedOption = this.options[this.selectedIndex];
-        alert()
+        //alert()
         document.getElementById('address_id').value =
             selectedOption.dataset.addressId || '';
 
