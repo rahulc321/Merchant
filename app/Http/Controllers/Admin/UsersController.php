@@ -538,18 +538,18 @@ class UsersController extends Controller
             2 => [
                 'restaurant_id' => 'required|exists:users,id',
                 'address' => 'required|string|max:500',
-                'cashier_code' => [
-                    'required',
-                    function ($attribute, $value, $fail) use ($request) {
-                        $exists =  User::where('id', $request->restaurant_id)
-                            ->where('code', $value)
-                            ->exists();
+                // 'cashier_code' => [
+                //     'required',
+                //     function ($attribute, $value, $fail) use ($request) {
+                //         $exists =  User::where('id', $request->restaurant_id)
+                //             ->where('code', $value)
+                //             ->exists();
             
-                        if (!$exists) {
-                            $fail('Invalid cashier verification code for selected restaurant.');
-                        }
-                    }
-                ],
+                //         if (!$exists) {
+                //             $fail('Invalid cashier verification code for selected restaurant.');
+                //         }
+                //     }
+                // ],
                 'amount' => [
                     'required',
                     'numeric',
@@ -623,7 +623,7 @@ class UsersController extends Controller
                 'amount' => $step2['amount'],
                 'address' => $step2['address'],
                 'address_id' => $step2['address_id'],
-                'cashier_code' => $step2['cashier_code'],
+                'cashier_code' => $step2['cashier_code'] ?? 000000,
                 'status' => 1,
             ]);
             Auth::login($user);
