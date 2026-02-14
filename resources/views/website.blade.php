@@ -219,6 +219,16 @@
                     </div>
                 </div>
             </div>
+
+            @php
+            $registerUrl = url('/user/register');
+            $qrCode = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($registerUrl);
+        @endphp
+
+        <!-- Click image → open in new tab -->
+        <a href="{{ $qrCode }}" target="_blank" style="    margin-left: 360px;    width: 244px;">
+            <img src="{{ $qrCode }}" alt="Register QR" style="cursor:pointer;">
+        </a>
         </div>
     </section>
 
