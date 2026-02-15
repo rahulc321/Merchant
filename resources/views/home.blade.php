@@ -6,7 +6,8 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
 <style>
-html, body {
+html,
+body {
     overflow-x: hidden;
 }
 
@@ -41,22 +42,41 @@ html, body {
 }
 
 /* ===== GRADIENTS ===== */
-.bg-1 { background: linear-gradient(45deg, #1a2a6c, #1f3c88); color:#fff; }
-.bg-2 { background: linear-gradient(45deg, #11998e, #38ef7d); color:#fff; }
-.bg-3 { background: linear-gradient(45deg, #4e54c8, #8f94fb); color:#fff; }
-.bg-4 { background: linear-gradient(45deg, #fc4a1a, #f7b733); color:#fff; }
-.bg-5 { background: linear-gradient(45deg, #232526, #414345); color:#fff; }
-
-/* QR box */
-.qr-box{
-    text-align:center;
+.bg-1 {
+    background: linear-gradient(45deg, #1a2a6c, #1f3c88);
+    color: #fff;
 }
 
-.qr-box img{
-    border-radius:12px;
-    padding:10px;
-    background:#fff;
-    box-shadow:0 6px 18px rgba(0,0,0,.08);
+.bg-2 {
+    background: linear-gradient(45deg, #11998e, #38ef7d);
+    color: #fff;
+}
+
+.bg-3 {
+    background: linear-gradient(45deg, #4e54c8, #8f94fb);
+    color: #fff;
+}
+
+.bg-4 {
+    background: linear-gradient(45deg, #fc4a1a, #f7b733);
+    color: #fff;
+}
+
+.bg-5 {
+    background: linear-gradient(45deg, #232526, #414345);
+    color: #fff;
+}
+
+/* QR box */
+.qr-box {
+    text-align: center;
+}
+
+.qr-box img {
+    border-radius: 12px;
+    padding: 10px;
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
 }
 </style>
 
@@ -72,7 +92,7 @@ html, body {
                 </p>
             </div>
         </div>
-
+        @if (Auth::user()->roles->contains('title', 'Admin'))
         <!-- ===== KPI CARDS ===== -->
         <div class="row mb-4">
 
@@ -126,41 +146,40 @@ html, body {
                     </div>
                 </div>
             </div>
-
+            @endif
             <!-- ✅ QR REGISTER CARD -->
             <!-- QR REGISTER CARD -->
-<div class="col-xl-3 col-md-6">
-    <div class="card bg-5 qr-box">
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-5 qr-box">
 
-        <div class="widget-heading mb-2">
-            <i class="fas fa-qrcode me-2"></i>Register QR
-        </div>
+                    <div class="widget-heading mb-2">
+                        <i class="fas fa-qrcode me-2"></i>Register QR
+                    </div>
 
-        @php
-            $registerUrl = url('/user/register');
-            $qrCode = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($registerUrl);
-        @endphp
+                    @php
+                    $registerUrl = url('/user/register');
+                    $qrCode = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" .
+                    urlencode($registerUrl);
+                    @endphp
 
-        <!-- Click image → open in new tab -->
-        <a href="{{ $qrCode }}" target="_blank">
-            <img src="{{ $qrCode }}" alt="Register QR" style="cursor:pointer;">
-        </a>
+                    <!-- Click image → open in new tab -->
+                    <a href="{{ $qrCode }}" target="_blank">
+                        <img src="{{ $qrCode }}" alt="Register QR" style="cursor:pointer;">
+                    </a>
 
-        <!-- Download Button -->
-        <div class="mt-3">
-            <a href="{{ $qrCode }}" 
-               download="register-qr.png" 
-               class="btn btn-light btn-sm" target="_blank">
-                <i class="fas fa-download me-1"></i> Download QR
-            </a>
-        </div>
+                    <!-- Download Button -->
+                    <div class="mt-3">
+                        <a href="{{ $qrCode }}" download="register-qr.png" class="btn btn-light btn-sm" target="_blank">
+                            <i class="fas fa-download me-1"></i> Download QR
+                        </a>
+                    </div>
 
-        <div class="widget-subheading mt-2">
-            Scan to Register
-        </div>
+                    <div class="widget-subheading mt-2">
+                        Scan to Register
+                    </div>
 
-    </div>
-</div>
+                </div>
+            </div>
 
 
         </div>
