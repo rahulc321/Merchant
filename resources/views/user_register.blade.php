@@ -332,6 +332,7 @@
                     <input type="text" name="cashier_code" class="form-control" placeholder="Cashier Verification Code">
                     <div class="error" data-error="cashier_code"></div>
                 </div> -->
+                
                 <input type="hidden" id="address_id" name="address_id">
                 <button type="button" class="btn-primary" onclick="submitForm()">
                     Register
