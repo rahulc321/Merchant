@@ -201,7 +201,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {   
-        $task = Merchant::find($id);
+        $task = User::find($id);
          $task->delete();
         session()->flash('warning', 'You have successfully deleted!');
         return back();
