@@ -68,10 +68,12 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Merchant Name</th>
+                                        <th>Image</th>
                                         <th>Code</th>
                                         <th>Email</th>
                                         <th>Phone</th>
-                                        <th>Amount</th>
+                                        <th>Discount</th>
+                                        <th>Category</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -85,14 +87,24 @@
                                         <td>
                                             <strong>{{ $merchant->full_name }}</strong>
                                         </td>
+                                        <td>
+                                            @if(!empty($merchant->image))
+                                            <div class="mt-2">
+                                                <img src="{{ asset('uploads/'.$merchant->image) }}" width="80"
+                                                    class="img-thumbnail">
+                                            </div>
+                                            @endif
+                                        </td>
                                         <td>{{ $merchant->code }}</td>
                                         <td>{{ $merchant->email }}</td>
 
                                         <td>{{ $merchant->phone_number ?? '-' }}</td>
 
                                         <td>
-                                             {{ number_format($merchant->amount, 2) }}
+                                            {{ number_format($merchant->discount, 2) }}%
                                         </td>
+
+                                        <td>{{ ucfirst($merchant->category) }}</td>
 
                                         <td>
                                             @if($merchant->status == 1)
@@ -104,9 +116,9 @@
 
                                         <td>
 
-                                        <a href="{{ route('admin.marchentAddress', $merchant->id) }}">
+                                            <!-- <a href="{{ route('admin.marchentAddress', $merchant->id) }}">
                                                 <span class="badge bg-outline-info">Add Address</span>
-                                            </a>
+                                            </a> -->
                                             <!-- Edit -->
                                             <a href="{{ route('admin.task.edit', $merchant->id) }}">
                                                 <span class="badge bg-outline-info">Edit</span>
@@ -121,8 +133,8 @@
                                             </a>
 
                                             <form id="deleteFrm{{ $merchant->id }}"
-                                                action="{{ route('admin.task.destroy', $merchant->id) }}"
-                                                method="POST" style="display:none;">
+                                                action="{{ route('admin.task.destroy', $merchant->id) }}" method="POST"
+                                                style="display:none;">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
@@ -142,5 +154,5 @@
     </div>
 </div>
 
- 
+
 @endsection

@@ -73,4 +73,41 @@ class HomeController extends Controller
     public function spiner(){
         return view('spinner');
     }
+
+    public function studentRegister(Request $request)
+    {
+        $rules = [
+            'name'   => 'required|string|max:255',
+            'email'  => 'required|email|unique:users,email',
+            'phone'  => 'required',
+            'school' => 'required',
+            'age'    => 'required|integer|min:1',
+            'image'  => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ];
+
+        // add parent email rule if age < 14
+        if ($request->input('age') && $request->input('age') < 14) {
+            $rules['parent_email'] = 'required|email';
+        }
+
+        $validated = $request->validate($rules);
+
+        // store image
+        $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
+        $request->file('image')->move(public_path('uploads'), $imageName);
+
+        $user = User::create([
+            'full_name'     => $validated['name'],
+            'email'         => $validated['email'],
+            'phone_number'  => $validated['phone'],
+            'school'        => $validated['school'],
+            'age'           => $validated['age'],
+            'parent_email'  => $validated['age'] < 14 ? $validated['parent_email'] : null,
+            'image'         => 'uploads/' . $imageName
+        ]);
+
+        $user->roles()->sync([2]);
+
+        return redirect()->back()->with('success', 'Student Registered Successfully');
+    }
 }

@@ -177,7 +177,7 @@ html[data-theme-mode="dark"] #comboChart svg text {
                         <path
                             d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm8 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zM8 13c-2.33 0-7 1.17-7 3.5V19h7v-2.5c0-2.33 4.67-3.5 7-3.5H8z" />
                     </svg>
-                    <span class="side-menu__label">Users</span>
+                    <span class="side-menu__label">Students</span>
                 </a>
             </li>
 
@@ -194,7 +194,7 @@ html[data-theme-mode="dark"] #comboChart svg text {
                 </a>
             </li>
 
-            <li class="slide">
+            <li class="slide d-none">
                 <a href='{{ route("admin.spin.index") }}?key=object'
                     class="side-menu__item {{ request()->is('admin/spin*') ? 'active' : '' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px" viewBox="0 0 24 24"
@@ -208,7 +208,7 @@ html[data-theme-mode="dark"] #comboChart svg text {
             </li>
 
 
-            <li class="slide">
+            <li class="slide d-none">
                 <a href='{{ route("admin.spin.index") }}?key=spin'
                     class="side-menu__item {{ request()->is('admin/spin*') ? 'active' : '' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px" viewBox="0 0 24 24"
