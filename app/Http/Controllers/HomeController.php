@@ -124,6 +124,13 @@ class HomeController extends Controller
 
     public function unlockCoupon($merchantId)
     {
+        if (!auth()->check()) {
+
+            # store intended url
+            session(['url.intended' => url()->previous()]);
+    
+            return redirect()->route('login');
+        }
         $user = auth()->user();
 
         # check if coupon already exists

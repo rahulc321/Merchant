@@ -74,7 +74,7 @@ class LoginController extends Controller
             //     return back();
             // }
 
-            return redirect('admin');
+            return redirect()->intended('admin');
         }else{
              
             session()->flash('error', 'Please Enter Valid Login Details!');
