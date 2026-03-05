@@ -68,11 +68,29 @@
                                                 <!-- Button -->
                                                 <!-- <li class="button-header margin-left "><a href="{{url('joinMerchant')}}" class="btn">Join Merchant</a>
                                                 </li> -->
-                                                <li class="button-header"><a href="/user/login" class="btn btn3">User
-                                                        LogIn</a></li>
+                                                @auth
+                                                <li class="button-header">
+                                                    <a href="/admin" class="btn btn3">
+                                                        Dashboard
+                                                    </a>
+                                                </li>
 
-                                                <li class="button-header"><a href="/user/register"
-                                                        class="btn btn3">Student Register</a></li>
+                                                 
+                                                @endauth
+
+                                                @guest
+                                                <li class="button-header">
+                                                    <a href="/login" class="btn btn3">
+                                                        User Login
+                                                    </a>
+                                                </li>
+
+                                                <li class="button-header">
+                                                    <a href="/user/register" class="btn btn3">
+                                                        Student Register
+                                                    </a>
+                                                </li>
+                                                @endguest
                                             </ul>
                                         </nav>
                                     </div>

@@ -108,8 +108,8 @@
                                     </div>
                                      
                                 </div>
-                                <a href="{{route('details',[$merchant->id])}}" class="border-btn border-btn2 disabled" style="opacity:0.7; cursor:not-allowed;">
-    <i class="fas fa-lock me-2"></i> Unlock Discount
+                                <a href="{{route('details',[$merchant->id])}}" class="border-btn border-btn2">
+    <i class="fas fa-detail me-2"></i> See More
 </a>
                             </div>
                         </div>

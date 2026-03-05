@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{MerchantAddress, Merchant, User};
+use App\{MerchantAddress, Merchant, User, Coupon};
+use Illuminate\Support\Facades\Auth;
+
 
 class HomeController extends Controller
 {
@@ -81,6 +83,7 @@ class HomeController extends Controller
             'email'  => 'required|email|unique:users,email',
             'phone'  => 'required',
             'school' => 'required',
+            'password' => 'required',
             'age'    => 'required|integer|min:1',
             'image'  => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ];
@@ -102,12 +105,57 @@ class HomeController extends Controller
             'phone_number'  => $validated['phone'],
             'school'        => $validated['school'],
             'age'           => $validated['age'],
+            'password'           => \Hash::make($validated['password']),
             'parent_email'  => $validated['age'] < 14 ? $validated['parent_email'] : null,
             'image'         => 'uploads/' . $imageName
         ]);
 
         $user->roles()->sync([2]);
-
+        Auth::login($user);
         return redirect()->back()->with('success', 'Student Registered Successfully');
+    }
+
+    public function details($id){
+
+        $this->data['details'] = User::find($id);
+        return view('details',$this->data);
+
+    }
+
+    public function unlockCoupon($merchantId)
+    {
+        $user = auth()->user();
+
+        # check if coupon already exists
+        $existing = Coupon::where('user_id',$user->id)
+            ->where('merchant_id',$merchantId)
+            ->first();
+
+        if($existing){
+            return redirect()->back()->with('success','Coupon already unlocked!');
+        }
+
+        $merchant = User::find($merchantId);
+       
+        # first 3 characters of merchant name
+        $prefix = strtoupper(substr($merchant->full_name, 0, 3));
+
+        # generate 4 digit number
+        $number = rand(1000, 9999);
+
+        # final coupon code
+        $couponCode = $prefix . $number;
+        //dd($couponCode);
+        Coupon::create([
+            'user_id' => $user->id,
+            'merchant_id' => $merchantId,
+            'coupon_code' => $couponCode,
+            'discount' => $merchant->discount,
+        ]);
+
+        return redirect()->back()->with([
+            'success' => 'Congratulations! Your coupon has been unlocked.',
+            'coupon_code' => $couponCode
+        ]);
     }
 }

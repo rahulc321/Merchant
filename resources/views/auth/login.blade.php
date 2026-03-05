@@ -26,17 +26,18 @@
                     </svg>
                 </div>
             </div>
-            <h1 class="text-4xl font-bold mb-4">Welcome to <span class="text-cyan-400">LMS Merchant</span></h1>
+            <h1 class="text-4xl font-bold mb-4">Welcome to <span class="text-cyan-400">LMS</span></h1>
             <p class="text-gray-400 mb-6 max-w-md">
-                A powerful merchant CRM designed to manage leads, monitor devices, track installations,
-                and streamline operations — all from one secure dashboard.
+                A modern Learning Management System designed to empower students and educators.
+                Access courses, track progress, complete assessments, and enhance your learning journey —
+                all from one secure and interactive platform.
             </p>
 
         </div>
 
         <!-- Right Section (Login Form) -->
         <div class="bg-[#1f1f23] p-8 rounded-xl shadow-xl w-full max-w-md" style="background-color: rgb(11 22 25);">
-            
+
             <div class="flex justify-center mb-6">
                 <div
                     class="bg-gradient-to-tr from-blue-500 to-cyan-400 h-12 w-12 flex items-center justify-center rounded-xl">
@@ -63,7 +64,7 @@
                     <a href="#" class="text-cyan-400 hover:underline"></a>
                 </div>
                 <button class="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-2 rounded-md transition">Sign In to
-                    LMS Merchant</button>
+                    LMS</button>
             </form>
             <!-- <p class="text-center mt-6 text-sm text-gray-400">Need access? <span class="text-cyan-400">Contact your
                     administrator</span></p> -->

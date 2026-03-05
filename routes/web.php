@@ -23,7 +23,8 @@ Route::get('/contact', function () {
 
 Route::get('spiner', 'HomeController@spiner')->name('spiner');
 
-Route::get('details', 'HomeController@details')->name('details');
+Route::post('unlockCoupon/{id}', 'HomeController@unlockCoupon')->name('unlockCoupon');
+Route::get('details/{id}', 'HomeController@details')->name('details');
 Route::any('studentRegister', 'HomeController@studentRegister')->name('studentRegister');
 
 Route::get('contactSubmit', 'HomeController@contactSubmit')->name('contactSubmit');

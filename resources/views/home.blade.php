@@ -146,73 +146,147 @@ body {
                     </div>
                 </div>
             </div>
+            @else
+
+            <style>
+            .student-wrapper {
+                margin-top:-20px !important;
+                min-height: 85vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #f4f6f9;
+                padding: 5px 15px;
+            }
+
+            /* ===== ID CARD ===== */
+            .student-id-card {
+                width: 650px;
+                height: 380px;
+                border-radius: 20px;
+                padding: 30px;
+                position: relative;
+                overflow: hidden;
+                background: linear-gradient(135deg, #6cc1b9, #7fd1c6);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+                color: #0d3b3a;
+            }
+
+            /* subtle pattern effect */
+            .student-id-card::before {
+                content: "";
+                position: absolute;
+                width: 900px;
+                height: 900px;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 2%, transparent 2%);
+                background-size: 40px 40px;
+                top: -200px;
+                left: -200px;
+                transform: rotate(20deg);
+            }
+
+            /* left section */
+            .id-left {
+                position: relative;
+                z-index: 2;
+                width: 60%;
+            }
+
+            .id-title {
+                font-size: 36px;
+                font-weight: 800;
+                letter-spacing: 2px;
+            }
+
+            .id-subtitle {
+                font-size: 14px;
+                letter-spacing: 3px;
+                margin-bottom: 25px;
+            }
+
+            .id-label {
+                font-size: 13px;
+                opacity: 0.8;
+            }
+
+            .id-value {
+                font-size: 16px;
+                font-weight: 600;
+                margin-bottom: 15px;
+            }
+
+            /* right section */
+            .id-right {
+                position: absolute;
+                right: 30px;
+                top: 80px;
+                text-align: center;
+                z-index: 2;
+            }
+
+            .id-photo {
+                width: 160px;
+                height: 190px;
+                border-radius: 12px;
+                object-fit: cover;
+                background: #2e9fa3;
+                padding: 5px;
+            }
+
+            .id-phone {
+                margin-top: 10px;
+                font-weight: 600;
+                letter-spacing: 2px;
+                font-size: 14px;
+            }
+            </style>
+
+            <div class="student-wrapper">
+
+                <div class="student-id-card">
+
+                    <!-- LEFT CONTENT -->
+                    <div class="id-left">
+                        <div class="id-title">STUDENT</div>
+                        <div class="id-subtitle">IDENTITY CARD</div>
+
+                        <div class="id-label">Studies at</div>
+                        <div class="id-value">
+                            {{ Auth::user()->school ?? 'INTERNATIONAL UNIVERSITY' }}
+                        </div>
+
+                        <div class="id-label">Name</div>
+                        <div class="id-value">
+                            {{ strtoupper(Auth::user()->full_name) }}
+                        </div>
+
+                        <div class="id-label">Age</div>
+                        <div class="id-value">
+                            {{ Auth::user()->age }} Years
+                        </div>
+                    </div>
+
+                    <!-- RIGHT CONTENT -->
+                    <div class="id-right">
+                        <img src="{{ asset(Auth::user()->image ?? 'uploads/default.png') }}" class="id-photo"
+                            alt="student photo">
+
+                        <div class="id-phone">
+                            {{ Auth::user()->phone_number }}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
             @endif
-            <!-- ✅ QR REGISTER CARD -->
-            <!-- QR REGISTER CARD -->
-            <div class="col-xl-3 col-md-6">
-                <div class="card bg-5 qr-box">
 
-                    <div class="widget-heading mb-2">
-                        <i class="fas fa-qrcode me-2"></i>Register QR
-                    </div>
-
-                    @php
-                    $registerUrl = url('/user/register');
-                    $qrCode = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" .
-                    urlencode($registerUrl);
-                    @endphp
-
-                    <!-- Click image → open in new tab -->
-                    <a href="{{ $qrCode }}" target="_blank">
-                        <img src="{{ $qrCode }}" alt="Register QR" style="cursor:pointer;">
-                    </a>
-
-                    <!-- Download Button -->
-                    <div class="mt-3">
-                        <a href="{{ $qrCode }}" download="register-qr.png" class="btn btn-light btn-sm" target="_blank">
-                            <i class="fas fa-download me-1"></i> Download QR
-                        </a>
-                    </div>
-
-                    <div class="widget-subheading mt-2">
-                        Scan to Register
-                    </div>
-
-                </div>
-            </div>
 
 
         </div>
 
-        <!-- ===== BUSINESS OVERVIEW ===== -->
-        <div class="row mt-4">
 
-            <div class="col-xl-8">
-                <div class="card">
-                    <h5 class="mb-2">Business Overview</h5>
-                    <p class="text-muted mb-1">
-                        Your platform continues to grow steadily with increasing merchant participation
-                        and consistent user engagement across all services.
-                    </p>
-                    <p class="text-muted mb-0">
-                        Monthly revenue performance remains strong, supported by repeat customers
-                        and expanding merchant offerings.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-xl-4">
-                <div class="card">
-                    <h5 class="mb-2">Key Highlights</h5>
-                    <ul class="text-muted mb-0">
-                        <li>Merchant onboarding improved this month</li>
-                        <li>User retention rate increased</li>
-                        <li>Overall platform performance is stable</li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
 
     </div>
 </div>
