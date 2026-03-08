@@ -72,7 +72,9 @@
                                         <th>Code</th>
                                         <th>Email</th>
                                         <th>Phone</th>
+                                        <th>Amount</th>
                                         <th>Discount</th>
+                                         <th>Discount</th>
                                         <th>Category</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -99,6 +101,9 @@
                                         <td>{{ $merchant->email }}</td>
 
                                         <td>{{ $merchant->phone_number ?? '-' }}</td>
+
+
+                                        <td>{{ $merchant->amount ?? '-' }}</td>
 
                                         <td>
                                             {{ number_format($merchant->discount, 2) }}%

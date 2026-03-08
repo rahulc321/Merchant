@@ -62,11 +62,19 @@
                                 value="{{ old('phone', $merchant->phone_number ?? '') }}">
                         </div>
 
+                       
+
                         {{-- amount --}}
                         <div class="col-md-4">
                             <label class="form-label">Discount <code>*</code></label>
                             <input type="number"  name="discount" class="form-control"
                                 value="{{ old('amount', $merchant->discount ?? '') }}" required>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">Amount <code>*</code></label>
+                            <input type="number" step="0.01" name="amount" class="form-control"
+                                placeholder="Enter Amount" required value="{{ old('amount', $merchant->amount ?? '') }}">
                         </div>
 
                         {{-- image upload --}}

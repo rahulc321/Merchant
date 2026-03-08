@@ -25,7 +25,7 @@ class UsersController extends Controller
     {
          
         $this->data['users'] = User::whereHas('roles', function ($query) {
-            $query->where('title', 'end_user');
+            $query->where('title', 'student');
         })
         ->orderBy('id', 'DESC')
         ->get();

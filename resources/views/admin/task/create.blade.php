@@ -96,6 +96,12 @@
                         </div>
 
                         <div class="col-md-4">
+                            <label class="form-label">Amount <code>*</code></label>
+                            <input type="number" step="0.01" name="amount" class="form-control"
+                                placeholder="Enter Amount" required>
+                        </div>
+
+                        <div class="col-md-4">
                             <label class="form-label">File <code>*</code></label>
                             <input type="file" name="file" class="form-control" required>
                         </div>
