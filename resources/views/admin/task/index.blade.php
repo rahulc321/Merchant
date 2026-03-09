@@ -72,7 +72,7 @@
                                         <th>Code</th>
                                         <th>Email</th>
                                         <th>Phone</th>
-                                        <th>Amount</th>
+                                        <th>Amount (TZS)</th>
                                         <th>Discount</th>
                                          <th>Discount</th>
                                         <th>Category</th>

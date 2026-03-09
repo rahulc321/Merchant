@@ -87,7 +87,7 @@
 
                                                 <li class="button-header">
                                                     <a href="/user/register" class="btn btn3">
-                                                        Student Register
+                                                         Register
                                                     </a>
                                                 </li>
                                                 @endguest

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\{MerchantAddress, Merchant, User, Coupon};
 use Illuminate\Support\Facades\Auth;
+use Hash;
 
 
 class HomeController extends Controller
@@ -78,41 +79,82 @@ class HomeController extends Controller
 
     public function studentRegister(Request $request)
     {
-        $rules = [
-            'name'   => 'required|string|max:255',
-            'email'  => 'required|email|unique:users,email',
-            'phone'  => 'required',
-            'school' => 'required',
-            'password' => 'required',
-            'age'    => 'required|integer|min:1',
-            'image'  => 'required|image|mimes:jpg,jpeg,png|max:2048',
-        ];
 
-        // add parent email rule if age < 14
-        if ($request->input('age') && $request->input('age') < 14) {
-            $rules['parent_email'] = 'required|email';
-        }
+    $rules = [
+    'name' => 'required|string|max:255',
+    'email' => 'required|email|unique:users,email',
+    'phone' => 'required',
+    'password' => 'required',
+    'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+    ];
 
-        $validated = $request->validate($rules);
+    if($request->role == 'student'){
 
-        // store image
-        $imageName = time() . '_' . $request->file('image')->getClientOriginalName();
-        $request->file('image')->move(public_path('uploads'), $imageName);
+    $rules['school'] = 'required';
+    $rules['age'] = 'required|integer|min:1';
 
-        $user = User::create([
-            'full_name'     => $validated['name'],
-            'email'         => $validated['email'],
-            'phone_number'  => $validated['phone'],
-            'school'        => $validated['school'],
-            'age'           => $validated['age'],
-            'password'           => \Hash::make($validated['password']),
-            'parent_email'  => $validated['age'] < 14 ? $validated['parent_email'] : null,
-            'image'         => 'uploads/' . $imageName
-        ]);
+    if($request->age < 14){
+    $rules['parent_email'] = 'required|email';
+    }
 
-        $user->roles()->sync([2]);
-        Auth::login($user);
-        return redirect()->back()->with('success', 'Student Registered Successfully');
+    }
+
+    if($request->role == 'teacher'){
+    $rules['department'] = 'required';
+    $rules['subject'] = 'required';
+    }
+
+    if($request->role == 'youth'){
+    $rules['organization'] = 'required';
+    }
+
+    $validated = $request->validate($rules);
+
+
+    /* image upload */
+
+    $imageName = time().'_'.$request->file('image')->getClientOriginalName();
+    $request->file('image')->move(public_path('uploads'),$imageName);
+
+
+    /* create user */
+
+    $user = User::create([
+
+    'full_name'=>$request->name,
+    'email'=>$request->email,
+    'phone_number'=>$request->phone,
+    'password'=>Hash::make($request->password),
+    'school'=>$request->school ?? null,
+    'age'=>$request->age ?? null,
+    'department'=>$request->department ?? null,
+    'subject'=>$request->subject ?? null,
+    'organization'=>$request->organization ?? null,
+    'parent_email'=>$request->parent_email ?? null,
+    'image'=>'uploads/'.$imageName
+
+    ]);
+
+
+    /* role assign */
+
+    if($request->role == 'student'){
+    $user->roles()->sync([2]);
+    }
+
+    if($request->role == 'teacher'){
+    $user->roles()->sync([5]);
+    }
+
+    if($request->role == 'youth'){
+    $user->roles()->sync([6]);
+    }
+
+
+    Auth::login($user);
+
+    return redirect()->back()->with('success','Registration Successful');
+
     }
 
     public function details($id){
