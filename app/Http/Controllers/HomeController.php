@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{MerchantAddress, Merchant, User, Coupon};
+use App\{MerchantAddress, Merchant, User, Coupon, Order};
 use Illuminate\Support\Facades\Auth;
 use Hash;
 
@@ -164,28 +164,55 @@ class HomeController extends Controller
 
     }
 
-    public function unlockCoupon($merchantId)
+    public function unlockCoupon($merchantId, Request $request)
     {
         if (!auth()->check()) {
 
             # store intended url
             session(['url.intended' => url()->previous()]);
-    
             return redirect()->route('login');
         }
+
+        # validation
+        $request->validate([
+            'restaurant_id' => 'required|exists:users,id',
+            'cashier_code' => [
+                'required',
+                function ($attribute, $value, $fail) use ($request) {
+
+                    $exists = User::where('id', $request->restaurant_id)
+                        ->where('code', $value)
+                        ->exists();
+
+                    if (!$exists) {
+                        $fail('Invalid cashier verification code for selected vendor.');
+                    }
+                }
+            ],
+            'amount' => [
+                'required',
+                'numeric',
+                function ($attribute, $value, $fail) use ($request) {
+
+                    $merchant = User::find($request->restaurant_id);
+
+                    if (!$merchant) {
+                        $fail('Please select a valid restaurant.');
+                        return;
+                    }
+
+                    # minimum amount validation
+                    if ((float) $value < (float) $merchant->amount) {
+                        $fail('Minimum amount is ' . number_format($merchant->amount) . '.');
+                    }
+                }
+            ],
+        ]);
+
         $user = auth()->user();
 
-        # check if coupon already exists
-        $existing = Coupon::where('user_id',$user->id)
-            ->where('merchant_id',$merchantId)
-            ->first();
-
-        if($existing){
-            return redirect()->back()->with('success','Coupon already unlocked!');
-        }
-
         $merchant = User::find($merchantId);
-       
+
         # first 3 characters of merchant name
         $prefix = strtoupper(substr($merchant->full_name, 0, 3));
 
@@ -194,12 +221,22 @@ class HomeController extends Controller
 
         # final coupon code
         $couponCode = $prefix . $number;
-        //dd($couponCode);
+
         Coupon::create([
             'user_id' => $user->id,
             'merchant_id' => $merchantId,
             'coupon_code' => $couponCode,
             'discount' => $merchant->discount,
+        ]);
+
+        Order::create([
+            'user_id' => $user->id,
+            'restaurant_id' => $merchantId,
+            'amount' => $request->amount,
+            'address' => 'test',
+            'address_id' => $merchantId,
+            'cashier_code' => $request->code ?? '000000',
+            'status' => 1,
         ]);
 
         return redirect()->back()->with([

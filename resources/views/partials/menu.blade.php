@@ -377,7 +377,7 @@ html[data-theme-mode="dark"] #comboChart svg text {
                         <path
                             d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4v-4h16v4zm0-10H4V6h16v2z" />
                     </svg>
-                    <span class="side-menu__label">All Coupons</span>
+                    <span class="side-menu__label">All Orders</span>
                 </a>
             </li>
             @else
@@ -390,7 +390,7 @@ html[data-theme-mode="dark"] #comboChart svg text {
                         <path
                             d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4v-4h16v4zm0-10H4V6h16v2z" />
                     </svg>
-                    <span class="side-menu__label">All Coupons</span>
+                    <span class="side-menu__label">All Orders</span>
                 </a>
             </li>
 

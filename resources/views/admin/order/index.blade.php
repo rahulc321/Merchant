@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'CRM - Coupon')
+@section('title', 'CRM - Orders')
 @section('content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
@@ -53,7 +53,7 @@
                 <nav>
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
-                        <li class="breadcrumb-item active">Coupon</li>
+                        <li class="breadcrumb-item active">Orders</li>
                     </ol>
                 </nav>
             </div>
@@ -65,13 +65,70 @@
 
                     <div class="card-header">
                         <div class="card-title">
-                            Coupon List
+                            Order List
                         </div>
                     </div>
 
                     <div class="card-body">
 
+                        {{-- FILTER SECTION --}}
+                        <form method="GET" action="{{ url()->current() }}" class="filter-box">
+                            <div class="row mb-2">
 
+                                {{-- User Name --}}
+                                <div class="col-md-3">
+                                    <input type="text" name="user" value="{{ request('user') }}" class="form-control"
+                                        placeholder="🔍 Search User">
+                                </div>
+
+                                {{-- Merchant Dropdown (Admin Only) --}}
+                                @if(auth()->user()->roles()->where('title','Admin')->exists())
+                                <div class="col-md-3">
+                                    <select name="merchant_id" class="form-control">
+                                        <option value="">All Merchants</option>
+
+                                        @foreach($merchants as $merchant)
+                                        <option value="{{ $merchant->id }}"
+                                            {{ request('merchant_id') == $merchant->id ? 'selected' : '' }}>
+                                            {{ $merchant->full_name }}
+                                        </option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                                @endif
+
+                                {{-- Amount --}}
+                                <div class="col-md-2">
+                                    <input type="number" name="amount" value="{{ request('amount') }}"
+                                        class="form-control" placeholder="Min Amount">
+                                </div>
+
+                                {{-- From Date --}}
+                                <div class="col-md-2">
+                                    <input type="date" name="from_date" value="{{ request('from_date') }}"
+                                        class="form-control">
+                                </div>
+
+                                {{-- To Date --}}
+                                <div class="col-md-2">
+                                    <input type="date" name="to_date" value="{{ request('to_date') }}"
+                                        class="form-control">
+                                </div>
+
+                                {{-- Buttons --}}
+                                <div class="col-md-12 mt-3 filter-actions">
+                                    <button class="btn btn-primary">
+                                        Filter
+                                    </button>
+
+                                    <a href="{{ url()->current() }}" class="btn btn-outline-secondary">
+                                        Reset
+                                    </a>
+                                </div>
+
+                            </div>
+                        </form>
 
                         <div class="table-responsive">
                             <table id="datatable-basic" class="table table-bordered text-nowrap w-100">
@@ -79,14 +136,13 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Coupon ID</th>
-                                        @if (Auth::user()->roles->contains('title', 'Admin'))
-                                        <th>User Name</th>
-                                        @endif
+                                        <th>Order ID</th>
+                                        <th>User</th>
                                         <th>Merchant</th>
-                                        <th>Coupon Code</th>
-                                        <th>Discount</th>
+                                        <td>Address</td>
+                                        <th>Amount</th>
                                         <th>Status</th>
+                                        <th class="d-none">🏆 Prize</th>
                                         <th>Date</th>
                                     </tr>
                                 </thead>
@@ -100,33 +156,42 @@
                                             <strong>#{{ $order->id }}</strong>
                                         </td>
 
-                                        @if (Auth::user()->roles->contains('title', 'Admin'))
-                                            <td>
-                                                {{ $order->user->full_name ?? 'N/A' }}
-                                            </td>
-                                        @endif
-
+                                        <td>
+                                            {{ $order->user->full_name ?? 'N/A' }}
+                                        </td>
 
                                         <td>
                                             {{ $order->merchant->full_name ?? 'N/A' }}
                                         </td>
 
                                         <td>
-                                            {{ $order->coupon_code ?? 'N/A' }}
+                                            {{ $order->address ?? 'N/A' }}
                                         </td>
 
                                         <td>
-                                            {{ $order->discount ?? 'N/A' }}%
+                                            {{ number_format($order->amount, 2) }}
                                         </td>
 
                                         <td>
-                                            @if($order->is_used == 0)
-                                            <span class="badge bg-outline-success">Active</span>
+                                            @if($order->status == 1)
+                                            <span class="badge bg-outline-success">Completed</span>
                                             @else
-                                            <span class="badge bg-outline-warning">Expired</span>
+                                            <span class="badge bg-outline-warning">Pending</span>
                                             @endif
                                         </td>
-
+                                        <td class="d-none">
+                                            @if($order->prize_name)
+                                            <span class="badge bg-success" style="font-size: 20px;">
+                                                <i class="fa {{ $order->prize_icon }}"></i>
+                                                {{ $order->prize_name }}
+                                            </span>
+                                            @else
+                                            <a
+                                                href="{{ route('admin.viewSpinner', $order->address_id) }}?oid={{$order->id}}">
+                                                <span class="badge bg-outline-warning">🏆 View Prize</span>
+                                            </a>
+                                            @endif
+                                        </td>
                                         <td>
                                             {{ $order->created_at->format('d M Y') }}
                                         </td>

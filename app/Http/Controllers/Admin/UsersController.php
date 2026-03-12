@@ -654,18 +654,67 @@ class UsersController extends Controller
         $user = auth()->user();
 
         $isAdmin = $user->roles()
-                        ->where('title', 'Admin')
+                        ->where('title','Admin')
                         ->exists();
 
-        $query = Coupon::with(['user','merchant'])->latest();
+        $query = Order::with(['user','merchant'])->latest();
 
-        # if user is not admin then show only his records
+        /*
+        |------------------------------------------
+        | NON ADMIN → Only Their Orders
+        |------------------------------------------
+        */
+        
         if (!$isAdmin) {
+
             $query->where('user_id', $user->id);
+
+        } 
+        /*
+        |------------------------------------------
+        | ADMIN → Apply Filters
+        |------------------------------------------
+        */
+        else {
+
+            // user filter
+            $query->when($request->user, function ($q) use ($request) {
+                $q->whereHas('user', function ($u) use ($request) {
+                    $u->where('full_name', 'like', '%' . $request->user . '%');
+                });
+            });
+
+            // merchant filter
+            $query->when($request->merchant_id, function ($q) use ($request) {
+                $q->where('restaurant_id', $request->merchant_id);
+            });
+
+            // amount filter
+            $query->when($request->amount, function ($q) use ($request) {
+                $q->where('amount', '>=', $request->amount);
+            });
+
+            // date range
+            if ($request->from_date && $request->to_date) {
+                $query->whereBetween('created_at', [
+                    $request->from_date . ' 00:00:00',
+                    $request->to_date . ' 23:59:59'
+                ]);
+            }
+
+            // ✅ ONLY admin needs merchant list
+            //$this->data['merchants'] = Merchant::orderBy('name')->get();
+            $this->data['merchants'] =  User::whereHas('roles', function ($query) {
+                $query->where('title', 'merchant');
+            })->get();
         }
 
-        # get results
-        $this->data['orders'] = $query->get();
+        /*
+        |------------------------------------------
+        | ALWAYS paginate (VERY IMPORTANT)
+        |------------------------------------------
+        */
+        $this->data['orders'] = $query->paginate(20)->withQueryString();
 
         return view('admin.order.index', $this->data);
     }
