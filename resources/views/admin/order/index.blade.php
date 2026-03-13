@@ -179,19 +179,7 @@
                                             <span class="badge bg-outline-warning">Pending</span>
                                             @endif
                                         </td>
-                                        <td class="d-none">
-                                            @if($order->prize_name)
-                                            <span class="badge bg-success" style="font-size: 20px;">
-                                                <i class="fa {{ $order->prize_icon }}"></i>
-                                                {{ $order->prize_name }}
-                                            </span>
-                                            @else
-                                            <a
-                                                href="{{ route('admin.viewSpinner', $order->address_id) }}?oid={{$order->id}}">
-                                                <span class="badge bg-outline-warning">🏆 View Prize</span>
-                                            </a>
-                                            @endif
-                                        </td>
+                                        
                                         <td>
                                             {{ $order->created_at->format('d M Y') }}
                                         </td>
