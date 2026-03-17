@@ -21,10 +21,10 @@
                                     Learn programming, design, business, marketing and more from expert instructors.
                                     Study anytime, anywhere at your own pace.
                                 </p>
-                                <a href="{{ url('/courses') }}" class="btn hero-btn" data-animation="fadeInLeft"
+                                <!-- <a href="{{ url('/courses') }}" class="btn hero-btn" data-animation="fadeInLeft"
                                     data-delay="0.7s">
                                     Explore Courses
-                                </a>
+                                </a> -->
                             </div>
                         </div>
                     </div>
@@ -175,7 +175,7 @@
                     <div class="front-text">
                         <h2>Start Learning Today!</h2>
                         <p>Join thousands of students upgrading their skills daily.</p>
-                        <a href="{{ url('/register') }}" class="btn">Get Started</a>
+                        <a href="/user/register" class="btn">Get Started</a>
                     </div>
                 </div>
             </div>

@@ -222,7 +222,7 @@
                 reliability, and customer success.
             </p>
 
-            <a href="/register" class="btn btn-light btn-lg"
+            <a href="/user/register" class="btn btn-light btn-lg"
                 style="margin-top:20px;border-radius:30px;padding:12px 30px;">
                 Get Started
             </a>
