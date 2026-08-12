@@ -227,6 +227,12 @@
     .phone-field:focus {
         outline: none;
     }
+
+    .form-control[type="file"] {
+        height: auto;
+        padding: 12px 14px;
+        line-height: 1.3;
+    }
     </style>
 </head>
 
@@ -249,11 +255,23 @@
                     <div class="error" data-error="name"></div>
                 </div>
 
-                <!-- <div class="form-group">
+                <div class="form-group">
                     <label class="form-label">Email</label>
                     <input type="email" name="email" class="form-control" placeholder="Email">
                     <div class="error" data-error="email"></div>
-                </div> -->
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Date of Birth</label>
+                    <input type="date" name="dob" class="form-control">
+                    <div class="error" data-error="dob"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Profile Picture</label>
+                    <input type="file" name="profile_picture" class="form-control" accept="image/*">
+                    <div class="error" data-error="profile_picture"></div>
+                </div>
 
                 <div class="form-group">
                     <label class="form-label">Phone</label>

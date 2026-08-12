@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Api\V1\Admin\TuyaController;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Auth;
 
 class UsersController extends Controller
@@ -532,7 +533,9 @@ class UsersController extends Controller
             1 => [
                 'name' => 'required|string|max:255',
                 'phone_number' => 'required|digits:9|unique:users,phone_number',
-                //'email' => 'required|email|unique:users,email',
+                'email' => 'required|email|unique:users,email',
+                'dob' => 'required|date|before:today',
+                'profile_picture' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
                 'password' => 'required|min:6|confirmed',
             ],
             2 => [
@@ -583,8 +586,30 @@ class UsersController extends Controller
             ], 422);
         }
 
+        $data = $request->except('_token', 'step', 'profile_picture');
+
+        if ($step === 1 && $request->hasFile('profile_picture')) {
+            $oldProfilePicture = session('register.step1.profile_picture');
+
+            if ($oldProfilePicture && file_exists(public_path($oldProfilePicture))) {
+                @unlink(public_path($oldProfilePicture));
+            }
+
+            $destination = public_path('uploads/profile_pictures');
+
+            if (!file_exists($destination)) {
+                mkdir($destination, 0755, true);
+            }
+
+            $file = $request->file('profile_picture');
+            $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $file->move($destination, $filename);
+
+            $data['profile_picture'] = 'uploads/profile_pictures/' . $filename;
+        }
+
         # save data in session
-        session()->put("register.step{$step}", $request->except('_token', 'step'));
+        session()->put("register.step{$step}", $data);
 
         return response()->json(['status' => true]);
     }
@@ -608,7 +633,9 @@ class UsersController extends Controller
             // 1️⃣ CREATE USER
             $user = User::create([
                 'full_name' => $step1['name'],
-                'email' => 'uq'.rand().'@yopmail.com',
+                'email' => $step1['email'],
+                'dob' => $step1['dob'],
+                'profile_picture' => $step1['profile_picture'] ?? null,
                 'phone_number'=> $step1['phone_number'],
                 'password' => bcrypt($step1['password']),
             ]);
