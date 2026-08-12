@@ -4,27 +4,47 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>LMS</title>
+    <title>LMS | Merchant</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="manifest" href="site.webmanifest">
     <link rel="shortcut icon" type="image/x-icon" href="./assets_new/img/favicon.ico">
 
     <!-- CSS here -->
-    <link rel="stylesheet" href="{{ asset('assets_new/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets_new/css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets_new/css/slicknav.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets_new/css/flaticon.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets_new/css/progressbar_barfiller.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets_new/css/gijgo.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets_new/css/animate.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets_new/css/animated-headline.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets_new/css/magnific-popup.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets_new/css/fontawesome-all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets_new/css/themify-icons.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets_new/css/slick.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets_new/css/nice-select.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets_new/css/style.css') }}">
+    <link rel="stylesheet" href="./assets_new/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets_new/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="./assets_new/css/slicknav.css">
+    <link rel="stylesheet" href="./assets_new/css/flaticon.css">
+    <link rel="stylesheet" href="./assets_new/css/progressbar_barfiller.css">
+    <link rel="stylesheet" href="./assets_new/css/gijgo.css">
+    <link rel="stylesheet" href="./assets_new/css/animate.min.css">
+    <link rel="stylesheet" href="./assets_new/css/animated-headline.css">
+    <link rel="stylesheet" href="./assets_new/css/magnific-popup.css">
+    <link rel="stylesheet" href="./assets_new/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="./assets_new/css/themify-icons.css">
+    <link rel="stylesheet" href="./assets_new/css/slick.css">
+    <link rel="stylesheet" href="./assets_new/css/nice-select.css">
+    <link rel="stylesheet" href="./assets_new/css/style.css">
+    <style>
+        .site-header-logo {
+            width: auto;
+            height: 82px;
+            max-width: 100%;
+            display: block;
+        }
+
+        @media (max-width: 991px) {
+            .site-header-logo {
+                height: 70px;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .site-header-logo {
+                height: 58px;
+            }
+        }
+    </style>
 
 </head>
 
@@ -48,49 +68,29 @@
                     <div class="container-fluid">
                         <div class="row align-items-center">
                             <!-- Logo -->
-                            <div class="col-xl-2 col-lg-2">
+                            <div class="col-xl-4 col-lg-4">
                                 <div class="logo">
-                                    <a href="/"><img src="{{env('LOGO')}}" alt=""
-                                            style="height: 66px;border-radius: 5px;"></a>
+                                    <a href="/" aria-label="LMS Merchant">
+                                        <img class="site-header-logo" src="{{ asset('uploads/lms-merchant-header-logo-no-bg.png') }}" alt="LMS Merchant">
+                                    </a>
                                 </div>
                             </div>
-                            <div class="col-xl-10 col-lg-10">
+                            <div class="col-xl-8 col-lg-8">
                                 <div class="menu-wrapper d-flex align-items-center justify-content-end">
                                     <!-- Main-menu -->
                                     <div class="main-menu d-none d-lg-block">
                                         <nav>
                                             <ul id="navigation">
                                                 <li class="active"><a href="/">Home</a></li>
-
+                                                
                                                 <li><a href="{{url('/about')}}">About</a></li>
-
+                                                 
                                                 <li><a href="{{url('/contact')}}">Contact</a></li>
                                                 <!-- Button -->
-                                                <!-- <li class="button-header margin-left "><a href="{{url('joinMerchant')}}" class="btn">Join Merchant</a>
-                                                </li> -->
-                                                @auth
-                                                <li class="button-header">
-                                                    <a href="/admin" class="btn btn3">
-                                                        Dashboard
-                                                    </a>
+                                                <li class="button-header margin-left "><a href="{{url('joinMerchant')}}" class="btn">Join Merchant</a>
                                                 </li>
-
-                                                 
-                                                @endauth
-
-                                                @guest
-                                                <li class="button-header">
-                                                    <a href="/login" class="btn btn3">
-                                                        User Login
-                                                    </a>
-                                                </li>
-
-                                                <li class="button-header">
-                                                    <a href="/user/register" class="btn btn3">
-                                                         Register
-                                                    </a>
-                                                </li>
-                                                @endguest
+                                                <li class="button-header"><a href="/user/login" class="btn btn3">User Log
+                                                        in</a></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -112,7 +112,7 @@
 
     <footer>
         <div class="footer-wrappper footer-bg">
-
+             
             <!-- footer-bottom area -->
             <div class="footer-bottom-area">
                 <div class="container">
@@ -142,51 +142,46 @@
     </div>
 
     <!-- JS here -->
-    <script src="{{ asset('assets_new/js/vendor/modernizr-3.5.0.min.js') }}"></script>
-
+    <script src="./assets_new/js/vendor/modernizr-3.5.0.min.js"></script>
     <!-- Jquery, Popper, Bootstrap -->
-    <script src="{{ asset('assets_new/js/vendor/jquery-1.12.4.min.js') }}"></script>
-    <script src="{{ asset('assets_new/js/popper.min.js') }}"></script>
-    <script src="{{ asset('assets_new/js/bootstrap.min.js') }}"></script>
-
+    <script src="./assets_new/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="./assets_new/js/popper.min.js"></script>
+    <script src="./assets_new/js/bootstrap.min.js"></script>
     <!-- Jquery Mobile Menu -->
-    <script src="{{ asset('assets_new/js/jquery.slicknav.min.js') }}"></script>
+    <script src="./assets_new/js/jquery.slicknav.min.js"></script>
 
     <!-- Jquery Slick , Owl-Carousel Plugins -->
-    <script src="{{ asset('assets_new/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('assets_new/js/slick.min.js') }}"></script>
-
-    <!-- One Page, Animated-Headline -->
-    <script src="{{ asset('assets_new/js/wow.min.js') }}"></script>
-    <script src="{{ asset('assets_new/js/animated.headline.js') }}"></script>
-    <script src="{{ asset('assets_new/js/jquery.magnific-popup.js') }}"></script>
+    <script src="./assets_new/js/owl.carousel.min.js"></script>
+    <script src="./assets_new/js/slick.min.js"></script>
+    <!-- One Page, Animated-HeadLin -->
+    <script src="./assets_new/js/wow.min.js"></script>
+    <script src="./assets_new/js/animated.headline.js"></script>
+    <script src="./assets_new/js/jquery.magnific-popup.js"></script>
 
     <!-- Date Picker -->
-    <script src="{{ asset('assets_new/js/gijgo.min.js') }}"></script>
-
+    <script src="./assets_new/js/gijgo.min.js"></script>
     <!-- Nice-select, sticky -->
-    <script src="{{ asset('assets_new/js/jquery.nice-select.min.js') }}"></script>
-    <script src="{{ asset('assets_new/js/jquery.sticky.js') }}"></script>
-
+    <script src="./assets_new/js/jquery.nice-select.min.js"></script>
+    <script src="./assets_new/js/jquery.sticky.js"></script>
     <!-- Progress -->
-    <script src="{{ asset('assets_new/js/jquery.barfiller.js') }}"></script>
+    <script src="./assets_new/js/jquery.barfiller.js"></script>
 
     <!-- counter , waypoint,Hover Direction -->
-    <script src="{{ asset('assets_new/js/jquery.counterup.min.js') }}"></script>
-    <script src="{{ asset('assets_new/js/waypoints.min.js') }}"></script>
-    <script src="{{ asset('assets_new/js/jquery.countdown.min.js') }}"></script>
-    <script src="{{ asset('assets_new/js/hover-direction-snake.min.js') }}"></script>
+    <script src="./assets_new/js/jquery.counterup.min.js"></script>
+    <script src="./assets_new/js/waypoints.min.js"></script>
+    <script src="./assets_new/js/jquery.countdown.min.js"></script>
+    <script src="./assets_new/js/hover-direction-snake.min.js"></script>
 
     <!-- contact js -->
-    <script src="{{ asset('assets_new/js/contact.js') }}"></script>
-    <script src="{{ asset('assets_new/js/jquery.form.js') }}"></script>
-    <script src="{{ asset('assets_new/js/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('assets_new/js/mail-script.js') }}"></script>
-    <script src="{{ asset('assets_new/js/jquery.ajaxchimp.min.js') }}"></script>
+    <script src="./assets_new/js/contact.js"></script>
+    <script src="./assets_new/js/jquery.form.js"></script>
+    <script src="./assets_new/js/jquery.validate.min.js"></script>
+    <script src="./assets_new/js/mail-script.js"></script>
+    <script src="./assets_new/js/jquery.ajaxchimp.min.js"></script>
 
     <!-- Jquery Plugins, main Jquery -->
-    <script src="{{ asset('assets_new/js/plugins.js') }}"></script>
-    <script src="{{ asset('assets_new/js/main.js') }}"></script>
+    <script src="./assets_new/js/plugins.js"></script>
+    <script src="./assets_new/js/main.js"></script>
 
 </body>
 
