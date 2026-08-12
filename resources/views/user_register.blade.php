@@ -28,6 +28,16 @@
                         </div>
                         @endif
 
+                        @if(isset($errors) && $errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+
                         <!-- ROLE SELECT -->
                         <div class="form-group mb-4">
                             <label>Select Role</label>
@@ -215,10 +225,9 @@
 
 </main>
 
+@endsection
 
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+@section('scripts')
 <script>
 $(document).ready(function() {
 
@@ -256,5 +265,4 @@ $(document).ready(function() {
 
 });
 </script>
-
 @endsection

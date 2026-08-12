@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\{MerchantAddress, Merchant, User, Coupon, Order};
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Hash;
 
 
@@ -113,8 +114,11 @@ class HomeController extends Controller
 
     /* image upload */
 
-    $imageName = time().'_'.$request->file('image')->getClientOriginalName();
-    $request->file('image')->move(public_path('uploads'),$imageName);
+    File::ensureDirectoryExists(public_path('uploads'), 0755, true);
+
+    $image = $request->file('image');
+    $imageName = time().'_'.preg_replace('/[^A-Za-z0-9._-]/', '_', $image->getClientOriginalName());
+    $image->move(public_path('uploads'), $imageName);
 
 
     /* create user */

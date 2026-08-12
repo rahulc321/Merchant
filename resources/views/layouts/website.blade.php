@@ -7,24 +7,24 @@
     <title>LMS | Merchant</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="manifest" href="site.webmanifest">
-    <link rel="shortcut icon" type="image/x-icon" href="./assets_new/img/favicon.ico">
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets_new/img/favicon.ico') }}">
 
     <!-- CSS here -->
-    <link rel="stylesheet" href="./assets_new/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets_new/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="./assets_new/css/slicknav.css">
-    <link rel="stylesheet" href="./assets_new/css/flaticon.css">
-    <link rel="stylesheet" href="./assets_new/css/progressbar_barfiller.css">
-    <link rel="stylesheet" href="./assets_new/css/gijgo.css">
-    <link rel="stylesheet" href="./assets_new/css/animate.min.css">
-    <link rel="stylesheet" href="./assets_new/css/animated-headline.css">
-    <link rel="stylesheet" href="./assets_new/css/magnific-popup.css">
-    <link rel="stylesheet" href="./assets_new/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="./assets_new/css/themify-icons.css">
-    <link rel="stylesheet" href="./assets_new/css/slick.css">
-    <link rel="stylesheet" href="./assets_new/css/nice-select.css">
-    <link rel="stylesheet" href="./assets_new/css/style.css">
+    <link rel="stylesheet" href="{{ asset('assets_new/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets_new/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets_new/css/slicknav.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets_new/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets_new/css/progressbar_barfiller.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets_new/css/gijgo.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets_new/css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets_new/css/animated-headline.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets_new/css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets_new/css/fontawesome-all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets_new/css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets_new/css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets_new/css/nice-select.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets_new/css/style.css') }}">
     <style>
         .site-header-logo {
             width: auto;
@@ -142,46 +142,47 @@
     </div>
 
     <!-- JS here -->
-    <script src="./assets_new/js/vendor/modernizr-3.5.0.min.js"></script>
+    <script src="{{ asset('assets_new/js/vendor/modernizr-3.5.0.min.js') }}"></script>
     <!-- Jquery, Popper, Bootstrap -->
-    <script src="./assets_new/js/vendor/jquery-1.12.4.min.js"></script>
-    <script src="./assets_new/js/popper.min.js"></script>
-    <script src="./assets_new/js/bootstrap.min.js"></script>
+    <script src="{{ asset('assets_new/js/vendor/jquery-1.12.4.min.js') }}"></script>
+    <script src="{{ asset('assets_new/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets_new/js/bootstrap.min.js') }}"></script>
     <!-- Jquery Mobile Menu -->
-    <script src="./assets_new/js/jquery.slicknav.min.js"></script>
+    <script src="{{ asset('assets_new/js/jquery.slicknav.min.js') }}"></script>
 
     <!-- Jquery Slick , Owl-Carousel Plugins -->
-    <script src="./assets_new/js/owl.carousel.min.js"></script>
-    <script src="./assets_new/js/slick.min.js"></script>
+    <script src="{{ asset('assets_new/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('assets_new/js/slick.min.js') }}"></script>
     <!-- One Page, Animated-HeadLin -->
-    <script src="./assets_new/js/wow.min.js"></script>
-    <script src="./assets_new/js/animated.headline.js"></script>
-    <script src="./assets_new/js/jquery.magnific-popup.js"></script>
+    <script src="{{ asset('assets_new/js/wow.min.js') }}"></script>
+    <script src="{{ asset('assets_new/js/animated.headline.js') }}"></script>
+    <script src="{{ asset('assets_new/js/jquery.magnific-popup.js') }}"></script>
 
     <!-- Date Picker -->
-    <script src="./assets_new/js/gijgo.min.js"></script>
+    <script src="{{ asset('assets_new/js/gijgo.min.js') }}"></script>
     <!-- Nice-select, sticky -->
-    <script src="./assets_new/js/jquery.nice-select.min.js"></script>
-    <script src="./assets_new/js/jquery.sticky.js"></script>
+    <script src="{{ asset('assets_new/js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ asset('assets_new/js/jquery.sticky.js') }}"></script>
     <!-- Progress -->
-    <script src="./assets_new/js/jquery.barfiller.js"></script>
+    <script src="{{ asset('assets_new/js/jquery.barfiller.js') }}"></script>
 
     <!-- counter , waypoint,Hover Direction -->
-    <script src="./assets_new/js/jquery.counterup.min.js"></script>
-    <script src="./assets_new/js/waypoints.min.js"></script>
-    <script src="./assets_new/js/jquery.countdown.min.js"></script>
-    <script src="./assets_new/js/hover-direction-snake.min.js"></script>
+    <script src="{{ asset('assets_new/js/jquery.counterup.min.js') }}"></script>
+    <script src="{{ asset('assets_new/js/waypoints.min.js') }}"></script>
+    <script src="{{ asset('assets_new/js/jquery.countdown.min.js') }}"></script>
+    <script src="{{ asset('assets_new/js/hover-direction-snake.min.js') }}"></script>
 
     <!-- contact js -->
-    <script src="./assets_new/js/contact.js"></script>
-    <script src="./assets_new/js/jquery.form.js"></script>
-    <script src="./assets_new/js/jquery.validate.min.js"></script>
-    <script src="./assets_new/js/mail-script.js"></script>
-    <script src="./assets_new/js/jquery.ajaxchimp.min.js"></script>
+    <script src="{{ asset('assets_new/js/contact.js') }}"></script>
+    <script src="{{ asset('assets_new/js/jquery.form.js') }}"></script>
+    <script src="{{ asset('assets_new/js/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('assets_new/js/mail-script.js') }}"></script>
+    <script src="{{ asset('assets_new/js/jquery.ajaxchimp.min.js') }}"></script>
 
     <!-- Jquery Plugins, main Jquery -->
-    <script src="./assets_new/js/plugins.js"></script>
-    <script src="./assets_new/js/main.js"></script>
+    <script src="{{ asset('assets_new/js/plugins.js') }}"></script>
+    <script src="{{ asset('assets_new/js/main.js') }}"></script>
+    @yield('scripts')
 
 </body>
 
