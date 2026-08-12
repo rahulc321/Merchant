@@ -25,6 +25,26 @@
     <link rel="stylesheet" href="./assets_new/css/slick.css">
     <link rel="stylesheet" href="./assets_new/css/nice-select.css">
     <link rel="stylesheet" href="./assets_new/css/style.css">
+    <style>
+        .site-header-logo {
+            width: auto;
+            height: 82px;
+            max-width: 100%;
+            display: block;
+        }
+
+        @media (max-width: 991px) {
+            .site-header-logo {
+                height: 70px;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .site-header-logo {
+                height: 58px;
+            }
+        }
+    </style>
 
 </head>
 
@@ -48,12 +68,14 @@
                     <div class="container-fluid">
                         <div class="row align-items-center">
                             <!-- Logo -->
-                            <div class="col-xl-2 col-lg-2">
+                            <div class="col-xl-4 col-lg-4">
                                 <div class="logo">
-                                    <a href="/"><img src="{{env('LOGO')}}" alt="" style="height: 66px;border-radius: 5px;"></a>
+                                    <a href="/" aria-label="LMS Merchant">
+                                        <img class="site-header-logo" src="{{ asset('uploads/lms-merchant-header-logo-no-bg.png') }}" alt="LMS Merchant">
+                                    </a>
                                 </div>
                             </div>
-                            <div class="col-xl-10 col-lg-10">
+                            <div class="col-xl-8 col-lg-8">
                                 <div class="menu-wrapper d-flex align-items-center justify-content-end">
                                     <!-- Main-menu -->
                                     <div class="main-menu d-none d-lg-block">
