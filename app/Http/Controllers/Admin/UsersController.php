@@ -9,7 +9,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Role;
 use App\User;
 use DB;
-use App\{Notes,Merchant,Order};
+use App\{Notes,Merchant,Order, Coupon};
 use App\Contacts;
 use Gate;
 use App\Device;
@@ -26,7 +26,7 @@ class UsersController extends Controller
     {
          
         $this->data['users'] = User::whereHas('roles', function ($query) {
-            $query->where('title', 'end_user');
+            $query->where('title', 'student');
         })
         ->orderBy('id', 'DESC')
         ->get();

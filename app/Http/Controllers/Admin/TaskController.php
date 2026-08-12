@@ -63,7 +63,7 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $request 
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -73,9 +73,35 @@ class TaskController extends Controller
             'name'   => 'required|string|max:255',
             'email'  => 'required|email|unique:merchants,email',
             'phone'  => 'nullable|string|max:20',
-            'amount' => 'required|numeric|min:0',
+            'discount' => 'required|min:0',
+            'amount' => 'required|min:0',
             'status' => 'required|boolean',
+            'category' => 'required',
+            'file'   => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
+
+        $fileName = null;
+
+        // handle image upload
+        if ($request->hasFile('file')) {
+
+            $destinationPath = public_path('uploads');
+
+            // create folder if not exists
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+
+            $file = $request->file('file');
+
+            // generate unique filename
+            $fileName = time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+            // move file
+            $file->move($destinationPath, $fileName);
+        }
+
+        //category
 
         $user = User::create([
             'full_name'   => $request->name,
@@ -83,7 +109,10 @@ class TaskController extends Controller
             'code'   => strtoupper(substr($request->name, 0, 3)) . rand(100000, 999999),
             'phone_number'  => $request->phone,
             'amount' => $request->amount,
+            'discount' => $request->discount,
             'status' => $request->status,
+            'category' => $request->category,
+            'image'  => $fileName,
         ]);
 
         $user->roles()->sync(4);
@@ -163,24 +192,51 @@ class TaskController extends Controller
     public function update(Request $request, $id)
     {
         $merchant = User::findOrFail($id);
-
+    
         $request->validate([
             'name'   => 'required|string|max:255',
-            'email'  => 'required|email|unique:merchants,email,' . $merchant->id,
-            'phone'  => 'nullable|string|max:20',
-            'amount' => 'required|numeric|min:0',
-            'status' => 'required|in:0,1',
+            'email'  => 'required|email|unique:users,email,' . $id,
+            'discount' => 'required',
+            'amount' => 'required',
+            'file'   => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'status' => 'required|boolean',
         ]);
-
+    
+        $fileName = $merchant->image;
+    
+        // upload new image
+        if ($request->hasFile('file')) {
+    
+            $destinationPath = public_path('uploads');
+    
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+    
+            // delete old image
+            if (!empty($merchant->image) &&
+                file_exists($destinationPath.'/'.$merchant->image)) {
+                unlink($destinationPath.'/'.$merchant->image);
+            }
+    
+            $file = $request->file('file');
+            $fileName = time().'_'.uniqid().'.'.$file->getClientOriginalExtension();
+            $file->move($destinationPath, $fileName);
+        }
+    
         $merchant->update([
-            'full_name'   => $request->name,
-            'email'  => $request->email,
-            'phone_number'  => $request->phone,
+            'full_name'    => $request->name,
+            'email'        => $request->email,
+            'phone_number' => $request->phone,
+            'discount'       => $request->discount,
             'amount' => $request->amount,
-            'status' => $request->status,
+            'image'        => $fileName,
+            'status'       => $request->status,
+            'category'       => $request->category,
         ]);
-        session()->flash('success', 'You have successfully update!');
-        return redirect()->route('admin.task.index');
+    
+        return redirect()->route('admin.task.index')
+            ->with('success', 'Merchant updated successfully');
     }
 
 

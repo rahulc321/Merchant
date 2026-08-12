@@ -64,7 +64,8 @@
                         </ul>
                     </div>
                     @endif
-                    <form action="{{ route('admin.task.store') }}" method="POST" class="row g-3 mt-0">
+                    <form action="{{ route('admin.task.store') }}" method="POST" class="row g-3 mt-0"
+                        enctype="multipart/form-data">
                         @csrf
 
                         <!-- Merchant Name -->
@@ -89,9 +90,20 @@
 
                         <!-- Amount -->
                         <div class="col-md-4">
+                            <label class="form-label">Discount <code>*</code></label>
+                            <input type="number" step="0.01" name="discount" class="form-control"
+                                placeholder="Enter Discount" required>
+                        </div>
+
+                        <div class="col-md-4">
                             <label class="form-label">Amount <code>*</code></label>
                             <input type="number" step="0.01" name="amount" class="form-control"
-                                placeholder="Enter amount" required>
+                                placeholder="Enter Amount" required>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="form-label">File <code>*</code></label>
+                            <input type="file" name="file" class="form-control" required>
                         </div>
 
                         <!-- Status -->
@@ -103,12 +115,29 @@
                             </select>
                         </div>
 
+                        <div class="col-md-4">
+                            <label class="form-label">Category</label>
+                            <?php $categories = \DB::table('categories')->get(); ?>
+                            <select name="category" class="form-control">
+                                <option value="">Select Category</option>
+
+                                @foreach($categories as $category)
+                                <option value="{{ $category->slug }}"
+                                    {{ old('category', $merchant->category ?? '') == $category->slug ? 'selected' : '' }}>
+                                    {{ $category->name }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <!-- Submit -->
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">
                                 Create Merchant
                             </button>
                         </div>
+
+
 
                     </form>
 

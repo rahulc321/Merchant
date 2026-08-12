@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>@yield('title', 'LMS MARCHENT')</title>
+    <title>@yield('title', 'LMS')</title>
     <meta name="Description" content="Bootstrap Responsive Admin Web Dashboard HTML5 Template">
     <meta name="Author" content="Spruko Technologies Private Limited">
 	<meta name="keywords"
@@ -1204,7 +1204,7 @@
         <footer class="footer mt-auto py-3 bg-white text-center">
     <div class="container">
         <span class="text-muted"> Copyright © <span id="year"></span> <a
-                href="javascript:void(0);" class="text-dark fw-medium">LMS Marchant</a>.
+                href="javascript:void(0);" class="text-dark fw-medium">LMS</a>.
              All
             rights
             reserved

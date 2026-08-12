@@ -1,519 +1,260 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.website')
 
-<head>
-    <meta charset="UTF-8">
-    <title>Register</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+@section('title','User Registration')
 
-    {{-- google font --}}
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+@section('content')
 
-    <?php error_reporting(0); ?>
-    <style>
-    * {
-        box-sizing: border-box;
-        font-family: 'Inter', sans-serif;
-        -webkit-tap-highlight-color: transparent;
-    }
+<style>
+.header-area .header-bottom {
+    padding: 0px 130px;
+    background: linear-gradient(to bottom, #c054ff 0%, #5274ff 100%);
+}
+</style>
 
-    html,
-    body {
-        margin: 0;
-        min-height: 100%;
-    }
+<main>
 
-    body {
-        background: linear-gradient(to right, #071217, #16292f, #071820);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 12px;
-    }
+    <section style="margin-top:200px;margin-bottom:230px">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
 
-    /* container */
-    .auth-wrapper {
-        width: 100%;
-        max-width: 420px;
-        background: #fff;
-        border-radius: 16px;
-        padding: 26px 22px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    }
+                    <div class="card shadow p-4">
 
-    /* 📱 mobile optimization */
-    @media (max-width: 480px) {
+                        <h3 class="text-center mb-4">Register Account</h3>
 
-        body {
-            padding: 0;
-            align-items: flex-start;
-        }
+                        @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                        @endif
 
-        .auth-wrapper {
-            max-width: 100%;
-            min-height: 100vh;
-            border-radius: 0;
-            padding: 22px 16px;
-        }
+                        <!-- ROLE SELECT -->
+                        <div class="form-group mb-4">
+                            <label>Select Role</label>
+                            <select id="roleSelect" class="form-control">
+                                <option value="">Select Role</option>
+                                <option value="student">Student</option>
+                                <option value="teacher">Teacher</option>
+                                <option value="youth">Youth</option>
+                            </select>
+                        </div>
 
-        .auth-header h1 {
-            font-size: 20px;
-        }
 
-        .auth-header p {
-            font-size: 13px;
-        }
-    }
+                        <!-- ================= STUDENT FORM ================= -->
 
-    /* header */
-    .auth-header {
-        text-align: center;
-        margin-bottom: 22px;
-    }
+                        <form id="studentForm" method="POST" action="{{route('studentRegister')}}"
+                            enctype="multipart/form-data" style="display:none;">
+                            @csrf
 
-    .auth-header h1 {
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 6px;
-        color: #111827;
-    }
+                            <input type="hidden" name="role" value="student">
 
-    /* form */
-    .form-group {
-        margin-bottom: 14px;
-    }
+                            <h5 class="mb-3">Student Registration</h5>
 
-    .form-label {
-        display: block;
-        font-size: 13px;
-        font-weight: 600;
-        margin-bottom: 6px;
-        color: #374151;
-    }
+                            <div class="row">
 
-    /* inputs */
-    .form-control {
-        width: 100%;
-        height: 48px;
-        padding: 0 14px;
-        border-radius: 10px;
-        border: 1px solid #e5e7eb;
-        font-size: 16px;
-        /* prevents zoom on iPhone */
-        outline: none;
-    }
+                                <div class="col-md-6 mb-3">
+                                    <label>Name</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Name">
+                                </div>
 
-    /* fix select on iOS */
-    select.form-control {
-        appearance: none;
-        background-color: #fff;
-    }
+                                <div class="col-md-6 mb-3">
+                                    <label>Email</label>
+                                    <input type="email" name="email" class="form-control" placeholder="Email">
+                                </div>
 
-    /* button */
-    .btn-primary {
-        width: 100%;
-        height: 50px;
-        border-radius: 12px;
-        border: none;
-        background: linear-gradient(135deg, #4f46e5, #6366f1);
-        color: #fff;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        margin-top: 8px;
-    }
+                                <div class="col-md-6 mb-3">
+                                    <label>Phone</label>
+                                    <input type="text" name="phone" class="form-control" placeholder="Phone Number">
+                                </div>
 
-    /* hidden */
-    .d-none {
-        display: none;
-    }
+                                <div class="col-md-6 mb-3">
+                                    <label>Password</label>
+                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                </div>
 
-    .error {
-        font-size: 13px;
-        color: #dc2626;
-        margin-top: 6px;
-    }
+                                <div class="col-md-6 mb-3">
+                                    <label>School</label>
+                                    <input type="text" name="school" class="form-control" placeholder="School">
+                                </div>
 
-    /* amount text wrap fix */
-    .amount {
-        font-size: 14px;
-        word-break: break-word;
-    }
+                                <div class="col-md-6 mb-3">
+                                    <label>Age</label>
+                                    <input type="number" name="age" id="ageInput" class="form-control"
+                                        placeholder="Age">
+                                </div>
 
-    .btn-primary {
-        width: 100%;
-        height: 52px;
-        border-radius: 14px;
-        border: none;
-        background: linear-gradient(135deg, #4f46e5, #6366f1);
-        color: #fff;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        margin-top: 10px;
-        transition: all .25s ease;
-    }
+                                <div class="col-md-6 mb-3" id="parentEmailGroup" style="display:none;">
+                                    <label>Parent Email</label>
+                                    <input type="email" name="parent_email" class="form-control"
+                                        placeholder="Parent Email">
+                                </div>
 
-    /* hover (desktop) */
-    .btn-primary:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 10px 20px rgba(99, 102, 241, .25);
-    }
+                                <div class="col-md-6 mb-3">
+                                    <label>Profile Image</label>
+                                    <input type="file" name="image" class="form-control">
+                                </div>
 
-    /* tap effect (mobile) */
-    .btn-primary:active {
-        transform: scale(.98);
-    }
+                            </div>
 
-    /* login text */
-    .auth-alt {
-        text-align: center;
-        margin-top: 18px;
-        font-size: 14px;
-        color: #6b7280;
-    }
+                            <button type="submit" class="btn btn-primary w-100">Register Student</button>
 
-    .auth-alt a {
-        color: #4f46e5;
-        font-weight: 600;
-        text-decoration: none;
-        margin-left: 4px;
-    }
+                        </form>
 
-    .auth-alt a:hover {
-        text-decoration: underline;
-    }
 
-    .password-wrapper {
-        position: relative;
-    }
 
-    .password-wrapper .toggle-password {
-        position: absolute;
-        top: 50%;
-        right: 12px;
-        transform: translateY(-50%);
-        cursor: pointer;
-        color: #6c757d;
-    }
+                        <!-- ================= TEACHER FORM ================= -->
 
-    .password-wrapper .toggle-password:hover {
-        color: #000;
-    }
+                        <form id="teacherForm" method="POST" action="{{route('studentRegister')}}"
+                            enctype="multipart/form-data" style="display:none;">
+                            @csrf
 
-    .phone-input {
-        display: flex;
-        align-items: center;
-        border: 1px solid #ced4da;
-        border-radius: 8px;
-        overflow: hidden;
-        background: #fff;
-    }
+                            <input type="hidden" name="role" value="teacher">
 
-    .country-code {
-        padding: 10px 14px;
-        background: #f1f3f5;
-        border-right: 1px solid #ced4da;
-        font-weight: 500;
-        color: #495057;
-    }
+                            <h5 class="mb-3">Teacher Registration</h5>
 
-    .phone-field {
-        border: none !important;
-        box-shadow: none !important;
-    }
+                            <div class="row">
 
-    .phone-field:focus {
-        outline: none;
-    }
+                                <div class="col-md-6 mb-3">
+                                    <label>Name</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Name">
+                                </div>
 
-    .form-control[type="file"] {
-        height: auto;
-        padding: 12px 14px;
-        line-height: 1.3;
-    }
-    </style>
-</head>
+                                <div class="col-md-6 mb-3">
+                                    <label>Email</label>
+                                    <input type="email" name="email" class="form-control" placeholder="Email">
+                                </div>
 
-<body>
+                                <div class="col-md-6 mb-3">
+                                    <label>Phone</label>
+                                    <input type="text" name="phone" class="form-control" placeholder="Phone Number">
+                                </div>
 
-    <div class="auth-wrapper">
-        <div class="auth-header">
-            <h1>Create Account</h1>
-            <p>2-step secure registration</p>
+                                <div class="col-md-6 mb-3">
+                                    <label>Password</label>
+                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Department</label>
+                                    <input type="text" name="department" class="form-control" placeholder="Department">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Subject</label>
+                                    <input type="text" name="subject" class="form-control" placeholder="Subject">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Profile Image</label>
+                                    <input type="file" name="image" class="form-control">
+                                </div>
+
+                            </div>
+
+                            <button type="submit" class="btn btn-success w-100">Register Teacher</button>
+
+                        </form>
+
+
+
+                        <!-- ================= YOUTH FORM ================= -->
+
+                        <form id="youthForm" method="POST" action="{{route('studentRegister')}}"
+                            enctype="multipart/form-data" style="display:none;">
+                            @csrf
+
+                            <input type="hidden" name="role" value="youth">
+
+                            <h5 class="mb-3">Youth Registration</h5>
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Name</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Name">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Email</label>
+                                    <input type="email" name="email" class="form-control" placeholder="Email">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Phone</label>
+                                    <input type="text" name="phone" class="form-control" placeholder="Phone Number">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Password</label>
+                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Organization</label>
+                                    <input type="text" name="organization" class="form-control"
+                                        placeholder="Organization">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Profile Image</label>
+                                    <input type="file" name="image" class="form-control">
+                                </div>
+
+                            </div>
+
+                            <button type="submit" class="btn btn-warning w-100">Register Youth</button>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
         </div>
+        </div>
+    </section>
 
-        <form id="registerForm">
-            @csrf
-
-            {{-- STEP 1 --}}
-            <div class="step step-1">
-                <div class="form-group">
-                    <label class="form-label">Full Name</label>
-                    <input type="text" name="name" class="form-control" placeholder="Full Name">
-                    <div class="error" data-error="name"></div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="Email">
-                    <div class="error" data-error="email"></div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Date of Birth</label>
-                    <input type="date" name="dob" class="form-control">
-                    <div class="error" data-error="dob"></div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Profile Picture</label>
-                    <input type="file" name="profile_picture" class="form-control" accept="image/*">
-                    <div class="error" data-error="profile_picture"></div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Phone</label>
-
-                    <div class="phone-input">
-                        <span class="country-code">+255</span>
-
-                        <input type="text" name="phone_number" class="form-control phone-field"
-                            placeholder="Enter phone number" inputmode="numeric">
-                    </div>
-
-                    <div class="error" data-error="phone_number"></div>
-                </div>
+</main>
 
 
-                <div class="form-group">
-                    <label class="form-label">Password</label>
 
-                    <div class="password-wrapper">
-                        <input type="password" name="password" class="form-control password-field">
-                        <i class="bi bi-eye toggle-password"></i>
-                    </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-                    <div class="error" data-error="password"></div>
-                </div>
+<script>
+$(document).ready(function() {
 
-                <div class="form-group">
-                    <label class="form-label">Confirm Password</label>
+    $('#roleSelect').change(function() {
 
-                    <div class="password-wrapper">
-                        <input type="password" name="password_confirmation" class="form-control password-field">
-                        <i class="bi bi-eye toggle-password"></i>
-                    </div>
-                </div>
+        $('#studentForm').hide();
+        $('#teacherForm').hide();
+        $('#youthForm').hide();
 
+        if ($(this).val() == 'student') {
+            $('#studentForm').show();
+        }
 
-                <button type="button" class="btn-primary" onclick="nextStep()">
-                    Continue
-                </button>
-                <div class="auth-alt">
-                    Already have an account?
-                    <a href="{{ url('/user/login') }}">Sign in</a>
-                </div>
-            </div>
+        if ($(this).val() == 'teacher') {
+            $('#teacherForm').show();
+        }
 
-            {{-- STEP 2 --}}
-            <div class="step step-2 d-none">
-                <div class="form-group">
-                    <label class="form-label">Restaurant</label>
-                    <select name="restaurant_id" id="restaurantSelect" class="form-control" onchange="fillAddress()">
-                        <option value="">Select Restaurant</option>
-
-                        @foreach($restaurants as $restaurant)
-                        <option value="{{ $restaurant->id }}" data-address='@json($restaurant->addresses)'
-                            data-amount='{{$restaurant->amount}}'>
-                            {{ $restaurant->full_name }}
-                        </option>
-                        @endforeach
-                    </select>
-                    <div class="error" data-error="restaurant_id"></div>
-                </div>
-
-                <select name="address" id="addressInput" class="form-control"></select>
-                <div class="error" data-error="address"></div>
-
-
-                <div class="form-group">
-                    <label class="form-label">Amount <i style="color:red" class="amount"></i></label>
-                    <div class="amount"></div>
-                    <input type="number" name="amount" class="form-control" placeholder="Amount">
-                    <div class="error" data-error="amount"></div>
-                </div>
-
-                <!-- <div class="form-group">
-                    <label class="form-label">Cashier Verification Code</label>
-                    <input type="text" name="cashier_code" class="form-control" placeholder="Cashier Verification Code">
-                    <div class="error" data-error="cashier_code"></div>
-                </div> -->
-                
-                <input type="hidden" id="address_id" name="address_id">
-                <button type="button" class="btn-primary" onclick="submitForm()">
-                    Register
-                </button>
-
-
-            </div>
-        </form>
-    </div>
-
-    <script>
-    function fillAddress() {
-        let select = document.getElementById('restaurantSelect');
-        let addressSelect = document.getElementById('addressInput');
-        const amountBox = document.querySelector('.amount');
-
-        addressSelect.innerHTML = '<option value="">Select Address</option>';
-
-
-        let addresses = select.options[select.selectedIndex].getAttribute('data-address');
-
-        const amount = select.options[select.selectedIndex].getAttribute('data-amount');
-
-        amountBox.innerHTML = `
-            <i style="margin-bottom:6px;font-size:14px;color:#2563eb;">
-                Merchant Amount: <strong>${amount}</strong>
-            </i>
-        `;
-
-        if (!addresses) return;
-
-        addresses = JSON.parse(addresses);
-
-        addresses.forEach(addr => {
-            let option = document.createElement('option');
-
-            option.value = `${addr.address}, ${addr.city}, ${addr.state} ${addr.pincode}`;
-
-            option.text = `${addr.address}, ${addr.city}, ${addr.state} ${addr.pincode}`;
-
-            option.dataset.city = addr.city || '';
-            option.dataset.state = addr.state || '';
-            option.dataset.pincode = addr.pincode || '';
-            option.dataset.addressId = addr.id || '';
-
-            addressSelect.appendChild(option);
-        });
-    }
-
-
-    function clearErrors() {
-        document.querySelectorAll('.error').forEach(el => el.innerText = '');
-    }
-
-    function showErrors(errors) {
-        Object.keys(errors).forEach(key => {
-            let el = document.querySelector('[data-error="' + key + '"]');
-            if (el) el.innerText = errors[key][0];
-        });
-    }
-
-    function nextStep() {
-
-        clearErrors();
-        let form = document.getElementById('registerForm');
-        let data = new FormData(form);
-        data.append('step', 1);
-
-        fetch("{{ route('registerStep') }}", {
-                method: "POST",
-                headers: {
-                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                },
-                body: data
-            })
-            .then(res => {
-                if (!res.ok) throw res;
-                return res.json();
-            })
-            .then(() => {
-                document.querySelector('.step-1').classList.add('d-none');
-                document.querySelector('.step-2').classList.remove('d-none');
-            })
-            .catch(async err => {
-                let response = await err.json();
-                showErrors(response.errors);
-            });
-    }
-
-    function submitForm() {
-        clearErrors();
-
-        let form = document.getElementById('registerForm');
-        let data = new FormData(form);
-        data.append('step', 2);
-
-        // 1️⃣ SAVE STEP-2 IN SESSION
-        fetch("{{ route('registerStep') }}", {
-                method: "POST",
-                credentials: "same-origin",
-                headers: {
-                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                },
-                body: data
-            })
-            .then(res => {
-                if (!res.ok) throw res;
-                return res.json();
-            })
-            .then(() => {
-                // 2️⃣ COMPLETE REGISTRATION
-                return fetch("{{ route('registerComplete') }}", {
-                    method: "POST",
-                    credentials: "same-origin",
-                    headers: {
-                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                    }
-                });
-            })
-            .then(res => res.json())
-            .then(res => {
-                if (res.status) {
-                    window.location.href = res.redirect;
-                } else {
-                    alert(res.message);
-                }
-            })
-            .catch(async err => {
-                let response = await err.json();
-                showErrors(response.errors);
-            });
-    }
-
-    document.querySelectorAll('.toggle-password').forEach(function(icon) {
-
-        icon.addEventListener('click', function() {
-
-            const input = this.previousElementSibling;
-
-            if (input.type === "password") {
-                input.type = "text";
-                this.classList.remove('bi-eye');
-                this.classList.add('bi-eye-slash');
-            } else {
-                input.type = "password";
-                this.classList.remove('bi-eye-slash');
-                this.classList.add('bi-eye');
-            }
-
-        });
+        if ($(this).val() == 'youth') {
+            $('#youthForm').show();
+        }
 
     });
 
-    document.getElementById('addressInput').addEventListener('change', function() {
+    $('#ageInput').on('keyup change', function() {
 
-        let selectedOption = this.options[this.selectedIndex];
-        //alert()
-        document.getElementById('address_id').value =
-            selectedOption.dataset.addressId || '';
+        var age = $(this).val();
+
+        if (age < 14) {
+            $('#parentEmailGroup').show();
+        } else {
+            $('#parentEmailGroup').hide();
+        }
 
     });
-    </script>
 
-</body>
+});
+</script>
 
-</html>
+@endsection
