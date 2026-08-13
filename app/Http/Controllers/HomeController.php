@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{MerchantAddress, Merchant, User, Coupon, Order};
+use App\{MerchantAddress, Merchant, User, Coupon, Order, Role};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Hash;
@@ -82,6 +82,7 @@ class HomeController extends Controller
     {
 
     $rules = [
+    'role' => 'required|in:normal,student,teacher,youth',
     'name' => 'required|string|max:255',
     'email' => 'required|email|unique:users,email',
     'phone' => 'required',
@@ -135,6 +136,7 @@ class HomeController extends Controller
     'subject'=>$request->subject ?? null,
     'organization'=>$request->organization ?? null,
     'parent_email'=>$request->parent_email ?? null,
+    'type'=>$request->role,
     'image'=>'uploads/'.$imageName
 
     ]);
@@ -142,17 +144,29 @@ class HomeController extends Controller
 
     /* role assign */
 
-    if($request->role == 'student'){
-    $user->roles()->sync([2]);
-    }
+    $roleMap = [
+    'normal' => [
+    'titles' => ['Normal', 'normal', 'end_user'],
+    'fallback' => 2,
+    ],
+    'student' => [
+    'titles' => ['Student', 'student'],
+    'fallback' => 2,
+    ],
+    'teacher' => [
+    'titles' => ['Teacher', 'teacher'],
+    'fallback' => 5,
+    ],
+    'youth' => [
+    'titles' => ['Youth', 'youth'],
+    'fallback' => 6,
+    ],
+    ];
 
-    if($request->role == 'teacher'){
-    $user->roles()->sync([5]);
-    }
+    $roleConfig = $roleMap[$request->role];
+    $roleId = Role::whereIn('title', $roleConfig['titles'])->value('id') ?: $roleConfig['fallback'];
 
-    if($request->role == 'youth'){
-    $user->roles()->sync([6]);
-    }
+    $user->roles()->sync([$roleId]);
 
 
     Auth::login($user);

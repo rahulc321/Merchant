@@ -43,11 +43,56 @@
                             <label>Select Role</label>
                             <select id="roleSelect" class="form-control">
                                 <option value="">Select Role</option>
+                                <option value="normal">Normal</option>
                                 <option value="student">Student</option>
                                 <option value="teacher">Teacher</option>
                                 <option value="youth">Youth</option>
                             </select>
                         </div>
+
+
+                        <!-- ================= NORMAL FORM ================= -->
+
+                        <form id="normalForm" method="POST" action="{{route('studentRegister')}}"
+                            enctype="multipart/form-data" style="display:none;">
+                            @csrf
+
+                            <input type="hidden" name="role" value="normal">
+
+                            <h5 class="mb-3">Normal Registration</h5>
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Name</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Name">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Email</label>
+                                    <input type="email" name="email" class="form-control" placeholder="Email">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Phone</label>
+                                    <input type="text" name="phone" class="form-control" placeholder="Phone Number">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Password</label>
+                                    <input type="password" name="password" class="form-control" placeholder="Password">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Profile Image</label>
+                                    <input type="file" name="image" class="form-control">
+                                </div>
+
+                            </div>
+
+                            <button type="submit" class="btn btn-secondary w-100">Register Normal</button>
+
+                        </form>
 
 
                         <!-- ================= STUDENT FORM ================= -->
@@ -233,9 +278,14 @@ $(document).ready(function() {
 
     $('#roleSelect').change(function() {
 
+        $('#normalForm').hide();
         $('#studentForm').hide();
         $('#teacherForm').hide();
         $('#youthForm').hide();
+
+        if ($(this).val() == 'normal') {
+            $('#normalForm').show();
+        }
 
         if ($(this).val() == 'student') {
             $('#studentForm').show();
