@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{MerchantAddress, Merchant, User, Coupon, Order, Role};
+use App\{MerchantAddress, Merchant, User, Coupon, Order, Role, PlanPurchase};
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Carbon\Carbon;
 use Hash;
 
 
@@ -38,6 +39,27 @@ class HomeController extends Controller
     public function userLogin()
     {   
         return view('user_login');
+    }
+
+    public function userDashboard()
+    {
+        $user = Auth::user();
+
+        $activeSubscription = PlanPurchase::with('plan')
+            ->where('user_id', $user->id)
+            ->where('status', 'active')
+            ->where(function ($query) {
+                $query->whereNull('expires_at')->orWhere('expires_at', '>=', now());
+            })
+            ->latest('expires_at')
+            ->first();
+
+        $latestSubscription = PlanPurchase::with('plan')
+            ->where('user_id', $user->id)
+            ->latest()
+            ->first();
+
+        return view('user_dashboard', compact('user', 'activeSubscription', 'latestSubscription'));
     }
 
     public function contactSubmit(Request $request)
@@ -87,6 +109,7 @@ class HomeController extends Controller
     'email' => 'required|email|unique:users,email',
     'phone' => 'required',
     'password' => 'required',
+    'dob' => 'required|date|before:today',
     'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
     ];
 
@@ -94,9 +117,9 @@ class HomeController extends Controller
 
     $rules['institution_name'] = 'required|string|max:255';
     $rules['institution_logo'] = 'required|image|mimes:jpg,jpeg,png,webp|max:2048';
-    $rules['age'] = 'required|integer|min:1';
+    $age = $request->filled('dob') ? Carbon::parse($request->dob)->age : null;
 
-    if($request->age < 14){
+    if($age !== null && $age < 14){
     $rules['parent_email'] = 'required|email';
     }
 
@@ -114,6 +137,7 @@ class HomeController extends Controller
     }
 
     $validated = $request->validate($rules);
+    $age = Carbon::parse($request->dob)->age;
 
 
     /* image upload */
@@ -147,7 +171,8 @@ class HomeController extends Controller
     'school'=>$request->institution_name ?? $request->school ?? null,
     'institution_name'=>$request->institution_name ?? null,
     'institution_logo'=>$institutionLogoPath,
-    'age'=>$request->age ?? null,
+    'age'=>$age,
+    'dob'=>$request->dob,
     'department'=>$request->department ?? null,
     'subject'=>$request->subject ?? null,
     'organization'=>$request->organization ?? null,
@@ -187,7 +212,7 @@ class HomeController extends Controller
 
     Auth::login($user);
 
-    return redirect()->route('admin.plans.browse')->with('success','Registration Successful. Please choose a subscription plan.');
+    return redirect()->route('user.dashboard')->with('success','Registration Successful. Please choose a subscription plan.');
 
     }
 

@@ -23,12 +23,32 @@ class UsersController extends Controller
 {
     public function index(Request $request)
     {
-         
-        $this->data['users'] = User::whereHas('roles', function ($query) {
-            $query->where('title', 'student');
-        })
-        ->orderBy('id', 'DESC')
-        ->get();
+        $type = $request->get('type', 'student');
+        $allowedTypes = ['normal', 'student', 'teacher', 'youth'];
+
+        if (!in_array($type, $allowedTypes)) {
+            $type = 'student';
+        }
+
+        $roleTitles = [
+            'normal' => ['Normal', 'normal', 'end_user'],
+            'student' => ['Student', 'student'],
+            'teacher' => ['Teacher', 'teacher'],
+            'youth' => ['Youth', 'youth'],
+        ];
+
+        $this->data['users'] = User::with('roles')
+            ->where(function ($query) use ($type, $roleTitles) {
+                $query->where('type', $type)
+                    ->orWhereHas('roles', function ($roleQuery) use ($roleTitles, $type) {
+                        $roleQuery->whereIn('title', $roleTitles[$type]);
+                    });
+            })
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        $this->data['selectedType'] = $type;
+        $this->data['pageTitle'] = ucfirst($type) . ' Users';
  
         return view('admin.users.index',$this->data);
     }

@@ -152,15 +152,23 @@ body {
             </div>
             @elseif ($user->roles->contains('title','Student'))
 
-            @include('student-card')
+            @include('partials.user-id-card', ['user' => $user])
 
             @elseif ($user->roles->contains('title','Teacher'))
 
-            @include('teacher-card')
+            @include('partials.user-id-card', ['user' => $user])
 
             @elseif ($user->roles->contains('title','Youth'))
 
-            @include('youth-card')
+            @include('partials.user-id-card', ['user' => $user])
+
+            @elseif (($user->type ?? '') === 'normal' || $user->roles->contains('title','Normal'))
+
+            @include('partials.user-id-card', ['user' => $user])
+
+            @else
+
+            @include('partials.user-id-card', ['user' => $user])
 
             @endif
 

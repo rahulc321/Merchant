@@ -23,7 +23,7 @@
                 <div class="card custom-card">
                     <div class="card-header">
                         <div class="card-title">
-                            List Users
+                            {{ $pageTitle ?? 'List Users' }}
                         </div>
 
                         <!-- <a class="" href='{{ route("admin.users.create") }}?type=<?=@$_REQUEST['type']?>' style="float:right !important"><span
@@ -41,7 +41,9 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
-                                       
+                                        <th>DOB</th>
+                                        <th>Role</th>
+                                        <th>Type</th>
                                        
                                         <th>Action</th>
                                     </tr>
@@ -54,7 +56,9 @@
                                         <td>{{$value->full_name}}</td>
                                         <td>{{$value->email}}</td>
                                         <td>{{$value->phone_number}}</td>
-                                        
+                                        <td>{{ $value->dob ? \Carbon\Carbon::parse($value->dob)->format('d M Y') : 'N/A' }}</td>
+                                        <td>{{ optional($value->roles->first())->title ?? 'N/A' }}</td>
+                                        <td>{{ ucfirst($value->type ?? ($selectedType ?? '')) }}</td>
                                         
                                         <td>
                                        

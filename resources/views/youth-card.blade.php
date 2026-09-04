@@ -32,8 +32,8 @@
                     </div>
 
                     <div class="row">
-                        <span>Age</span>
-                        <p>{{ Auth::user()->age ?? 'N/A' }}</p>
+                        <span>DOB</span>
+                        <p>{{ Auth::user()->dob ? \Carbon\Carbon::parse(Auth::user()->dob)->format('d M Y') : 'N/A' }}</p>
                     </div>
 
                     <div class="row">

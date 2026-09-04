@@ -84,6 +84,11 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3">
+                                    <label>DOB</label>
+                                    <input type="date" name="dob" class="form-control" required>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
                                     <label>Profile Image</label>
                                     <input type="file" name="image" class="form-control">
                                 </div>
@@ -134,9 +139,8 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <label>Age</label>
-                                    <input type="number" name="age" id="ageInput" class="form-control"
-                                        placeholder="Age">
+                                    <label>DOB</label>
+                                    <input type="date" name="dob" id="studentDobInput" class="form-control" required>
                                 </div>
 
                                 <div class="col-md-6 mb-3" id="parentEmailGroup" style="display:none;">
@@ -194,6 +198,11 @@
                                 <div class="col-md-6 mb-3">
                                     <label>Password</label>
                                     <input type="password" name="password" class="form-control" placeholder="Password">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>DOB</label>
+                                    <input type="date" name="dob" class="form-control" required>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
@@ -264,6 +273,11 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3">
+                                    <label>DOB</label>
+                                    <input type="date" name="dob" class="form-control" required>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
                                     <label>Organization</label>
                                     <input type="text" name="organization" class="form-control"
                                         placeholder="Organization">
@@ -320,9 +334,21 @@ $(document).ready(function() {
 
     });
 
-    $('#ageInput').on('keyup change', function() {
+    $('#studentDobInput').on('change', function() {
 
-        var age = $(this).val();
+        var dob = new Date($(this).val());
+        if (!$(this).val() || isNaN(dob.getTime())) {
+            $('#parentEmailGroup').hide();
+            return;
+        }
+
+        var today = new Date();
+        var age = today.getFullYear() - dob.getFullYear();
+        var monthDiff = today.getMonth() - dob.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+            age--;
+        }
 
         if (age < 14) {
             $('#parentEmailGroup').show();

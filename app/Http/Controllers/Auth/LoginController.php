@@ -134,7 +134,7 @@ class LoginController extends Controller
             return 'admin';
         }
 
-        return route('admin.plans.browse');
+        return route('user.dashboard');
     }
 
     protected function redirectTo()

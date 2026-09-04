@@ -10,6 +10,7 @@ Route::get('/thankyou', function () {
 
 Route::get('/user/login', 'HomeController@userLogin')->name('userLogin');
 Route::get('/user/register', 'HomeController@userRegister')->name('register');
+Route::get('/user/dashboard', 'HomeController@userDashboard')->middleware('auth')->name('user.dashboard');
 Route::any('registerStep', 'App\Http\Controllers\Admin\UsersController@registerStep')->name('registerStep');
 Route::any('registerComplete', 'App\Http\Controllers\Admin\UsersController@registerComplete')->name('registerComplete');
 

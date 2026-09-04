@@ -96,8 +96,16 @@
                                                 <!-- Button -->
                                                 <li class="button-header margin-left "><a href="{{url('joinMerchant')}}" class="btn">Join Merchant</a>
                                                 </li>
+                                                @auth
+                                                <li class="button-header"><a href="{{ route('user.dashboard') }}" class="btn btn3">Dashboard</a></li>
+                                                <li class="button-header">
+                                                    <a href="{{ route('logout') }}" class="btn btn3"
+                                                        onclick="event.preventDefault(); document.getElementById('website-logout-form').submit();">Log Out</a>
+                                                </li>
+                                                @else
                                                 <li class="button-header"><a href="/user/login" class="btn btn3">User Log
                                                         in</a></li>
+                                                @endauth
                                             </ul>
                                         </nav>
                                     </div>
@@ -114,6 +122,11 @@
         </div>
         <!-- Header End -->
     </header>
+    @auth
+    <form id="website-logout-form" action="{{ route('logout') }}" method="POST" style="display:none;">
+        @csrf
+    </form>
+    @endauth
     @yield('content')
 
 
