@@ -92,7 +92,8 @@ class HomeController extends Controller
 
     if($request->role == 'student'){
 
-    $rules['school'] = 'required';
+    $rules['institution_name'] = 'required|string|max:255';
+    $rules['institution_logo'] = 'required|image|mimes:jpg,jpeg,png,webp|max:2048';
     $rules['age'] = 'required|integer|min:1';
 
     if($request->age < 14){
@@ -102,6 +103,8 @@ class HomeController extends Controller
     }
 
     if($request->role == 'teacher'){
+    $rules['institution_name'] = 'required|string|max:255';
+    $rules['institution_logo'] = 'required|image|mimes:jpg,jpeg,png,webp|max:2048';
     $rules['department'] = 'required';
     $rules['subject'] = 'required';
     }
@@ -121,6 +124,17 @@ class HomeController extends Controller
     $imageName = time().'_'.preg_replace('/[^A-Za-z0-9._-]/', '_', $image->getClientOriginalName());
     $image->move(public_path('uploads'), $imageName);
 
+    $institutionLogoPath = null;
+
+    if ($request->hasFile('institution_logo')) {
+    File::ensureDirectoryExists(public_path('institution_logos'), 0755, true);
+
+    $institutionLogo = $request->file('institution_logo');
+    $institutionLogoName = time().'_institution_'.preg_replace('/[^A-Za-z0-9._-]/', '_', $institutionLogo->getClientOriginalName());
+    $institutionLogo->move(public_path('institution_logos'), $institutionLogoName);
+    $institutionLogoPath = 'institution_logos/'.$institutionLogoName;
+    }
+
 
     /* create user */
 
@@ -130,7 +144,9 @@ class HomeController extends Controller
     'email'=>$request->email,
     'phone_number'=>$request->phone,
     'password'=>Hash::make($request->password),
-    'school'=>$request->school ?? null,
+    'school'=>$request->institution_name ?? $request->school ?? null,
+    'institution_name'=>$request->institution_name ?? null,
+    'institution_logo'=>$institutionLogoPath,
     'age'=>$request->age ?? null,
     'department'=>$request->department ?? null,
     'subject'=>$request->subject ?? null,
@@ -171,7 +187,7 @@ class HomeController extends Controller
 
     Auth::login($user);
 
-    return redirect()->back()->with('success','Registration Successful');
+    return redirect()->route('admin.plans.browse')->with('success','Registration Successful. Please choose a subscription plan.');
 
     }
 

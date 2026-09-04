@@ -116,7 +116,7 @@ html[data-theme-mode="dark"] #comboChart svg text {
             <li class="slide__category"><span class="category-name">Dashboards</span></li>
             <!-- End::slide__category -->
 
-            <li class="slide">
+            <li class="slide d-none">
                 <a href="/admin" class="side-menu__item {{ request()->is('admin') ? 'active' : '' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px" viewBox="0 0 24 24"
                         width="24px" fill="#5f6368">
@@ -168,7 +168,7 @@ html[data-theme-mode="dark"] #comboChart svg text {
                 </ul>
             </li>
 
-            <li class="slide">
+            <li class="slide d-none">
                 <a href="{{ route('admin.users.index', ['type' => 'end_user']) }}"
                     class="side-menu__item {{ request()->is('admin/users*') ? 'active' : '' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px" viewBox="0 0 24 24"
@@ -369,6 +369,54 @@ html[data-theme-mode="dark"] #comboChart svg text {
             @endif
             @if (Auth::user()->roles->contains('title', 'Admin'))
             <li class="slide">
+                <a href='{{ route("admin.plans.index") }}'
+                    class="side-menu__item {{ request()->is('admin/plans*') ? 'active' : '' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px" viewBox="0 0 24 24"
+                        width="24px" fill="#5f6368">
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 16H6V5h12v14zM8 7h8v2H8V7zm0 4h8v2H8v-2zm0 4h5v2H8v-2z" />
+                    </svg>
+                    <span class="side-menu__label">Plans</span>
+                </a>
+            </li>
+            <li class="slide">
+                <a href='{{ route("admin.subscriptions.index") }}'
+                    class="side-menu__item {{ request()->is('admin/subscriptions*') ? 'active' : '' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px" viewBox="0 0 24 24"
+                        width="24px" fill="#5f6368">
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M20 4H4c-1.1 0-2 .9-2 2v2h20V6c0-1.1-.9-2-2-2zm0 6H2v8c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-8zm-11 6H5v-2h4v2zm6 0h-4v-2h4v2z" />
+                    </svg>
+                    <span class="side-menu__label">Subscriptions</span>
+                </a>
+            </li>
+            <li class="slide">
+                <a href='{{ route("admin.payment-settings.edit") }}'
+                    class="side-menu__item {{ request()->is('admin/payment-settings*') ? 'active' : '' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px" viewBox="0 0 24 24"
+                        width="24px" fill="#5f6368">
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M19.43 12.98c.04-.32.07-.65.07-.98s-.02-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.37-.31-.6-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98L14.5 2.42C14.47 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.5.42L9.12 5.07c-.61.25-1.18.59-1.69.98l-2.49-1c-.23-.08-.48 0-.6.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.08.65-.08.98s.03.66.08.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.37.31.6.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.04.24.25.42.5.42h4c.25 0 .47-.18.5-.42l.38-2.65c.61-.25 1.18-.59 1.69-.98l2.49 1c.23.08.48 0 .6-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5A3.5 3.5 0 1 1 12 8a3.5 3.5 0 0 1 0 7.5z" />
+                    </svg>
+                    <span class="side-menu__label">Settings</span>
+                </a>
+            </li>
+            <li class="slide">
+                <a href='{{ route("admin.maintenance.index") }}'
+                    class="side-menu__item {{ request()->is('admin/maintenance*') ? 'active' : '' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px" viewBox="0 0 24 24"
+                        width="24px" fill="#5f6368">
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3l4.1 4.1-2.9 2.9-4.2-4.1C.7 7 .9 10 3 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.4-.4.4-1 0-1.4z" />
+                    </svg>
+                    <span class="side-menu__label">Maintenance</span>
+                </a>
+            </li>
+            <li class="slide d-none">
                 <a href='{{ route("admin.orders") }}'
                     class="side-menu__item {{ request()->is('admin/orders*') ? 'active' : '' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px" viewBox="0 0 24 24"
@@ -382,6 +430,18 @@ html[data-theme-mode="dark"] #comboChart svg text {
             </li>
             @else
             <li class="slide">
+                <a href='{{ route("admin.plans.browse") }}'
+                    class="side-menu__item {{ request()->is('admin/purchase-plans*') ? 'active' : '' }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px" viewBox="0 0 24 24"
+                        width="24px" fill="#5f6368">
+                        <path d="M0 0h24v24H0z" fill="none" />
+                        <path
+                            d="M12 2L4 5v6c0 5.55 3.84 10.74 8 12 4.16-1.26 8-6.45 8-12V5l-8-3zm0 2.18L18 6v5c0 4.52-2.98 8.69-6 9.88-3.02-1.19-6-5.36-6-9.88V6l6-1.82zM11 7h2v6h-2V7zm0 8h2v2h-2v-2z" />
+                    </svg>
+                    <span class="side-menu__label">Subscriptions</span>
+                </a>
+            </li>
+            <li class="slide d-none">
                 <a href='{{ route("admin.orders") }}'
                     class="side-menu__item {{ request()->is('admin/orders*') ? 'active' : '' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" height="24px" viewBox="0 0 24 24"

@@ -128,8 +128,9 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <label>School</label>
-                                    <input type="text" name="school" class="form-control" placeholder="School">
+                                    <label>Institution Name</label>
+                                    <input type="text" name="institution_name" class="form-control"
+                                        placeholder="Institution Name" required>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
@@ -147,6 +148,12 @@
                                 <div class="col-md-6 mb-3">
                                     <label>Profile Image</label>
                                     <input type="file" name="image" class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Institution Logo</label>
+                                    <input type="file" name="institution_logo" class="form-control"
+                                        accept="image/*" required>
                                 </div>
 
                             </div>
@@ -200,8 +207,20 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3">
+                                    <label>Institution Name</label>
+                                    <input type="text" name="institution_name" class="form-control"
+                                        placeholder="Institution Name" required>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
                                     <label>Profile Image</label>
                                     <input type="file" name="image" class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Institution Logo</label>
+                                    <input type="file" name="institution_logo" class="form-control"
+                                        accept="image/*" required>
                                 </div>
 
                             </div>

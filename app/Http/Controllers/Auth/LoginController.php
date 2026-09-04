@@ -74,7 +74,11 @@ class LoginController extends Controller
             //     return back();
             // }
 
-            return redirect()->intended('admin');
+            if (Auth::user()->roles->contains('title', 'Admin')) {
+                return redirect()->intended('admin');
+            }
+
+            return redirect($this->redirectAfterLogin());
         }else{
              
             session()->flash('error', 'Please Enter Valid Login Details!');
@@ -111,12 +115,30 @@ class LoginController extends Controller
             //     return back();
             // }
 
-            return redirect('admin');
+            if (Auth::user()->roles->contains('title', 'Admin')) {
+                return redirect()->intended('admin');
+            }
+
+            return redirect($this->redirectAfterLogin());
         }else{
              
             session()->flash('error', 'Please Enter Valid Login Details!');
             return back();
         }
 
+    }
+
+    protected function redirectAfterLogin()
+    {
+        if (Auth::user()->roles->contains('title', 'Admin')) {
+            return 'admin';
+        }
+
+        return route('admin.plans.browse');
+    }
+
+    protected function redirectTo()
+    {
+        return $this->redirectAfterLogin();
     }
 }

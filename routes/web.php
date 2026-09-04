@@ -35,9 +35,11 @@ Route::any('/joinMerchant', 'App\Http\Controllers\Admin\UsersController@joinMerc
 
 
 
- Route::any('/customLogin', 'Auth\LoginController@customLogin')->name('customLogin');
- Route::any('/customLoginUser', 'Auth\LoginController@customLoginUser')->name('customLoginUser');
- Route::any('/task_detail/{id}', 'Admin\TaskController@task_detail')->name('task_detail');
+Route::any('/customLogin', 'Auth\LoginController@customLogin')->name('customLogin');
+Route::any('/customLoginUser', 'Auth\LoginController@customLoginUser')->name('customLoginUser');
+Route::any('/task_detail/{id}', 'Admin\TaskController@task_detail')->name('task_detail');
+Route::any('/subscription-payment/callback/{purchase}', 'Admin\PlanController@paymentCallback')->name('subscription.payment.callback');
+Route::post('/subscription-payment/ipn', 'Admin\PlanController@paymentIpn')->name('subscription.payment.ipn');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
     
@@ -65,6 +67,17 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Order
     Route::any('orders', 'UsersController@orders')->name('orders');
+    Route::get('purchase-plans', 'PlanController@browse')->name('plans.browse');
+    Route::post('purchase-plans/{plan}', 'PlanController@purchase')->name('plans.purchase');
+    Route::get('subscription-payment/{purchase}', 'PlanController@payment')->name('plans.payment');
+    Route::post('subscription-payment/{purchase}/pay', 'PlanController@payNow')->name('plans.payNow');
+    Route::post('subscription-payment/{purchase}/local-confirm', 'PlanController@localConfirm')->name('plans.localConfirm');
+    Route::get('subscriptions', 'PlanController@subscriptions')->name('subscriptions.index');
+    Route::get('payment-settings', 'PaymentSettingController@edit')->name('payment-settings.edit');
+    Route::post('payment-settings', 'PaymentSettingController@update')->name('payment-settings.update');
+    Route::get('maintenance', 'MaintenanceController@index')->name('maintenance.index');
+    Route::post('maintenance/migrate', 'MaintenanceController@migrate')->name('maintenance.migrate');
+    Route::resource('plans', 'PlanController');
 
     Route::any('contact_view/{id}', 'UsersController@contact_view')->name('contact_view');
     

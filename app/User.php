@@ -87,4 +87,17 @@ class User extends Authenticatable
 {
     return $this->hasMany(MerchantAddress::class, 'merchant_id');
 }
+
+    public function planPurchases()
+    {
+        return $this->hasMany(PlanPurchase::class);
+    }
+
+    public function activePlanPurchase()
+    {
+        return $this->hasOne(PlanPurchase::class)
+            ->where('status', 'active')
+            ->where('expires_at', '>=', now())
+            ->latest('expires_at');
+    }
 }

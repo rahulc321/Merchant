@@ -10,14 +10,17 @@
             <div class="id-left">
 
                 <div class="id-header">
+                    @if(Auth::user()->institution_logo)
+                    <img src="{{ asset(Auth::user()->institution_logo) }}" class="institution-logo">
+                    @endif
                     <div class="id-title">STUDENT ID</div>
                     <div class="id-subtitle">IDENTITY CARD</div>
                 </div>
 
                 <div class="info">
                     <div class="row">
-                        <span>School</span>
-                        <p>{{ Auth::user()->school ?? 'International University' }}</p>
+                        <span>Institution</span>
+                        <p>{{ Auth::user()->institution_name ?? Auth::user()->school ?? 'International University' }}</p>
                     </div>
 
                     <div class="row">
@@ -89,6 +92,13 @@
     position:relative;
     overflow:hidden;
     box-shadow:0 25px 45px rgba(0,0,0,0.18);
+}
+
+.institution-logo{
+    max-width:70px;
+    max-height:70px;
+    object-fit:contain;
+    margin-bottom:8px;
 }
 
 
