@@ -40,6 +40,32 @@
                     </div>
                 </div>
             </div>
+            <div class="col-xl-8">
+                <div class="card custom-card">
+                    <div class="card-header">
+                        <div class="card-title">Run Seeder Command</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-warning">
+                            This will run the selected db:seed command on the current database.
+                        </div>
+
+                        <form action="{{ route('admin.maintenance.seed') }}" method="POST" onsubmit="return confirm('Are you sure you want to run this seeder now?')">
+                            @csrf
+                            <div class="row g-2">
+                                <div class="col-md-8">
+                                    <select name="seeder" class="form-control" required>
+                                        <option value="PaymentSettingsTableSeeder">Payment Settings Seeder</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <button type="submit" class="btn btn-primary w-100">Run Seeder</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

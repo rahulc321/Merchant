@@ -77,6 +77,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('payment-settings', 'PaymentSettingController@update')->name('payment-settings.update');
     Route::get('maintenance', 'MaintenanceController@index')->name('maintenance.index');
     Route::post('maintenance/migrate', 'MaintenanceController@migrate')->name('maintenance.migrate');
+    Route::post('maintenance/seed', 'MaintenanceController@seed')->name('maintenance.seed');
     Route::resource('plans', 'PlanController');
 
     Route::any('contact_view/{id}', 'UsersController@contact_view')->name('contact_view');
