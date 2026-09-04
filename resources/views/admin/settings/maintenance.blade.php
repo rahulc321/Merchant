@@ -55,6 +55,7 @@
                             <div class="row g-2">
                                 <div class="col-md-8">
                                     <select name="seeder" class="form-control" required>
+                                        <option value="SubscriptionPlansTableSeeder">Subscription Plans Seeder</option>
                                         <option value="PaymentSettingsTableSeeder">Payment Settings Seeder</option>
                                     </select>
                                 </div>

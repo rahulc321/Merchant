@@ -74,6 +74,7 @@ class MaintenanceController extends Controller
     protected function allowedSeeders()
     {
         return [
+            'SubscriptionPlansTableSeeder' => 'Subscription plans seeder',
             'PaymentSettingsTableSeeder' => 'Payment settings seeder',
         ];
     }
