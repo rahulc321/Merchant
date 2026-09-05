@@ -74,7 +74,7 @@
 
 .dashboard-strip {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 12px;
     margin-bottom: 24px;
 }
@@ -185,6 +185,10 @@
             <div class="dashboard-metric">
                 <span>Plan Expiry</span>
                 <strong>{{ $activeSubscription && $activeSubscription->expires_at ? \Carbon\Carbon::parse($activeSubscription->expires_at)->format('d M Y') : 'N/A' }}</strong>
+            </div>
+            <div class="dashboard-metric">
+                <span>Referral</span>
+                <strong>{{ $user->referral_code ?? 'N/A' }} - {{ (int) ($user->referral_points ?? 0) }} pts</strong>
             </div>
         </div>
 

@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\{MerchantAddress, Merchant, User, Coupon, Order, Role, PlanPurchase};
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 use Carbon\Carbon;
 use Hash;
 
@@ -27,12 +29,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function userRegister()
+    public function userRegister(Request $request)
     {   
         //$this->data['restaurants'] = Merchant::with('addresses')->get();
         $this->data['restaurants'] = User::with('addresses')->whereHas('roles', function ($query) {
             $query->where('title', 'merchant');
         })->get();
+        $this->data['referralCode'] = $request->query('ref');
         return view('user_register',$this->data);
     }
 
@@ -111,6 +114,7 @@ class HomeController extends Controller
     'password' => 'required',
     'dob' => 'required|date|before:today',
     'image' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+    'referral_code' => 'nullable|string|max:20',
     ];
 
     if($request->role == 'student'){
@@ -137,6 +141,17 @@ class HomeController extends Controller
     }
 
     $validated = $request->validate($rules);
+
+    if (
+    $request->filled('referral_code') &&
+    Schema::hasTable('user_referrals') &&
+    !DB::table('user_referrals')->where('referral_code', strtoupper(trim($request->referral_code)))->exists()
+    ) {
+    return back()
+    ->withErrors(['referral_code' => 'Invalid referral code.'])
+    ->withInput();
+    }
+
     $age = Carbon::parse($request->dob)->age;
 
 
@@ -162,6 +177,7 @@ class HomeController extends Controller
 
     /* create user */
 
+    $user = DB::transaction(function () use ($request, $age, $institutionLogoPath, $imageName) {
     $user = User::create([
 
     'full_name'=>$request->name,
@@ -209,6 +225,10 @@ class HomeController extends Controller
 
     $user->roles()->sync([$roleId]);
 
+    User::applyReferralCode($request->referral_code, $user);
+
+    return $user;
+    });
 
     Auth::login($user);
 

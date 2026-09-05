@@ -93,6 +93,12 @@
                                     <input type="file" name="image" class="form-control">
                                 </div>
 
+                                <div class="col-md-6 mb-3">
+                                    <label>Referral Code</label>
+                                    <input type="text" name="referral_code" class="form-control"
+                                        placeholder="Referral Code (optional)" value="{{ old('referral_code', $referralCode ?? '') }}">
+                                </div>
+
                             </div>
 
                             <button type="submit" class="btn btn-secondary w-100">Register Normal</button>
@@ -158,6 +164,12 @@
                                     <label>Institution Logo</label>
                                     <input type="file" name="institution_logo" class="form-control"
                                         accept="image/*" required>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Referral Code</label>
+                                    <input type="text" name="referral_code" class="form-control"
+                                        placeholder="Referral Code (optional)" value="{{ old('referral_code', $referralCode ?? '') }}">
                                 </div>
 
                             </div>
@@ -232,6 +244,12 @@
                                         accept="image/*" required>
                                 </div>
 
+                                <div class="col-md-6 mb-3">
+                                    <label>Referral Code</label>
+                                    <input type="text" name="referral_code" class="form-control"
+                                        placeholder="Referral Code (optional)" value="{{ old('referral_code', $referralCode ?? '') }}">
+                                </div>
+
                             </div>
 
                             <button type="submit" class="btn btn-success w-100">Register Teacher</button>
@@ -286,6 +304,12 @@
                                 <div class="col-md-6 mb-3">
                                     <label>Profile Image</label>
                                     <input type="file" name="image" class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label>Referral Code</label>
+                                    <input type="text" name="referral_code" class="form-control"
+                                        placeholder="Referral Code (optional)" value="{{ old('referral_code', $referralCode ?? '') }}">
                                 </div>
 
                             </div>

@@ -78,6 +78,68 @@ body {
     background: #fff;
     box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
 }
+
+.referral-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.referral-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.05);
+}
+
+.referral-card span {
+    display: block;
+    color: #6c757d;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.referral-card strong {
+    display: block;
+    color: #111827;
+    font-size: 24px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+.referral-card-wide {
+    grid-column: span 1;
+}
+
+.referral-link-text {
+    font-size: 16px !important;
+    line-height: 1.45;
+}
+
+.referral-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 12px;
+    border: 0;
+    border-radius: 8px;
+    padding: 9px 13px;
+    color: #fff;
+    background: #111827;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.referral-copy-btn:hover {
+    background: #243041;
+}
+
+@media (max-width: 767px) {
+    .referral-summary {
+        grid-template-columns: 1fr;
+    }
+}
 </style>
 
 <div class="main-content app-content">
@@ -152,22 +214,27 @@ body {
             </div>
             @elseif ($user->roles->contains('title','Student'))
 
+            @include('partials.referral-summary', ['user' => $user])
             @include('partials.user-id-card', ['user' => $user])
 
             @elseif ($user->roles->contains('title','Teacher'))
 
+            @include('partials.referral-summary', ['user' => $user])
             @include('partials.user-id-card', ['user' => $user])
 
             @elseif ($user->roles->contains('title','Youth'))
 
+            @include('partials.referral-summary', ['user' => $user])
             @include('partials.user-id-card', ['user' => $user])
 
             @elseif (($user->type ?? '') === 'normal' || $user->roles->contains('title','Normal'))
 
+            @include('partials.referral-summary', ['user' => $user])
             @include('partials.user-id-card', ['user' => $user])
 
             @else
 
+            @include('partials.referral-summary', ['user' => $user])
             @include('partials.user-id-card', ['user' => $user])
 
             @endif

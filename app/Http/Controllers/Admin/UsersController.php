@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Controllers\Api\V1\Admin\TuyaController;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Schema;
 use Auth;
 
 class UsersController extends Controller
@@ -554,6 +555,7 @@ class UsersController extends Controller
                 'phone_number' => 'required|digits:9|unique:users,phone_number',
                 //'email' => 'required|email|unique:users,email',
                 'password' => 'required|min:6|confirmed',
+                'referral_code' => 'nullable|string|max:20',
             ],
             2 => [
                 'restaurant_id' => 'required|exists:users,id',
@@ -596,6 +598,17 @@ class UsersController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
 
+        $validator->after(function ($validator) use ($request, $step) {
+            if (
+                $step === 1 &&
+                $request->filled('referral_code') &&
+                Schema::hasTable('user_referrals') &&
+                !DB::table('user_referrals')->where('referral_code', strtoupper(trim($request->referral_code)))->exists()
+            ) {
+                $validator->errors()->add('referral_code', 'Invalid referral code.');
+            }
+        });
+
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
@@ -635,6 +648,7 @@ class UsersController extends Controller
 
             # assign end_user role
             $user->roles()->attach(2);
+            User::applyReferralCode($step1['referral_code'] ?? null, $user);
 
             // 2️⃣ CREATE ORDER address_id
             Order::create([
