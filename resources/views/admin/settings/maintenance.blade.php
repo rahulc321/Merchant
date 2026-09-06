@@ -17,6 +17,45 @@
 
         <div class="row">
             <div class="col-xl-8">
+                @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+                @endif
+
+                @if(session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+                @endif
+            </div>
+
+            <div class="col-xl-8">
+                <div class="card custom-card">
+                    <div class="card-header">
+                        <div class="card-title">Cache & Optimization</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info">
+                            Use clear cache after deployment, .env changes, route changes, or view updates. Use optimize after cache is clear and the live site is working.
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-2">
+                            <form action="{{ route('admin.maintenance.clear-cache') }}" method="POST" onsubmit="return confirm('Are you sure you want to clear all application cache now?')">
+                                @csrf
+                                <button type="submit" class="btn btn-warning">Clear Cache</button>
+                            </form>
+
+                            <form action="{{ route('admin.maintenance.optimize') }}" method="POST" onsubmit="return confirm('Are you sure you want to optimize the application now?')">
+                                @csrf
+                                <button type="submit" class="btn btn-success">Optimize</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-8">
                 <div class="card custom-card">
                     <div class="card-header">
                         <div class="card-title">Run Migration Command</div>

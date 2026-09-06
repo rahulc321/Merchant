@@ -122,8 +122,9 @@
                                 <option value="">Select Category</option>
 
                                 @foreach($categories as $category)
-                                <option value="{{ $category->slug }}"
-                                    {{ old('category', $merchant->category ?? '') == $category->slug ? 'selected' : '' }}>
+                                @php($categoryValue = $category->slug ?? $category->name)
+                                <option value="{{ $categoryValue }}"
+                                    {{ old('category', $merchant->category ?? '') == $categoryValue ? 'selected' : '' }}>
                                     {{ $category->name }}
                                 </option>
                                 @endforeach

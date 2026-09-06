@@ -34,6 +34,20 @@ class MaintenanceController extends Controller
         }
     }
 
+    public function clearCache()
+    {
+        $this->abortIfNotAdmin();
+
+        return $this->runArtisanCommand('optimize:clear', 'Application cache cleared successfully.');
+    }
+
+    public function optimize()
+    {
+        $this->abortIfNotAdmin();
+
+        return $this->runArtisanCommand('optimize', 'Application optimized successfully.');
+    }
+
     public function seed(Request $request)
     {
         $this->abortIfNotAdmin();
@@ -77,5 +91,22 @@ class MaintenanceController extends Controller
             'SubscriptionPlansTableSeeder' => 'Subscription plans seeder',
             'PaymentSettingsTableSeeder' => 'Payment settings seeder',
         ];
+    }
+
+    protected function runArtisanCommand($command, $successMessage, array $parameters = [])
+    {
+        try {
+            Artisan::call($command, $parameters);
+
+            return back()->with([
+                'success' => $successMessage,
+                'artisan_output' => Artisan::output(),
+            ]);
+        } catch (\Throwable $e) {
+            return back()->with([
+                'error' => 'Command failed: ' . $e->getMessage(),
+                'artisan_output' => Artisan::output(),
+            ]);
+        }
     }
 }

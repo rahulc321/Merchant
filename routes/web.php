@@ -77,6 +77,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('payment-settings', 'PaymentSettingController@edit')->name('payment-settings.edit');
     Route::post('payment-settings', 'PaymentSettingController@update')->name('payment-settings.update');
     Route::get('maintenance', 'MaintenanceController@index')->name('maintenance.index');
+    Route::post('maintenance/clear-cache', 'MaintenanceController@clearCache')->name('maintenance.clear-cache');
+    Route::post('maintenance/optimize', 'MaintenanceController@optimize')->name('maintenance.optimize');
     Route::post('maintenance/migrate', 'MaintenanceController@migrate')->name('maintenance.migrate');
     Route::post('maintenance/seed', 'MaintenanceController@seed')->name('maintenance.seed');
     Route::resource('plans', 'PlanController');
